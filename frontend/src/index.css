@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@theme {
+  /* Buttons, icons, accents */
+  --color-memorial-purple: #6b4eff;
+  /* Background sections tabs, hover states */
+  --color-soft-lavender: #edebff;
+  /* Base background content areas */
+  --color-gentle-stone: #f8f6f2;
+  /* Add Memory, Share Tribute buttons, etc */
+  --color-rosewood: #e63946;
+  --color-rose-beige: #fff4f4;
+}

@@ -5,31 +5,31 @@ import {
   FaQrcode,
   FaBookOpen,
 } from "react-icons/fa";
-
+import { featureData } from "../data/Features";
 function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <div className="w-full bg-gradient-to-b from-amber-50 to-amber-100">
+      <div className="w-full bg-gentle-stone">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
               <div className="space-y-6">
-                <h1 className="text-6xl lg:text-7xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                <h1 className="text-6xl lg:text-7xl font-bold text-gray-800">
                   Honor their memory.
                 </h1>
                 <h2 className="text-5xl lg:text-6xl font-bold text-gray-800">
                   Preserve their legacy.
                 </h2>
-                <p className="text-xl lg:text-2xl text-gray-600 max-w-2xl">
+                <p className="text-xl lg:text-2xl text-gray-500 max-w-2xl">
                   Create beautiful digital memorials for your loved ones. Share
                   memories, photos, and stories that celebrate their life.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <button className="transform hover:scale-105 transition-all bg-purple-600 text-white px-8 py-4 text-xl font-semibold rounded-xl shadow-lg hover:bg-purple-700">
+                  <button className="transform hover:scale-105 transition-all bg-memorial-purple/90 text-white px-8 py-4 text-xl font-semibold rounded-xl shadow-lg hover:bg-memorial-purple">
                     Create a memorial
                   </button>
-                  <button className="transform hover:scale-105 transition-all bg-pink-100 text-purple-600 px-8 py-4 text-xl font-semibold rounded-xl shadow-lg hover:bg-pink-200">
+                  <button className="transform hover:scale-105 transition-all bg-pink-100 text-memorial-purple px-8 py-4 text-xl font-semibold rounded-xl shadow-lg hover:bg-pink-200">
                     Learn more
                   </button>
                 </div>
@@ -46,7 +46,7 @@ function Home() {
         </div>
       </div>
       {/* Features Section*/}
-      <div className="w-full bg-amber-200">
+      <div className="w-full bg-rose-beige">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Features</h2>
@@ -56,44 +56,17 @@ function Home() {
           </div>
           <div className="grid md:grid-cols-2 gap-12">
             {/* Feature cards here - repeat this structure for each feature */}
-            <div className="bg-white rounded-xl shadow-lg p-8 transform hover:scale-105 transition-all">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Create Beautiful Memorial Pages
-              </h3>
-              <p className="text-gray-600">
-                Design a personalized memorial page with photos, videos, and
-                stories that honor your loved one's legacy.
-              </p>
-            </div>
-            {/* ... other feature cards ... */}
-            <div className="bg-white rounded-xl shadow-lg p-8 transform hover:scale-105 transition-all">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Share Memories & Media
-              </h3>
-              <p className="text-gray-600">
-                Upload photos and videos, write stories, and invite family and
-                friends to contribute their own memories.
-              </p>
-            </div>
-            <div className="bg-white rounded-xl shadow-lg p-8 transform hover:scale-105 transition-all">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                QR Code Integration
-              </h3>
-              <p className="text-gray-600">
-                Connect physical memorials to digital ones with scannable QR
-                codes that link directly to your loved one's page.
-              </p>
-            </div>
-            <div className="bg-white rounded-xl shadow-lg p-8 transform hover:scale-105 transition-all">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Share With Family & Friends
-              </h3>
-              <p className="text-gray-600">
-                Easily share the memorial with family and friends through email,
-                social media, or direct links with customizable privacy
-                settings.
-              </p>
-            </div>
+            {featureData.map((feature, index) => (
+              <div
+                className="bg-soft-lavender rounded-xl shadow-lg p-8 transform hover:scale-105 transition-all"
+                key={index}
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  {feature.heading}
+                </h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
