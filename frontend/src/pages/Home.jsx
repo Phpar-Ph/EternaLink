@@ -10,7 +10,7 @@ function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <div className="w-full bg-gentle-stone">
+      <div className="w-full bg-rose-beige">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
@@ -26,12 +26,8 @@ function Home() {
                   memories, photos, and stories that celebrate their life.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <button className="transform hover:scale-105 transition-all bg-memorial-purple/90 text-white px-8 py-4 text-xl font-semibold rounded-xl shadow-lg hover:bg-memorial-purple">
-                    Create a memorial
-                  </button>
-                  <button className="transform hover:scale-105 transition-all bg-pink-100 text-memorial-purple px-8 py-4 text-xl font-semibold rounded-xl shadow-lg hover:bg-pink-200">
-                    Learn more
-                  </button>
+                  <button className="button">Create a memorial</button>
+                  <button className="button2">Learn more</button>
                 </div>
               </div>
             </div>
@@ -46,7 +42,7 @@ function Home() {
         </div>
       </div>
       {/* Features Section*/}
-      <div className="w-full bg-rose-beige">
+      <div className="w-full bg-soft-lavender">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Features</h2>
@@ -58,7 +54,7 @@ function Home() {
             {/* Feature cards here - repeat this structure for each feature */}
             {featureData.map((feature, index) => (
               <div
-                className="bg-soft-lavender rounded-xl shadow-lg p-8 transform hover:scale-105 transition-all"
+                className="bg-gentle-stone rounded-xl shadow-lg p-8 transform hover:scale-105 transition-all"
                 key={index}
               >
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
@@ -72,7 +68,7 @@ function Home() {
       </div>
 
       {/* How It Works Section*/}
-      <div className="w-full bg-gradient-to-b from-amber-50 to-white">
+      <div className="w-full bg-rose-beige">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-16">
             How EternaLink Works
@@ -183,8 +179,8 @@ function Home() {
                 </ul>
               </div>
             </div>
-            <div className="flex-1 p-4">
-              <div className="text-amber-50 flex items-center mb-6 gap-4">
+            <div className="flex-1 p-4  bg-gentle-stone rounded-2xl">
+              <div className="text-gray-800 flex items-center mb-6 gap-4">
                 <img
                   src="https://i.pinimg.com/736x/be/a3/49/bea3491915571d34a026753f4a872000.jpg"
                   alt=""
@@ -196,7 +192,7 @@ function Home() {
                 </div>
               </div>
               <div className="mb-6">
-                <p className="text-amber-100">
+                <p className="text-gray-600">
                   "A loving mother, grandmother, and friend to all who knew her.
                   Her kindness and wisdom continue to guide us every day."
                 </p>
@@ -221,10 +217,10 @@ function Home() {
                 />
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="text-sm text-gray-500 ">
                   23 memories shared
                 </span>
-                <button className="text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:underline">
+                <button className="text-rosewood  text-sm font-medium hover:underline">
                   View Memorial
                 </button>
               </div>
@@ -233,9 +229,9 @@ function Home() {
         </div>
       </div>
       {/* CTA Section */}
-      <div className="w-full bg-gradient-to-r from-blue-600 to-purple-600">
+      <div className="w-full bg-rose-beige">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
-          <div className="text-center text-white">
+          <div className="text-center text-gray-800">
             <h2 className="text-4xl font-bold mb-6">
               Create a Lasting Memorial Today
             </h2>
@@ -244,12 +240,8 @@ function Home() {
               preserves their memory for generations to come.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="transform hover:scale-105 transition-all bg-white text-purple-600 px-8 py-4 text-xl font-semibold rounded-xl shadow-lg">
-                Get Started
-              </button>
-              <button className="transform hover:scale-105 transition-all bg-transparent border-2 border-white text-white px-8 py-4 text-xl font-semibold rounded-xl">
-                View Example Memorial
-              </button>
+              <button className="button">Get Started</button>
+              <button className="button2">View Example Memorial</button>
             </div>
           </div>
         </div>

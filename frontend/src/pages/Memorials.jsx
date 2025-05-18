@@ -5,11 +5,11 @@ import { FaSearch } from "react-icons/fa";
 function Memorials() {
   const [searchTerm, setSearchTerm] = useState("");
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-amber-100">
+    <div className="min-h-screen bg-rose-beige">
       <div className="max-w-7xl mx-auto px-4 py-20">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h1 className="text-6xl font-bold text-amber-950 mb-6 bg-gradient-to-r from-amber-900 to-amber-700 bg-clip-text t">
+          <h1 className="text-6xl font-bold text-gray-800 mb-4">
             Memorial Pages
           </h1>
           <p className="text-lg text-gray-700 mb-8">

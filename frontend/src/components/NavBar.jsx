@@ -16,8 +16,8 @@ const NavBar = () => {
     <nav
       className={
         navbar
-          ? "w-full bg-gentle-stone fixed top-0 z-50 shadow"
-          : "w-full bg-gentle-stone fixed top-0 z-50"
+          ? "w-full bg-rose-beige fixed top-0 z-50 shadow"
+          : "w-full bg-rose-beige fixed top-0 z-50"
       }
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
@@ -57,13 +57,20 @@ const NavBar = () => {
                 </NavLink>
               </li>
               <li>
-                <button className="px-4 py-2 text-gray-800  rounded-lg font-medium  hover:text-gray-600  transition-all">
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    `text-lg font-medium  hover:text-gray-600  text-gray-800 ${
+                      isActive ? "text-memorial-purple" : "text-gray-800"
+                    }`
+                  }
+                >
                   Login
-                </button>
+                </NavLink>
               </li>
               <li>
                 <button className="transform px-4 py-2 text-white  bg-memorial-purple/90 rounded-lg font-medium hover:scale-105 hover:bg-memorial-purple transition-all">
-                  Register
+                  <NavLink to="/register">Register</NavLink>
                 </button>
               </li>
             </ul>

@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router";
 
-const Login = () => {
+const Register = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,7 @@ const Login = () => {
         <div className="flex justify-center items-center  h-full">
           <div className="w-full max-w-md bg-soft-lavender p-8 rounded-xl shadow-md">
             <p className="text-2xl font-bold text-center text-gray-800">
-              Sign in to your account
+              Create your account
             </p>
             <form className="space-y-6 mt-6">
               {/* Email Field */}
@@ -160,4 +160,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
