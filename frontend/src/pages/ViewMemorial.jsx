@@ -4,7 +4,7 @@ import { AiOutlineClockCircle, AiOutlineComment } from "react-icons/ai";
 import { MdOutlinePhotoLibrary } from "react-icons/md";
 
 function ViewMemorial() {
-  const [activeTab, setActiveTab] = useState("about");
+  //   const [activeTab, setActiveTab] = useState("about");
 
   const memorial = {
     name: "Elizabeth Johnson",
