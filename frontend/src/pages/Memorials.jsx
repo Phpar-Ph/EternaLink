@@ -24,7 +24,7 @@ function Memorials() {
               placeholder="Search by name..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-6 py-4 rounded-xl border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent shadow-md text-gray-700 pr-12"
+              className="w-full px-6 py-4 rounded-xl border border-rosewood/50 focus:outline-none focus:ring-2 focus:ring-rosewood focus:border-transparent shadow-md text-gray-700 pr-12"
             />
             <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
@@ -35,7 +35,7 @@ function Memorials() {
           {memorials.map((memorial, index) => (
             <div
               key={index}
-              className="group bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+              className="group bg-gentle-stone rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
             >
               <div className="relative overflow-hidden">
                 <img
@@ -51,7 +51,7 @@ function Memorials() {
                 </h3>
                 <p className="text-gray-600 mb-4">{memorial.lifeDates}</p>
                 <button
-                  className="w-full py-2 px-4 bg-amber-100 text-amber-900 rounded-lg font-medium transition-all duration-300 hover:bg-amber-200 focus:ring-2 focus:ring-amber-300 focus:outline-none"
+                  className="w-full py-2 px-4 bg-soft-lavender text-rosewood/80 hover:text-rosewood rounded-lg font-medium transition-all duration-300 hover:bg-memorial-purple/40 focus:ring-2 focus:ring-amber-300 focus:outline-none"
                   onClick={() => navigate(`/memorialsPerson/${index}`)}
                 >
                   View Memorial

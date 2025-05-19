@@ -25,18 +25,18 @@ const NavBar = () => {
           <div>
             <NavLink
               to="/"
-              className="text-2xl font-bold text-gray-800 hover:text-gray-600 transition-colors"
+              className="text-2xl font-lato-500 font-extrabold text-gray-800 hover:text-gray-600 transition-colors"
             >
               EternaLink
             </NavLink>
           </div>
           <div>
-            <ul className="flex items-center gap-8">
+            <ul className="flex items-center gap-8 font-lato ">
               <li>
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `text-lg font-medium transition-all hover:text-gray-600 ${
+                    `text-lg font-bold transition-all hover:text-gray-600 ${
                       isActive ? "text-memorial-purple" : "text-gray-800"
                     }`
                   }
@@ -48,7 +48,7 @@ const NavBar = () => {
                 <NavLink
                   to="/memorials"
                   className={({ isActive }) =>
-                    `text-lg font-medium transition-all hover:text-gray-600 ${
+                    `text-lg font-bold transition-all hover:text-gray-600 ${
                       isActive ? "text-memorial-purple" : "text-gray-800"
                     }`
                   }
@@ -60,7 +60,7 @@ const NavBar = () => {
                 <NavLink
                   to="/login"
                   className={({ isActive }) =>
-                    `text-lg font-medium  hover:text-gray-600  text-gray-800 ${
+                    `text-lg font-bold  hover:text-gray-600  text-gray-800 ${
                       isActive ? "text-memorial-purple" : "text-gray-800"
                     }`
                   }
@@ -69,7 +69,7 @@ const NavBar = () => {
                 </NavLink>
               </li>
               <li>
-                <button className="transform px-4 py-2 text-white  bg-memorial-purple/90 rounded-lg font-medium hover:scale-105 hover:bg-memorial-purple transition-all">
+                <button className="transform px-4 py-2 text-white  bg-memorial-purple/90 rounded-lg font-bold hover:scale-105 hover:bg-memorial-purple transition-all">
                   <NavLink to="/register">Register</NavLink>
                 </button>
               </li>

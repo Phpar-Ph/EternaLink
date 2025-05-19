@@ -15,6 +15,21 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [rememberMe, setRememberMe] = useState(false);
+  console.log(rememberMe);
+  // const handleLogin = () => {
+  //   // Simulate login and token
+  //   const fakeToken = "1234567890";
+
+  //   if (rememberMe) {
+  //     localStorage.setItem("token", fakeToken); // persists after browser closes
+  //   } else {
+  //     sessionStorage.setItem("token", fakeToken); // gone after tab is closed
+  //   }
+
+  //   alert("Logged in!");
+  // };
+
   return (
     <div className="w-full h-screen bg-rose-beige">
       <div className="max-w-7xl mx-auto px-4 py-20 h-full ">
@@ -93,6 +108,7 @@ const Login = () => {
                     id="remember-me"
                     type="checkbox"
                     className="h-4 w-4 text-royal-blue border-gray-300 rounded"
+                    onChange={() => setRememberMe(!rememberMe)}
                   />
                   <span className="ml-2">Remember me</span>
                 </label>

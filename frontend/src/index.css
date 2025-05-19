@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -10,6 +11,8 @@
   /* Add Memory, Share Tribute buttons, etc */
   --color-rosewood: #e63946;
   --color-rose-beige: #fff4f4;
+  --font-playfair: "Playfair Display", "serif";
+  --font-lato: "Lato", "sans-serif";
 }
 
 @layer components {
