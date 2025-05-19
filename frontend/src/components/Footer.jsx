@@ -33,9 +33,33 @@ const Footer = () => {
               <div>
                 <h1>Connect</h1>
                 <ul>
-                  <li>Facebook</li>
-                  <li>Twitter</li>
-                  <li>Instagram</li>
+                  <li>
+                    <a
+                      href="https://www.facebook.com/"
+                      target="_blank"
+                      className="hover:underline text-rosewood"
+                    >
+                      Facebook
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://x.com/"
+                      target="_blank"
+                      className="hover:underline text-rosewood"
+                    >
+                      Twitter
+                    </a>{" "}
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.instagram.com/"
+                      target="_blank"
+                      className="hover:underline text-rosewood"
+                    >
+                      Instagram
+                    </a>{" "}
+                  </li>
                 </ul>
               </div>
             </div>

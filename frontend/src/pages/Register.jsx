@@ -9,11 +9,15 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router";
 import { MdEmail } from "react-icons/md";
+import { useNavigate } from "react-router";
 
 const Register = () => {
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   return (
     <div className="w-full h-screen bg-rose-beige">
       <div className="max-w-7xl mx-auto px-4 py-20 h-full ">
@@ -122,20 +126,22 @@ const Register = () => {
                   <input
                     id="password"
                     name="password"
-                    type={showPassword ? "text" : "password"}
+                    type={showConfirmPassword ? "text" : "password"}
                     autoComplete="current-password"
                     required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <button
                       type="button"
-                      onClick={() => setShowPassword(!showPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                       className="text-gray-800 hover:text-gray-600"
                     >
-                      {showPassword ? (
+                      {showConfirmPassword ? (
                         <FaEyeSlash size={18} />
                       ) : (
                         <FaEye size={18} />
@@ -186,7 +192,10 @@ const Register = () => {
             <div className="mt-6">
               <p className="text-sm text-gray-800 text-center">
                 Already have an account?{" "}
-                <span className=" text-rosewood hover:underline hover:cursor-pointer">
+                <span
+                  className=" text-rosewood hover:underline hover:cursor-pointer"
+                  onClick={() => navigate("/login")}
+                >
                   Sign in
                 </span>
               </p>

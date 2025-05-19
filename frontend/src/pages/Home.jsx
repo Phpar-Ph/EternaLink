@@ -6,7 +6,10 @@ import {
   FaBookOpen,
 } from "react-icons/fa";
 import { featureData } from "../data/Features";
+import { memorials } from "../data/PersonData";
+import { useNavigate } from "react-router";
 function Home() {
+  const navigate = useNavigate();
   return (
     <div>
       {/* Hero Section */}
@@ -182,45 +185,38 @@ function Home() {
             <div className="flex-1 p-4  bg-gentle-stone rounded-2xl">
               <div className="text-gray-800 flex items-center mb-6 gap-4">
                 <img
-                  src="https://i.pinimg.com/736x/be/a3/49/bea3491915571d34a026753f4a872000.jpg"
+                  src={memorials[1].profilePhoto}
                   alt=""
                   className="w-24 h-24 object-cover rounded-full"
                 />
                 <div>
-                  <p>Eleanor Marie Johnson</p>
-                  <p>1945 - 2022</p>
+                  <p>{memorials[1].name}</p>
+                  <p>{memorials[1].lifeDates}</p>
                 </div>
               </div>
               <div className="mb-6">
-                <p className="text-gray-600">
-                  "A loving mother, grandmother, and friend to all who knew her.
-                  Her kindness and wisdom continue to guide us every day."
-                </p>
+                <p className="text-gray-600">{memorials[1].bio}</p>
               </div>
               <div className="grid grid-cols-3 gap-2 mb-6">
-                <img
-                  src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/e98f2535036667.58bc6981515a3.jpg"
-                  alt=""
-                  className="w-full h-24 object-cover rounded"
-                />
-
-                <img
-                  src="https://media.istockphoto.com/id/2063799507/photo/business-portrait-and-black-man-in-city-outdoor-for-career-or-job-of-businessman-face.jpg?s=612x612&w=0&k=20&c=DB5oXy7_aasPbpr7zfpfV92ZYsPIQfFWLyweKEz_UVs="
-                  alt=""
-                  className="w-full h-24 object-cover rounded"
-                />
-
-                <img
-                  src="https://portfolio.newschool.edu/guptm392/files/2014/08/DSC_1004-2-1a1yqd6.jpg"
-                  alt=""
-                  className="w-full h-24 object-cover rounded"
-                />
+                {memorials[1].photos.slice(0, 3).map((photo, index) => (
+                  <img
+                    index={index}
+                    src={photo}
+                    alt=""
+                    className="w-full h-24 object-cover rounded"
+                  />
+                ))}
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-500 ">
-                  23 memories shared
+                  {memorials[1].memories.length} memories shared
                 </span>
-                <button className="text-rosewood  text-sm font-medium hover:underline">
+                <button
+                  onClick={() =>
+                    navigate(`/memorialsPerson/${memorials[1].id}`)
+                  }
+                  className="text-rosewood  text-sm font-medium hover:underline"
+                >
                   View Memorial
                 </button>
               </div>

@@ -1,50 +1,13 @@
-import React, { useState } from "react";
 import { IoShareSocialOutline, IoCalendarOutline } from "react-icons/io5";
 import { AiOutlineClockCircle, AiOutlineComment } from "react-icons/ai";
 import { MdOutlinePhotoLibrary } from "react-icons/md";
+import { memorials } from "../data/PersonData";
+import { useParams } from "react-router";
 
 function ViewMemorial() {
   //   const [activeTab, setActiveTab] = useState("about");
-
-  const memorial = {
-    name: "Elizabeth Johnson",
-    lifeDates: "1945 - 2023",
-    birthDate: "March 15, 1945",
-    passedDate: "January 23, 2023",
-    location: "Chicago, IL",
-    bio: "Elizabeth Johnson was a beloved mother, grandmother, and friend. She was known for her kindness, generosity, and her famous chocolate chip cookies. She loved gardening, reading, and spending time with her family. Elizabeth worked as a teacher for over 30 years, touching the lives of countless students. Her warmth and wisdom will be deeply missed by all who knew her.",
-    coverPhoto:
-      "https://images.unsplash.com/photo-1551966775-a4ddc8df052b?w=1200&auto=format&fit=crop&q=60",
-    photos: [
-      "https://images.unsplash.com/photo-1551966775-a4ddc8df052b?w=500&auto=format&fit=crop&q=60",
-      "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500&auto=format&fit=crop&q=60",
-      "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500&auto=format&fit=crop&q=60",
-      "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=500&auto=format&fit=crop&q=60",
-    ],
-    memories: [
-      {
-        id: 1,
-        author: "Sarah Johnson",
-        relationship: "Daughter",
-        text: "Mom was always the first person to help someone in need. I remember when she would bake cookies for the whole neighborhood during holidays.",
-        date: "2023-02-15",
-      },
-      {
-        id: 2,
-        author: "Michael Stevens",
-        relationship: "Friend",
-        text: "Elizabeth was the kindest soul I ever met. We worked together for 20 years, and she always had a smile on her face.",
-        date: "2023-02-10",
-      },
-      {
-        id: 3,
-        author: "Emma Johnson",
-        relationship: "Granddaughter",
-        text: "Grandma taught me how to garden and instilled in me a love for nature that I will carry with me always.",
-        date: "2023-01-30",
-      },
-    ],
-  };
+  const { id } = useParams();
+  const memorial = memorials[id];
 
   return (
     <div className="w-full bg-amber-50 min-h-screen">
@@ -63,7 +26,6 @@ function ViewMemorial() {
             </div>
           </div>
         </div>
-
         {/* Info & Action Section */}
         <div className="bg-white py-12 px-6 rounded-xl shadow-md">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8">

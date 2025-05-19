@@ -8,11 +8,13 @@ import {
   FaGoogle,
 } from "react-icons/fa";
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   return (
     <div className="w-full h-screen bg-rose-beige">
       <div className="max-w-7xl mx-auto px-4 py-20 h-full ">
@@ -115,7 +117,10 @@ const Login = () => {
             <div className="mt-6">
               <p className="text-sm text-gray-800 text-center">
                 Don't have an account?{" "}
-                <span className=" text-rosewood hover:underline hover:cursor-pointer">
+                <span
+                  className=" text-rosewood hover:underline hover:cursor-pointer"
+                  onClick={() => navigate("/register")}
+                >
                   Create one
                 </span>
               </p>

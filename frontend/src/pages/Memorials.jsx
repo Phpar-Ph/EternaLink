@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Person } from "../data/PersonData";
+import { memorials } from "../data/PersonData";
 import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
 function Memorials() {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-rose-beige">
       <div className="max-w-7xl mx-auto px-4 py-20">
@@ -30,25 +32,28 @@ function Memorials() {
 
         {/* Memorial Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {Person.map((person, index) => (
+          {memorials.map((memorial, index) => (
             <div
               key={index}
               className="group bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
             >
               <div className="relative overflow-hidden">
                 <img
-                  src={person.picture}
-                  alt={person.name}
+                  src={memorial.profilePhoto}
+                  alt={memorial.name}
                   className="w-full h-64 object-cover transform transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {person.name}
+                  {memorial.name}
                 </h3>
-                <p className="text-gray-600 mb-4">{person.date}</p>
-                <button className="w-full py-2 px-4 bg-amber-100 text-amber-900 rounded-lg font-medium transition-all duration-300 hover:bg-amber-200 focus:ring-2 focus:ring-amber-300 focus:outline-none">
+                <p className="text-gray-600 mb-4">{memorial.lifeDates}</p>
+                <button
+                  className="w-full py-2 px-4 bg-amber-100 text-amber-900 rounded-lg font-medium transition-all duration-300 hover:bg-amber-200 focus:ring-2 focus:ring-amber-300 focus:outline-none"
+                  onClick={() => navigate(`/memorialsPerson/${index}`)}
+                >
                   View Memorial
                 </button>
               </div>
@@ -57,7 +62,7 @@ function Memorials() {
         </div>
 
         {/* Empty State */}
-        {Person.length === 0 && (
+        {memorials.length === 0 && (
           <div className="text-center py-16">
             <p className="text-gray-500 text-lg">No memorials found.</p>
           </div>
