@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router";
-
+import { AppContent } from "../context/AppContentProvider";
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
-
+  const { backendUrl, setIsLogin, isLogin, getUserData, userData } =
+    useContext(AppContent);
   const changeBackground = () => {
     if (window.scrollY >= 80) {
       setNavbar(true);
@@ -12,6 +13,8 @@ const NavBar = () => {
     }
   };
   window.addEventListener("scroll", changeBackground);
+  // Add useEffect to fetch user data when component mounts
+
   return (
     <nav
       className={

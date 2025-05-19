@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   FaUser,
   FaLock,
@@ -9,26 +9,52 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router";
 import { useNavigate } from "react-router";
+import { AppContent } from "../context/AppContentProvider";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
   console.log(rememberMe);
-  // const handleLogin = () => {
-  //   // Simulate login and token
-  //   const fakeToken = "1234567890";
 
-  //   if (rememberMe) {
-  //     localStorage.setItem("token", fakeToken); // persists after browser closes
-  //   } else {
-  //     sessionStorage.setItem("token", fakeToken); // gone after tab is closed
-  //   }
+  const { backendUrl, setIsLogin, getUserData } = useContext(AppContent);
 
-  //   alert("Logged in!");
-  // };
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      axios.defaults.withCredentials = true;
+      const { data } = await axios.post(backendUrl + "/api/auth/login", {
+        email,
+        password,
+      });
+      if (data.success) {
+        // Use token from response data
+        // if (rememberMe) {
+        //   localStorage.setItem("token", data.token); // persists after browser closes
+        //   console.log("Token stored in localStorage:", data.token);
+        // } else {
+        //   sessionStorage.setItem("token", data.token); // gone after tab is closed
+        //   console.log("Token stored in sessionStorage:", data.token);
+        // }
+
+        setIsLogin(true);
+        setIsLoading(true);
+        getUserData();
+        navigate("/");
+      } else {
+        toast.error(data.message || "Login failed");
+      }
+    } catch (error) {
+      alert("Failed to fetch user data");
+      console.log("Failed to fetch user data");
+      toast.error(error.message || "an error getUserData");
+    }
+  };
 
   return (
     <div className="w-full h-screen bg-rose-beige">
@@ -38,7 +64,7 @@ const Login = () => {
             <p className="text-2xl font-bold text-center text-gray-800">
               Sign in to your account
             </p>
-            <form className="space-y-6 mt-6">
+            <form className="space-y-6 mt-6" onSubmit={onSubmitHandler}>
               {/* Email Field */}
               <div>
                 <label
@@ -57,6 +83,8 @@ const Login = () => {
                     type="email"
                     autoComplete="email"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                     placeholder="you@example.com"
                   />

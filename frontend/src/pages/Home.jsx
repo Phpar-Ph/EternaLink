@@ -141,7 +141,7 @@ function Home() {
               <div className="grid grid-cols-3 gap-2 mb-6">
                 {memorials[1].photos.slice(0, 3).map((photo, index) => (
                   <img
-                    index={index}
+                    key={index}
                     src={photo}
                     alt=""
                     className="w-full h-24 object-cover rounded"

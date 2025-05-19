@@ -6,10 +6,12 @@ import { Routes, Route } from "react-router";
 import ViewMemorial from "./pages/ViewMemorial";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
     <div>
+      <ToastContainer />
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
