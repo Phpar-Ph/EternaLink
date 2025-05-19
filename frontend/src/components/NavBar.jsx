@@ -25,7 +25,7 @@ const NavBar = () => {
           <div>
             <NavLink
               to="/"
-              className="text-2xl font-lato-500 font-extrabold text-gray-800 hover:text-gray-600 transition-colors"
+              className="text-2xl font-playfair font-extrabold text-gray-800 hover:text-gray-600 transition-colors"
             >
               EternaLink
             </NavLink>

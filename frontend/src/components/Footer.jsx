@@ -6,14 +6,14 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto py-20 px-4">
         <div className="flex w-full mb-4">
           <div className=" flex-1">
-            <h1>EternaLink </h1>
-            <p>
+            <h1 className="text-3xl font-bold font-playfair">EternaLink </h1>
+            <p className="font-lato">
               Honor, remember, and celebrate the lives of your loved ones
               through digital memorials.
             </p>
           </div>
           <div className="flex-1 ">
-            <div className="flex justify-around">
+            <div className="flex justify-around font-lato">
               <div>
                 <h1>Resources</h1>
                 <ul>
@@ -66,7 +66,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border border-gray-400/50 mb-4"></div>
-        <div className="flex justify-between items-center w-full">
+        <div className="flex justify-between items-center w-full font-lato">
           <p>© 2025 EternaLink. All rights reserved.</p>
           <p>Made with ❤️ for preserving memories</p>
         </div>
