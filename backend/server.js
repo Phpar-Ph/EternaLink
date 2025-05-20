@@ -16,8 +16,8 @@ const allowedOrigins = [
 ];
 
 app.use(express.json());
-app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(cookieParser());
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
