@@ -4,14 +4,16 @@ import { AppContent } from "../context/AppContentProvider";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
-  const [hasProfile, setHasProfile] = useState(false);
+  // const [hasProfile, setHasProfile] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef(false);
   const navigate = useNavigate();
   const { backendUrl, setIsLogin, isLogin, userData, setUserData } =
     useContext(AppContent);
+  // navbar scroll event
   const changeBackground = () => {
     if (window.scrollY >= 80) {
       setNavbar(true);
@@ -25,10 +27,16 @@ const NavBar = () => {
     try {
       axios.defaults.withCredentials = true;
       const { data } = await axios.post(backendUrl + "/api/auth/logout");
-      data.success && setIsLogin(false);
-      data.success && setUserData(false);
-      toast.success("Logout successful!");
-      navigate("/");
+      if (data.success) {
+        setIsLogin(false);
+        setUserData(false);
+
+        toast.success("Logout successful!");
+
+        // Navigate and refresh
+        navigate("/");
+        window.location.reload();
+      }
     } catch (error) {
       toast.error(error.message);
     }
@@ -118,9 +126,8 @@ const NavBar = () => {
                 </li>
               )}
               {isLogin && (
-                <div className="group relative  ">
+                <div className="group relative " ref={dropdownRef}>
                   <div
-                    ref={dropdownRef}
                     className=" transition-transform group-hover:scale-105"
                     onClick={toggleDropdown}
                   >

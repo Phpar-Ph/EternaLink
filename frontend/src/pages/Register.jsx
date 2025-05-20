@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import { useState, React, useContext } from "react";
+import { useNavigate } from "react-router";
+import { AppContent } from "../context/AppContentProvider";
+import axios from "axios";
+import { toast } from "react-toastify";
 import {
   FaUser,
   FaLock,
@@ -9,15 +13,51 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router";
 import { MdEmail } from "react-icons/md";
-import { useNavigate } from "react-router";
 
 const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { backendUrl, setIsLogin, getUserData } = useContext(AppContent);
+
+  // Register
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+
+      axios.defaults.withCredentials = true;
+      if (password === confirmPassword) {
+        const { data } = await axios.post(backendUrl + "/api/auth/register", {
+          name,
+          email,
+          password,
+        });
+
+        if (data.success) {
+          setIsLoading(true);
+
+          // Add delay fetching data after login
+          setTimeout(() => {
+            setIsLogin(true);
+            getUserData();
+            navigate("/");
+          }, 2000);
+        } else {
+          toast.error(data.message || "an error getUserData");
+        }
+      } else {
+        toast.error("Passwords do not match");
+      }
+    } catch (error) {
+      toast.error(error.message || "an error getUserData");
+    }
+  };
   return (
     <div className="w-full h-screen bg-rose-beige">
       <div className="max-w-7xl mx-auto px-4 py-20 h-full ">
@@ -26,7 +66,7 @@ const Register = () => {
             <p className="text-2xl font-bold text-center text-gray-800">
               Create your account
             </p>
-            <form className="space-y-6 mt-6">
+            <form className="space-y-6 mt-6" onSubmit={onSubmitHandler}>
               {/* Name Field */}
               <div>
                 <label
@@ -40,10 +80,11 @@ const Register = () => {
                     <FaUser size={18} className="text-gray-600" />
                   </div>
                   <input
-                    id="name"
                     name="name"
-                    type="name"
+                    type="text"
                     autoComplete="name"
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
                     required
                     className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                     placeholder="Enter Full Name "
@@ -63,10 +104,10 @@ const Register = () => {
                     <MdEmail size={18} className="text-gray-600" />
                   </div>
                   <input
-                    id="email"
-                    name="email"
                     type="email"
                     autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                     className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                     placeholder="you@example.com"
@@ -87,10 +128,8 @@ const Register = () => {
                     <FaLock size={18} className="text-gray-600" />
                   </div>
                   <input
-                    id="password"
-                    name="password"
                     type={showPassword ? "text" : "password"}
-                    autoComplete="current-password"
+                    autoComplete="new-password"
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -124,10 +163,8 @@ const Register = () => {
                     <FaLock size={18} className="text-gray-600" />
                   </div>
                   <input
-                    id="password"
-                    name="password"
                     type={showConfirmPassword ? "text" : "password"}
-                    autoComplete="current-password"
+                    autoComplete="new-password"
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -186,7 +223,7 @@ const Register = () => {
                   isLoading ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
-                {isLoading ? "Signing in..." : "Create Account"}
+                {isLoading ? "Creating account..." : "Create Account"}
               </button>
             </form>
             <div className="mt-6">

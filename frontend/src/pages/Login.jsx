@@ -27,20 +27,21 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
+
       axios.defaults.withCredentials = true;
       const { data } = await axios.post(backendUrl + "/api/auth/login", {
         email,
         password,
       });
       if (data.success) {
-        setIsLogin(true);
         setIsLoading(true);
         toast.success("Login successful!");
         // Add delay fetching data after login
         setTimeout(() => {
+          setIsLogin(true);
           getUserData();
           navigate("/");
-        }, 300);
+        }, 2000);
       } else {
         toast.error(data.message || "Login failed");
       }
