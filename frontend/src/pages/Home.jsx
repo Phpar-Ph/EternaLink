@@ -3,10 +3,12 @@ import { FaCamera, FaShare, FaBookOpen } from "react-icons/fa";
 import { memorials } from "../data/PersonData";
 import { useNavigate } from "react-router";
 import { howItWorks, featureData, MemorialExamples } from "../data/HomeData";
+import UnderConstruction from "../components/UnderConstruction";
 function Home() {
   const navigate = useNavigate();
   return (
     <div>
+      <UnderConstruction />
       {/* Hero Section */}
       <div className="w-full bg-rose-beige">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
