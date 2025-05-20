@@ -12,7 +12,7 @@ connectDB();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://eternalink-fronend.onrender.com/",
+  "https://eternalink-fronend.onrender.com",
 ];
 
 app.use(express.json());
