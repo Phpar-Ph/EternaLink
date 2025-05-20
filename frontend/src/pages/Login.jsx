@@ -33,26 +33,22 @@ const Login = () => {
         password,
       });
       if (data.success) {
-        // Use token from response data
-        // if (rememberMe) {
-        //   localStorage.setItem("token", data.token); // persists after browser closes
-        //   console.log("Token stored in localStorage:", data.token);
-        // } else {
-        //   sessionStorage.setItem("token", data.token); // gone after tab is closed
-        //   console.log("Token stored in sessionStorage:", data.token);
-        // }
-
         setIsLogin(true);
         setIsLoading(true);
-        getUserData();
-        navigate("/");
+        toast.success("Login successful!");
+        // Add delay fetching data after login
+        setTimeout(() => {
+          getUserData();
+          navigate("/");
+        }, 300);
       } else {
         toast.error(data.message || "Login failed");
       }
     } catch (error) {
-      alert("Failed to fetch user data");
-      console.log("Failed to fetch user data");
-      toast.error(error.message || "an error getUserData");
+      console.error("Login error:", error);
+      const message =
+        error.response?.data?.message || "An unexpected error occurred";
+      toast.error(message);
     }
   };
 

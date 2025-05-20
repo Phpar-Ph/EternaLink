@@ -22,8 +22,8 @@ export const AppContextProvider = (props) => {
       }
     } catch (error) {
       // Only show error toast if it's not an auth error
-      if (isLogin) {
-        toast.error(error.message || "Authentication check failed");
+      if (error.response?.status !== 401) {
+        toast.error("Authentication check failed");
       }
     }
   };
@@ -35,7 +35,7 @@ export const AppContextProvider = (props) => {
       });
       if (data.success) {
         setUserData(data.userData);
-        console.log("Updated userData:", data.userData); // Debug log
+        // toast.success("data fetch");
       } else {
         toast.error(data.message);
       }

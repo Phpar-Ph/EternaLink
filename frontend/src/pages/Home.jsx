@@ -4,11 +4,18 @@ import { memorials } from "../data/PersonData";
 import { useNavigate } from "react-router";
 import { howItWorks, featureData, MemorialExamples } from "../data/HomeData";
 import UnderConstruction from "../components/UnderConstruction";
+import { useContext, useEffect } from "react";
+import { AppContent } from "../context/AppContentProvider";
 function Home() {
   const navigate = useNavigate();
+  const { userData, getUserData, isLogin } = useContext(AppContent);
+  useEffect(() => {
+    isLogin && getUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div>
-      <UnderConstruction />
+      {/* <UnderConstruction /> */}
       {/* Hero Section */}
       <div className="w-full bg-rose-beige">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
