@@ -42,5 +42,5 @@ EternaLink is a heartfelt project that allows families and friends to create dig
 
 ## 🔗 Live Website
 
-👉 [**EternaLink**](https://eternalink-demo.netlify.app/](https://eternalink-fronend.onrender.com)) 
+👉 [**EternaLink**](https://eternalink-fronend.onrender.com) 
 
