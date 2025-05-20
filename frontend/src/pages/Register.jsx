@@ -31,8 +31,8 @@ const Register = () => {
     try {
       e.preventDefault();
 
-      axios.defaults.withCredentials = true;
       if (password === confirmPassword) {
+        axios.defaults.withCredentials = true;
         const { data } = await axios.post(backendUrl + "/api/auth/register", {
           name,
           email,
