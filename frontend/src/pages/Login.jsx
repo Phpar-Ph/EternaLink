@@ -20,7 +20,6 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
-  console.log(rememberMe);
 
   const { backendUrl, setIsLogin, getUserData } = useContext(AppContent);
 
@@ -32,15 +31,29 @@ const Login = () => {
       const { data } = await axios.post(backendUrl + "/api/auth/login", {
         email,
         password,
+        rememberMe,
       });
+
       if (data.success) {
         setIsLoading(true);
         toast.success("Login successful!");
+        // Debug
+        // if (rememberMe) {
+        //   toast.success("Remember Me");
+        // } else {
+        //   toast.success("Remember Me is uncheck");
+        // }
         // Add delay fetching data after login
         setTimeout(() => {
-          setIsLogin(true);
+          const nextLoginState = true;
+          setIsLogin(nextLoginState);
           getUserData();
-          navigate("/");
+
+          if (nextLoginState) {
+            navigate("/homepage");
+          } else {
+            navigate("/");
+          }
         }, 2000);
       } else {
         toast.error(data.message || "Login failed");
@@ -61,7 +74,11 @@ const Login = () => {
             <p className="text-2xl font-bold text-center text-gray-800">
               Sign in to your account
             </p>
-            <form className="space-y-6 mt-6" onSubmit={onSubmitHandler}>
+            <form
+              className="space-y-6 mt-6"
+              onSubmit={onSubmitHandler}
+              autoComplete="on"
+            >
               {/* Email Field */}
               <div>
                 <label

@@ -28,14 +28,16 @@ const NavBar = () => {
       axios.defaults.withCredentials = true;
       const { data } = await axios.post(backendUrl + "/api/auth/logout");
       if (data.success) {
-        setIsLogin(false);
-        setUserData(false);
-
         toast.success("Logout successful!");
 
         // Navigate and refresh
-        navigate("/");
-        window.location.reload();
+        // add delay
+        setTimeout(() => {
+          setIsLogin(false);
+          setUserData(false);
+          navigate("/");
+          window.location.reload();
+        }, 2000);
       }
     } catch (error) {
       toast.error(error.message);
@@ -72,7 +74,7 @@ const NavBar = () => {
         <div className="flex justify-between items-center h-20 font-medium ">
           <div>
             <NavLink
-              to="/"
+              to={isLogin ? "homepage" : "/"}
               className="text-2xl font-playfair font-extrabold text-gray-800 hover:text-gray-600 transition-colors"
             >
               EternaLink
@@ -82,7 +84,7 @@ const NavBar = () => {
             <ul className="flex items-center gap-8 font-lato ">
               <li>
                 <NavLink
-                  to="/"
+                  to={isLogin ? "homepage" : "/"}
                   className={({ isActive }) =>
                     `text-lg font-bold transition-all hover:text-gray-600 ${
                       isActive ? "text-memorial-purple" : "text-gray-800"
@@ -92,6 +94,7 @@ const NavBar = () => {
                   Home
                 </NavLink>
               </li>
+
               <li>
                 <NavLink
                   to="/memorials"
@@ -101,9 +104,37 @@ const NavBar = () => {
                     }`
                   }
                 >
-                  Memorials
+                  {isLogin ? "Explore" : "Memorials"}
                 </NavLink>
               </li>
+              {isLogin && (
+                <li>
+                  <NavLink
+                    to="my-memories"
+                    className={({ isActive }) =>
+                      `text-lg font-bold transition-all hover:text-gray-600 ${
+                        isActive ? "text-memorial-purple" : "text-gray-800"
+                      }`
+                    }
+                  >
+                    My Memories
+                  </NavLink>
+                </li>
+              )}
+              {isLogin && (
+                <li>
+                  <NavLink
+                    to="create-memorial"
+                    className={({ isActive }) =>
+                      `text-lg font-bold transition-all hover:text-gray-600 ${
+                        isActive ? "text-memorial-purple" : "text-gray-800"
+                      }`
+                    }
+                  >
+                    Create Memorial
+                  </NavLink>
+                </li>
+              )}
               {!isLogin && (
                 <li>
                   <NavLink
@@ -120,9 +151,11 @@ const NavBar = () => {
               )}
               {!isLogin && (
                 <li>
-                  <button className="transform px-4 py-2 text-white  bg-memorial-purple/90 rounded-lg font-bold hover:scale-105 hover:bg-memorial-purple transition-all">
-                    <NavLink to="/register">Register</NavLink>
-                  </button>
+                  <NavLink to="/register">
+                    <button className="transform px-4 py-2 text-white  bg-memorial-purple/90 rounded-lg font-bold hover:scale-105 hover:bg-memorial-purple transition-all">
+                      Register
+                    </button>
+                  </NavLink>
                 </li>
               )}
               {isLogin && (

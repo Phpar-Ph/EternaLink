@@ -7,7 +7,8 @@ import ViewMemorial from "./pages/ViewMemorial";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { ToastContainer } from "react-toastify";
-
+import HomeLogin from "./pages/HomeLogin";
+import CreateMemorial from "./pages/CreateMemorial";
 const App = () => {
   return (
     <div>
@@ -19,6 +20,8 @@ const App = () => {
         <Route path="/memorialsPerson/:id" element={<ViewMemorial />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/homepage" element={<HomeLogin />} />
+        <Route path="/create-memorial" element={<CreateMemorial />} />
       </Routes>
       <Footer />
     </div>

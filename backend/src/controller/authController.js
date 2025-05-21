@@ -73,7 +73,7 @@ export const register = async (req, res) => {
 
 // Login
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body;
   // Check if user fill up all the input fields
   if (!email || !password) {
     res.status(400).json({
@@ -101,11 +101,13 @@ export const login = async (req, res) => {
       expiresIn: "1d",
     });
     //  add token to cookie
+    // if true cookie set to 30 days else 2hours
+    const maxAge = rememberMe ? 30 * 24 * 60 * 60 * 1000 : 2 * 60 * 60 * 1000;
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge,
     });
     res.status(200).json({
       success: true,

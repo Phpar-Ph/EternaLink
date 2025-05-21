@@ -44,9 +44,15 @@ const Register = () => {
 
           // Add delay fetching data after login
           setTimeout(() => {
-            setIsLogin(true);
+            const nextLoginState = true;
+            setIsLogin(nextLoginState);
             getUserData();
-            navigate("/");
+
+            if (nextLoginState) {
+              navigate("/homepage");
+            } else {
+              navigate("/");
+            }
           }, 2000);
         } else {
           toast.error(data.message || "an error getUserData");
@@ -66,7 +72,11 @@ const Register = () => {
             <p className="text-2xl font-bold text-center text-gray-800">
               Create your account
             </p>
-            <form className="space-y-6 mt-6" onSubmit={onSubmitHandler}>
+            <form
+              className="space-y-6 mt-6"
+              onSubmit={onSubmitHandler}
+              autoComplete="on"
+            >
               {/* Name Field */}
               <div>
                 <label
@@ -104,6 +114,7 @@ const Register = () => {
                     <MdEmail size={18} className="text-gray-600" />
                   </div>
                   <input
+                    name="email"
                     type="email"
                     autoComplete="email"
                     value={email}
@@ -128,6 +139,7 @@ const Register = () => {
                     <FaLock size={18} className="text-gray-600" />
                   </div>
                   <input
+                    name="password"
                     type={showPassword ? "text" : "password"}
                     autoComplete="new-password"
                     required
@@ -153,7 +165,7 @@ const Register = () => {
               {/* Confirm Password */}
               <div>
                 <label
-                  htmlFor="password"
+                  htmlFor="confirmPassword"
                   className="block text-sm font-medium text-deep-charcoal"
                 >
                   Confirm Password
@@ -163,6 +175,7 @@ const Register = () => {
                     <FaLock size={18} className="text-gray-600" />
                   </div>
                   <input
+                    name="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
                     autoComplete="new-password"
                     required
