@@ -1,5 +1,6 @@
 // import { EMAIL_RESET_OTP_TEMPLATE } from "../config/EmailTemplate.js";
 import User from "../model/userModel.js";
+import Memorial from "../model/memorialSchema.js";
 export const getUserData = async (req, res) => {
   try {
     const user = await User.findById(req.userId);
@@ -9,11 +10,17 @@ export const getUserData = async (req, res) => {
         message: "User does not exist",
       });
     }
+    // Then find all memorials created by this user
+    const memorials = await Memorial.find({ createdBy: req.userId })
+      .select("name birthDate datePassing location createdAt ")
+      .sort({ createdAt: -1 });
+
     return res.json({
       success: true,
       userData: {
         name: user.name,
         email: user.email,
+        memorialPosts: memorials || [],
         // profilePic: user.profilePic,
         // isAccountVerified: user.isAccountVerified,
       },

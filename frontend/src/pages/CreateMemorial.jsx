@@ -5,7 +5,11 @@ import { IoLocationOutline } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
 import { TfiWrite } from "react-icons/tfi";
-
+import axios from "axios";
+import { toast } from "react-toastify";
+import { AppContent } from "../context/AppContentProvider";
+import { useContext } from "react";
+import { useNavigate } from "react-router";
 const CreateMemorial = () => {
   // const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -14,7 +18,8 @@ const CreateMemorial = () => {
   const [relationship, setRelationship] = useState("");
   const [location, setLocation] = useState("");
   const [step, setStep] = useState(1);
-
+  const navigate = useNavigate();
+  const { backendUrl, getUserData } = useContext(AppContent);
   const nextStep = () => {
     setStep((prev) => prev + 1);
     window.scrollTo(0, 0);
@@ -26,6 +31,31 @@ const CreateMemorial = () => {
   const userSlots = {
     icon: [FaRegUser, AiOutlinePicture, TfiWrite],
   };
+
+  const submitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      axios.defaults.withCredentials = true;
+      const { data } = await axios.post(backendUrl + "/api/create/memorial", {
+        name,
+        birthDate,
+        datePassing,
+        location,
+      });
+      if (data.success) {
+        toast.success("Created Memorial successfully");
+        setTimeout(() => {
+          getUserData();
+          navigate("/homepage");
+        }, 2000);
+      } else {
+        toast.error("Creating Memorial failed");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="bg-gentle-stone w-full h-screen">
       <div className="max-w-7xl mx-auto py-20 ">
@@ -57,7 +87,7 @@ const CreateMemorial = () => {
               ))}
             </div>
           </div>
-          <div className=" ">
+          <div className=" " onSubmit={submitHandler}>
             <form action="">
               {/* Step 1 */}
               {step === 1 && (
@@ -189,6 +219,9 @@ const CreateMemorial = () => {
                       </select>
                     </div>
                   </div>
+                  <button className="  bg-memorial-purple hover:bg-memorial-purple/80 px-4 py-2 rounded-2xl text-amber-50 font-bold font-lato">
+                    Submit
+                  </button>
                 </div>
               )}
             </form>

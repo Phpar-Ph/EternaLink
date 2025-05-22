@@ -52,7 +52,6 @@ export const AppContextProvider = (props) => {
 
   const value = {
     backendUrl,
-
     isLogin,
     setIsLogin,
     userData,

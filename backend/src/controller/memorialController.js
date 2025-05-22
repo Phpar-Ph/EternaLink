@@ -2,26 +2,15 @@ import Memorial from "../model/memorialSchema.js";
 
 export const createMemorial = async (req, res) => {
   try {
-    const {
-      name,
-      birthdate,
-      dateOfDeath,
-      biography,
-      profilePhoto,
-      coverPhoto,
-      photos,
-    } = req.body;
+    const { name, birthDate, datePassing, location } = req.body;
 
     const userId = req.userId;
 
     const newMemorial = new Memorial({
       name,
-      birthdate,
-      dateOfDeath,
-      biography,
-      profilePhoto,
-      coverPhoto,
-      photos,
+      birthDate,
+      datePassing,
+      location,
       createdBy: userId,
     });
 
@@ -90,24 +79,5 @@ export const addReactionToMemorial = async (req, res) => {
     res.json({ success: true, message: "Reaction added", memorial });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
-  }
-};
-
-export const getUserMemorials = async (req, res) => {
-  try {
-    const userId = req.userId;
-
-    const userWithPosts = await User.findById(userId).populate("posts");
-
-    res.json({
-      success: true,
-      memorials: userWithPosts.posts,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch user memorials",
-      error: error.message,
-    });
   }
 };
