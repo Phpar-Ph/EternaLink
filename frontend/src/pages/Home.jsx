@@ -19,7 +19,7 @@ function Home() {
       {/* Hero Section */}
       <div className="w-full bg-rose-beige">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-4 py-20">
+          <div className="flex flex-row items-center gap-4 py-20">
             <div className="flex-1 text-center lg:text-left">
               <div className="space-y-6">
                 <h1 className="text-5xl lg:text-6xl font-playfair tracking-tight font-bold text-gray-800">
@@ -32,8 +32,8 @@ function Home() {
                   Create beautiful digital memorials for your loved ones. Share
                   memories, photos, and stories that celebrate their life.
                 </p>
-                <div className="flex flex-col sm:flex-row font-lato font-bold gap-4 justify-center lg:justify-start">
-                  <button className="button">Create a memorial</button>
+                <div className="flex flex-row font-lato font-bold gap-4 justify-center lg:justify-start ">
+                  <button className="button ">Create a memorial</button>
                   <button className="button2">Learn more</button>
                 </div>
               </div>
@@ -185,7 +185,7 @@ function Home() {
               Honor your loved one with a beautiful digital memorial that
               preserves their memory for generations to come.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-row gap-6 justify-center">
               <button className="button font-lato">Get Started</button>
               <button
                 className="button2 font-lato"

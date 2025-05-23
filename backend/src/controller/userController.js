@@ -12,7 +12,9 @@ export const getUserData = async (req, res) => {
     }
     // Then find all memorials created by this user
     const memorials = await Memorial.find({ createdBy: req.userId })
-      .select("name birthDate datePassing location createdAt ")
+      .select(
+        "name birthDate datePassing location createdAt relationship  profilePhoto coverPhoto biography event eventTitle eventDate eventDescription"
+      )
       .sort({ createdAt: -1 });
 
     return res.json({

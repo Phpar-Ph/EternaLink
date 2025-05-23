@@ -1,5 +1,4 @@
-import React from "react";
-
+import { Icons } from "../../data/IconsData";
 function SecondStep({
   profilePhoto,
   profileInputRef,

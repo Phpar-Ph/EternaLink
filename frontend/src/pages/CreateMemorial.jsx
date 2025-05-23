@@ -5,9 +5,9 @@ import { AppContent } from "../context/AppContentProvider";
 import { useNavigate } from "react-router";
 import { useImageUploadHandlers } from "../hooks/ImageUploadHandler";
 import { useStepNavigation } from "../hooks/useStepNavigation";
-import { stepIcons, Icons } from "../data/IconsData";
+import { stepIcons } from "../data/IconsData";
 import SecondStep from "../components/CreateMemorialStep/SecondStep";
-
+import ThirdStep from "../components/CreateMemorialStep/ThirdStep";
 const CreateMemorial = () => {
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -19,7 +19,10 @@ const CreateMemorial = () => {
   const [coverPhoto, setCoverPhoto] = useState(false);
   const { backendUrl, getUserData } = useContext(AppContent);
   const { step, nextStep, prevStep } = useStepNavigation();
-
+  const [eventDate, setEventDate] = useState("");
+  const [eventTitle, setEventTitle] = useState("");
+  const [eventDescription, setEventDescription] = useState("");
+  const [biography, setBiography] = useState("");
   const {
     profileInputRef,
     coverInputRef,
@@ -46,6 +49,12 @@ const CreateMemorial = () => {
       getUserData,
       navigate,
       setProfilePhoto,
+      setCoverPhoto,
+      coverPhoto,
+      biography,
+      eventDescription,
+      eventTitle,
+      eventDate,
     });
   };
 
@@ -70,10 +79,18 @@ const CreateMemorial = () => {
                     index < 2 ? "w-20 h-10" : "w-10 h-10"
                   }`}
                 >
-                  {index < 2 && (
-                    <div className="bg-gray-800 w-20 h-2 ml-1 mt-4" />
+                  {index < stepIcons.icon.length - 1 && (
+                    <div
+                      className={`w-20 h-2 ml-1 mt-4 transition-colors duration-300 ${
+                        index < step - 1 ? "bg-gray-700" : "bg-gray-400"
+                      }`}
+                    />
                   )}
-                  <div className="absolute bottom-0 left-0 flex items-center justify-center pointer-events-none w-12 h-12 rounded-full bg-gray-800">
+                  <div
+                    className={`absolute bottom-0 left-0 flex items-center justify-center pointer-events-none w-12 h-12 rounded-full ${
+                      index < step ? "bg-gray-700 " : "bg-gray-400"
+                    }`}
+                  >
                     <Icon size={18} className="text-amber-50" />
                   </div>
                 </div>
@@ -98,7 +115,7 @@ const CreateMemorial = () => {
                   relationship={relationship}
                 />
               )}
-              Hey, Cortana.
+
               {step === 2 && (
                 <SecondStep
                   profilePhoto={profilePhoto}
@@ -115,114 +132,20 @@ const CreateMemorial = () => {
               )}
               {/* Step 3 */}
               {step === 3 && (
-                <div>
-                  {/* Biography */}
-                  <div>
-                    <label htmlFor="biography">Biography</label>
-                    <textarea
-                      name="biography"
-                      id="biography"
-                      rows={8}
-                      value=""
-                      onChange=""
-                      placeholder="Share the story of your loved one's life..."
-                      className="block w-full p-4 max-h-100 h-40 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                    ></textarea>
-                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                      Write about their life, achievements, personality, and
-                      what made them special.
-                    </p>
-                  </div>
-                  {/* Events Timeline */}
-                  <div>
-                    <div className="py-4">
-                      <div className=" flex w-full justify-between p-4">
-                        <h2>Timeline Events</h2>
-                        <h2>Add Events</h2>
-                      </div>
-                      <div>
-                        {/* DATE AND TITLE */}
-                        <div className="flex justify-between gap-4">
-                          {/* Date */}
-                          <div className="w-full">
-                            <label
-                              htmlFor="birthDate"
-                              className="block text-sm font-medium text-gray-800"
-                            >
-                              Date
-                            </label>
-                            <div className="mt-1 relative rounded-md shadow-sm">
-                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <Icons.MdDateRange
-                                  size={18}
-                                  className="text-gray-600"
-                                />
-                              </div>
-                              <input
-                                type="date"
-                                id="birthDate"
-                                name="birthDate"
-                                required
-                                value={birthDate}
-                                onChange={(e) => setBirthDate(e.target.value)}
-                                className="block w-full pl-10 pr-2 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                              />
-                            </div>
-                          </div>
-                          {/* Title */}
-                          <div className="w-full">
-                            <label
-                              htmlFor="title"
-                              className="block text-sm font-medium text-gray-800"
-                            >
-                              Title
-                            </label>
-                            <div className="mt-1 relative rounded-md shadow-sm ">
-                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <Icons.MdDateRange
-                                  size={18}
-                                  className="text-gray-600"
-                                />
-                              </div>
-                              <input
-                                type="text"
-                                id="title"
-                                name="title"
-                                required
-                                value={birthDate}
-                                onChange={(e) => setBirthDate(e.target.value)}
-                                className="block w-full pl-10 pr-2 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        {/* Description */}
-                        <div>
-                          <div className="">
-                            <label htmlFor="" className="">
-                              Description
-                            </label>
-                            I. Yeah.
-                            <input
-                              name="name"
-                              id="name"
-                              type="text"
-                              onChange={(e) => setName(e.target.value)}
-                              value={name}
-                              required
-                              className="block w-full p-4 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                              placeholder="Brief description of the event"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <ThirdStep
+                  setEventTitle={setEventTitle}
+                  eventTitle={eventTitle}
+                  eventDescription={eventDescription}
+                  setEventDescription={setEventDescription}
+                  setEventDate={setEventDate}
+                  eventDate={eventDate}
+                  biography={biography}
+                  setBiography={setBiography}
+                />
               )}
               {/* Form Submit button */}
               {step === 3 && (
-                <div className=" absolute right-0 bottom-0 ">
+                <div className=" absolute right-0 bottom-0 z-10">
                   <button
                     type="submit"
                     className="  bg-memorial-purple hover:bg-memorial-purple/80 px-4 py-2  rounded-2xl text-amber-50 font-bold font-lato"

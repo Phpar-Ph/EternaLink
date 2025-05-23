@@ -46,7 +46,7 @@ export const AppContextProvider = (props) => {
   };
 
   useEffect(() => {
-    isLogin && getAuthState();
+    getAuthState();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

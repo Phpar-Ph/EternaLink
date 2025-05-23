@@ -8,10 +8,25 @@ const memorialSchema = mongoose.Schema(
     datePassing: { type: Date, required: true },
     location: { type: String, required: true },
     relationship: { type: String, required: true },
-    // biography: { type: String },
     profilePhoto: { type: String },
     coverPhoto: { type: String },
-    // photos: [String],
+    biography: { type: String },
+    event: [
+      {
+        eventDate: {
+          type: Date,
+          required: true,
+        },
+        eventTitle: {
+          type: String,
+          required: true,
+        },
+        eventDescription: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -14,11 +14,26 @@ export const submitMemorial = async ({
   getUserData,
   navigate,
   setProfilePhoto,
+  biography,
+  eventDescription,
+  eventTitle,
+  eventDate,
+  coverPhoto,
 }) => {
   try {
     e.preventDefault();
     axios.defaults.withCredentials = true;
-
+    // Create event array only if all event fields are present
+    const event =
+      eventTitle && eventDate && eventDescription
+        ? [
+            {
+              eventTitle,
+              eventDate,
+              eventDescription,
+            },
+          ]
+        : [];
     const { data } = await axios.post(`${backendUrl}/api/create/memorial`, {
       name,
       birthDate,
@@ -26,6 +41,9 @@ export const submitMemorial = async ({
       location,
       relationship,
       profilePhoto,
+      biography,
+      event,
+      coverPhoto,
     });
 
     if (data.success) {
