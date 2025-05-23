@@ -37,13 +37,6 @@ const Login = () => {
       if (data.success) {
         setIsLoading(true);
         toast.success("Login successful!");
-        // Debug
-        // if (rememberMe) {
-        //   toast.success("Remember Me");
-        // } else {
-        //   toast.success("Remember Me is uncheck");
-        // }
-        // Add delay fetching data after login
         setTimeout(() => {
           const nextLoginState = true;
           setIsLogin(nextLoginState);

@@ -1,59 +1,54 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router";
 import { MdDateRange } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
-import { FaRegUser } from "react-icons/fa";
-import { AiOutlinePicture } from "react-icons/ai";
-import { TfiWrite } from "react-icons/tfi";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { submitMemorial } from "../utils/submitMemorial";
 import { AppContent } from "../context/AppContentProvider";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
+import { FaSpinner } from "react-icons/fa";
+import { useImageUploadHandlers } from "../hooks/ImageUploadHandler";
+import { useStepNavigation } from "../hooks/useStepNavigation";
+import { stepIcons, Icons } from "../data/IconsData";
+
 const CreateMemorial = () => {
-  // const navigate = useNavigate();
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [datePassing, setDatePassing] = useState("");
   const [relationship, setRelationship] = useState("");
   const [location, setLocation] = useState("");
-  const [step, setStep] = useState(1);
+  const [profilePhoto, setProfilePhoto] = useState(false);
   const navigate = useNavigate();
+  const [coverPhoto, setCoverPhoto] = useState(false);
   const { backendUrl, getUserData } = useContext(AppContent);
-  const nextStep = () => {
-    setStep((prev) => prev + 1);
-    window.scrollTo(0, 0);
-  };
-  const prevStep = () => {
-    setStep((prev) => prev - 1);
-    window.scrollTo(0, 0);
-  };
-  const userSlots = {
-    icon: [FaRegUser, AiOutlinePicture, TfiWrite],
-  };
+  const { step, nextStep, prevStep } = useStepNavigation();
 
-  const submitHandler = async (e) => {
-    try {
-      e.preventDefault();
-      axios.defaults.withCredentials = true;
-      const { data } = await axios.post(backendUrl + "/api/create/memorial", {
-        name,
-        birthDate,
-        datePassing,
-        location,
-      });
-      if (data.success) {
-        toast.success("Created Memorial successfully");
-        setTimeout(() => {
-          getUserData();
-          navigate("/homepage");
-        }, 2000);
-      } else {
-        toast.error("Creating Memorial failed");
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
+  const {
+    profileInputRef,
+    coverInputRef,
+    handleProfileClick,
+    handleCoverClick,
+    handleProfileChange,
+    handleCoverChange,
+    isProfileUploading,
+    isCoverUploading,
+  } = useImageUploadHandlers({
+    setProfilePhoto,
+    setCoverPhoto,
+  });
+  const submitHandler = (e) => {
+    submitMemorial({
+      e,
+      name,
+      birthDate,
+      datePassing,
+      location,
+      relationship,
+      profilePhoto,
+      backendUrl,
+      getUserData,
+      navigate,
+      setProfilePhoto,
+    });
   };
 
   return (
@@ -70,7 +65,7 @@ const CreateMemorial = () => {
           </div>
           <div className="w-full flex items-center justify-center">
             <div className="w-full flex items-center justify-center">
-              {userSlots.icon.map((Icon, index) => (
+              {stepIcons.icon.map((Icon, index) => (
                 <div
                   key={index}
                   className={`relative ${
@@ -87,8 +82,9 @@ const CreateMemorial = () => {
               ))}
             </div>
           </div>
-          <div className=" " onSubmit={submitHandler}>
-            <form action="">
+
+          <div className="  relative">
+            <form action="" onSubmit={submitHandler} className="">
               {/* Step 1 */}
               {step === 1 && (
                 <div>
@@ -103,10 +99,11 @@ const CreateMemorial = () => {
                     </label>
                     <div className="mt-1 relative rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <FaRegUser size={18} className="text-gray-600" />
+                        <Icons.FaRegUser size={18} className="text-gray-600" />
                       </div>
                       <input
                         name="name"
+                        id="name"
                         type="text"
                         onChange={(e) => setName(e.target.value)}
                         value={name}
@@ -142,7 +139,7 @@ const CreateMemorial = () => {
                     </div>
                     <div className="flex-1 ml-1">
                       <label
-                        htmlFor="birthDate"
+                        htmlFor="datePassing"
                         className="block text-sm font-medium text-gray-800"
                       >
                         Date of Passing
@@ -153,8 +150,8 @@ const CreateMemorial = () => {
                         </div>
                         <input
                           type="date"
-                          id="birthDate"
-                          name="birthDate"
+                          id="datePassing"
+                          name="datePassing"
                           required
                           value={datePassing}
                           onChange={(e) => setDatePassing(e.target.value)}
@@ -219,8 +216,224 @@ const CreateMemorial = () => {
                       </select>
                     </div>
                   </div>
-                  <button className="  bg-memorial-purple hover:bg-memorial-purple/80 px-4 py-2 rounded-2xl text-amber-50 font-bold font-lato">
-                    Submit
+                </div>
+              )}
+              {step === 2 && (
+                <div className="flex flex-col ">
+                  <div className="py-4">
+                    <p className="text-center font-bold font-playfair text-gray-800 text-2xl">
+                      Upload profile picture
+                    </p>
+                  </div>
+                  <div className="flex justify-center">
+                    {/* Profile Picture */}
+                    <div className="flex gap-4 items-center">
+                      {profilePhoto ? (
+                        <div className="w-60 h-60 bg-gray-600 rounded-full">
+                          <img
+                            src={profilePhoto}
+                            alt=""
+                            className="w-full h-full rounded-full object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <div>
+                            <input
+                              ref={profileInputRef}
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={handleProfileChange}
+                            />
+                          </div>
+
+                          <div className="w-60 h-60 bg-gray-800 rounded-full flex items-center justify-center relative ">
+                            <Icons.FaRegUser className="absolute text-gray-500 text-8xl" />
+                            {isProfileUploading && (
+                              <div>
+                                <FaSpinner className=" animate-spin h-10 w-10 text-white" />
+                              </div>
+                            )}
+                            {!isProfileUploading && (
+                              <button
+                                type="button"
+                                onClick={handleProfileClick}
+                                className="bg-gray-400 text-white px-4 py-2 rounded-full h-full w-full opacity-0 hover:opacity-70  "
+                                disabled={isProfileUploading}
+                              >
+                                "Click to Upload"
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {/* Cover Photos */}
+                  <div>
+                    <div className="py-4">
+                      <p className="text-center font-bold font-playfair text-gray-800 text-2xl">
+                        Cover Photo
+                      </p>
+                    </div>
+                    {coverPhoto ? (
+                      <div className="w-full h-40">
+                        <img
+                          src={coverPhoto}
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div>
+                        <div>
+                          <input
+                            ref={coverInputRef}
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={handleCoverChange}
+                          />
+                        </div>
+                        <div className="w-full h-40  bg-gray-800  flex items-center justify-center relative">
+                          <Icons.FaRegUser className="absolute text-gray-500 text-8xl" />
+                          {isCoverUploading && (
+                            <div>
+                              <FaSpinner className=" animate-spin h-10 w-10 text-white" />
+                            </div>
+                          )}
+                          {!isCoverUploading && (
+                            <button
+                              type="button"
+                              onClick={handleCoverClick}
+                              className="bg-gray-400 text-white px-4 py-2  h-full w-full opacity-0 hover:opacity-70  "
+                              disabled={isCoverUploading}
+                            >
+                              "Click to Upload"
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              {/* Step 3 */}
+              {step === 3 && (
+                <div>
+                  {/* Biography */}
+                  <div>
+                    <label htmlFor="biography">Biography</label>
+                    <textarea
+                      name="biography"
+                      id="biography"
+                      rows={8}
+                      value=""
+                      onChange=""
+                      placeholder="Share the story of your loved one's life..."
+                      className="block w-full p-4 max-h-100 h-40 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                    ></textarea>
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      Write about their life, achievements, personality, and
+                      what made them special.
+                    </p>
+                  </div>
+                  {/* Events Timeline */}
+                  <div>
+                    <div className="py-4">
+                      <div className=" flex w-full justify-between p-4">
+                        <h2>Timeline Events</h2>
+                        <h2>Add Events</h2>
+                      </div>
+                      <div>
+                        {/* DATE AND TITLE */}
+                        <div className="flex justify-between gap-4">
+                          {/* Date */}
+                          <div className="w-full">
+                            <label
+                              htmlFor="birthDate"
+                              className="block text-sm font-medium text-gray-800"
+                            >
+                              Date
+                            </label>
+                            <div className="mt-1 relative rounded-md shadow-sm">
+                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <MdDateRange
+                                  size={18}
+                                  className="text-gray-600"
+                                />
+                              </div>
+                              <input
+                                type="date"
+                                id="birthDate"
+                                name="birthDate"
+                                required
+                                value={birthDate}
+                                onChange={(e) => setBirthDate(e.target.value)}
+                                className="block w-full pl-10 pr-2 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                              />
+                            </div>
+                          </div>
+                          {/* Title */}
+                          <div className="w-full">
+                            <label
+                              htmlFor="title"
+                              className="block text-sm font-medium text-gray-800"
+                            >
+                              Title
+                            </label>
+                            <div className="mt-1 relative rounded-md shadow-sm ">
+                              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <MdDateRange
+                                  size={18}
+                                  className="text-gray-600"
+                                />
+                              </div>
+                              <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                required
+                                value={birthDate}
+                                onChange={(e) => setBirthDate(e.target.value)}
+                                className="block w-full pl-10 pr-2 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        {/* Description */}
+                        <div>
+                          <div className="">
+                            <label htmlFor="" className="">
+                              Description
+                            </label>
+                            I. Yeah.
+                            <input
+                              name="name"
+                              id="name"
+                              type="text"
+                              onChange={(e) => setName(e.target.value)}
+                              value={name}
+                              required
+                              className="block w-full p-4 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                              placeholder="Brief description of the event"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* Form Submit button */}
+              {step === 3 && (
+                <div className=" absolute right-0 bottom-0 ">
+                  <button
+                    type="submit"
+                    className="  bg-memorial-purple hover:bg-memorial-purple/80 px-4 py-2  rounded-2xl text-amber-50 font-bold font-lato"
+                  >
+                    Create Memorial
                   </button>
                 </div>
               )}
@@ -235,12 +448,14 @@ const CreateMemorial = () => {
                 </button>
               )}
 
-              <button
-                onClick={nextStep}
-                className="absolute right-0 bg-memorial-purple hover:bg-memorial-purple/80 px-4 py-2 rounded-2xl text-amber-50 font-bold font-lato"
-              >
-                Next
-              </button>
+              {step < 3 && (
+                <button
+                  onClick={nextStep}
+                  className="absolute right-0 bg-memorial-purple hover:bg-memorial-purple/80 px-4 py-2 rounded-2xl text-amber-50 font-bold font-lato"
+                >
+                  Next
+                </button>
+              )}
             </div>
           </div>
         </div>

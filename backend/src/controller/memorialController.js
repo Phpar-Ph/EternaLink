@@ -2,15 +2,39 @@ import Memorial from "../model/memorialSchema.js";
 
 export const createMemorial = async (req, res) => {
   try {
-    const { name, birthDate, datePassing, location } = req.body;
-
+    const {
+      name,
+      birthDate,
+      relationship,
+      datePassing,
+      location,
+      profilePhoto,
+      coverPhoto,
+    } = req.body;
+    if (
+      !name ||
+      !birthDate ||
+      !relationship ||
+      !datePassing ||
+      !location ||
+      !profilePhoto ||
+      !coverPhoto
+    ) {
+      return res.json({
+        success: false,
+        message: "Please fill up",
+      });
+    }
     const userId = req.userId;
 
     const newMemorial = new Memorial({
       name,
       birthDate,
       datePassing,
+      relationship,
       location,
+      profilePhoto,
+      coverPhoto,
       createdBy: userId,
     });
 

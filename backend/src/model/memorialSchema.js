@@ -7,9 +7,10 @@ const memorialSchema = mongoose.Schema(
     birthDate: { type: Date, required: true },
     datePassing: { type: Date, required: true },
     location: { type: String, required: true },
+    relationship: { type: String, required: true },
     // biography: { type: String },
-    // profilePhoto: { type: String },
-    // coverPhoto: { type: String },
+    profilePhoto: { type: String },
+    coverPhoto: { type: String },
     // photos: [String],
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
