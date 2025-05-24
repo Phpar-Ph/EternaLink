@@ -11,6 +11,7 @@ const memorialSchema = mongoose.Schema(
     profilePhoto: { type: String },
     coverPhoto: { type: String },
     biography: { type: String },
+    message: { type: String, required: true },
     event: [
       {
         eventDate: {

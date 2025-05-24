@@ -23,6 +23,8 @@ const CreateMemorial = () => {
   const [eventTitle, setEventTitle] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [biography, setBiography] = useState("");
+  const [message, setMessage] = useState("");
+  const [addEvent, setAddEvent] = useState([{ id: Date.now() }]);
   const {
     profileInputRef,
     coverInputRef,
@@ -55,11 +57,12 @@ const CreateMemorial = () => {
       eventDescription,
       eventTitle,
       eventDate,
+      message,
     });
   };
 
   return (
-    <div className="bg-gentle-stone w-full h-screen">
+    <div className="bg-gentle-stone w-full">
       <div className="max-w-7xl mx-auto py-20 ">
         <div className="  p-8 mt-10 w-1/2 mx-auto bg-soft-lavender rounded-2xl drop-shadow-2xl">
           <div className="text-center mb-4 ">
@@ -113,6 +116,8 @@ const CreateMemorial = () => {
                   location={location}
                   setRelationship={setRelationship}
                   relationship={relationship}
+                  message={message}
+                  setMessage={setMessage}
                 />
               )}
 
@@ -141,6 +146,8 @@ const CreateMemorial = () => {
                   eventDate={eventDate}
                   biography={biography}
                   setBiography={setBiography}
+                  setAddEvent={setAddEvent}
+                  addEvent={addEvent}
                 />
               )}
               {/* Form Submit button */}

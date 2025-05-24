@@ -14,6 +14,7 @@ export const createMemorial = async (req, res) => {
       eventTitle,
       eventDate,
       eventDescription,
+      message,
     } = req.body;
     if (
       !name ||
@@ -39,6 +40,7 @@ export const createMemorial = async (req, res) => {
       location,
       profilePhoto,
       coverPhoto,
+      message,
       biography,
       event: [eventTitle, eventDate, eventDescription],
       createdBy: userId,

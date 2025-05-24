@@ -11,6 +11,8 @@ const FirstStep = ({
   location,
   setRelationship,
   relationship,
+  message,
+  setMessage,
 }) => {
   return (
     <div>
@@ -139,6 +141,22 @@ const FirstStep = ({
               <option value="other">Other</option>
             </select>
           </div>
+        </div>
+        {/* Message */}
+        <div className="pt-4">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-800"
+          >
+            Message
+          </label>
+          <textarea
+            name="message"
+            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="block w-full p-4 max-h-100 h-40 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+          ></textarea>
         </div>
       </div>
     </div>

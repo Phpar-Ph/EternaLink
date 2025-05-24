@@ -42,7 +42,7 @@ function SecondStep({
                   />
                 </div>
 
-                <div className="w-60 h-60 bg-gray-800 rounded-full flex items-center justify-center relative ">
+                <div className="w-60 h-60 bg-gray-600 rounded-full flex items-center justify-center relative ">
                   <Icons.FaRegUser className="absolute text-gray-500 text-8xl" />
                   {isProfileUploading && (
                     <div>
@@ -90,7 +90,7 @@ function SecondStep({
                   onChange={handleCoverChange}
                 />
               </div>
-              <div className="w-full h-40  bg-gray-800  flex items-center justify-center relative">
+              <div className="w-full h-40  bg-gray-600  flex items-center justify-center relative">
                 <Icons.FaRegUser className="absolute text-gray-500 text-8xl" />
                 {isCoverUploading && (
                   <div>
@@ -107,6 +107,16 @@ function SecondStep({
                     "Click to Upload"
                   </button>
                 )}
+                {/* {isCoverUploading && (
+                  <button
+                    type="button"
+                    onClick={handleCoverClick}
+                    className="bg-gray-400 text-white px-4 py-2  h-full w-full opacity-0 hover:opacity-70  "
+                    disabled={isCoverUploading}
+                  >
+                    "Change profile"
+                  </button>
+                )} */}
               </div>
             </div>
           )}

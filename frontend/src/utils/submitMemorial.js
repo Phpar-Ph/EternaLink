@@ -19,6 +19,7 @@ export const submitMemorial = async ({
   eventTitle,
   eventDate,
   coverPhoto,
+  message,
 }) => {
   try {
     e.preventDefault();
@@ -43,6 +44,7 @@ export const submitMemorial = async ({
       profilePhoto,
       biography,
       event,
+      message,
       coverPhoto,
     });
 
