@@ -1,11 +1,11 @@
 import { Icons } from "../../data/IconsData";
 const ThirdStep = ({
-  setEventTitle,
-  eventTitle,
-  eventDescription,
-  setEventDescription,
-  setEventDate,
-  eventDate,
+  // setEventTitle,
+  // eventTitle,
+  // eventDescription,
+  // setEventDescription,
+  // setEventDate,
+  // eventDate,
   biography,
   setBiography,
   addEvent,
@@ -14,10 +14,21 @@ const ThirdStep = ({
   const addEventClick = () => {
     console.log("Clicked");
     console.log(addEvent);
-    setAddEvent([...addEvent, { id: Date.now() }]);
+    setAddEvent((prev) => [
+      ...prev,
+      { eventDate: "", eventTitle: "", eventDescription: "", id: Date.now() },
+    ]);
   };
   const removeEvent = (id) => {
     setAddEvent((prev) => prev.filter((event) => event.id !== id));
+  };
+
+  const handleChange = (id, field, value) => {
+    setAddEvent((prev) =>
+      prev.map((event) =>
+        event.id === id ? { ...event, [field]: value } : event
+      )
+    );
   };
 
   return (
@@ -62,11 +73,11 @@ const ThirdStep = ({
               </button>
             </div>
             {/* Date and events .map() */}
-            {addEvent.map((div) => {
+            {addEvent.map((event) => {
               return (
                 <div
                   className="mb-4 bg-gentle-stone rounded-md  p-4  space-y-4"
-                  key={div.id}
+                  key={event.id}
                 >
                   {/* DATE AND TITLE */}
                   <div className="flex justify-between gap-4 ">
@@ -90,8 +101,10 @@ const ThirdStep = ({
                           id="eventDate"
                           name="eventDate"
                           required
-                          value={eventDate}
-                          onChange={(e) => setEventDate(e.target.value)}
+                          value={event.eventDate}
+                          onChange={(e) =>
+                            handleChange(event.id, "eventDate", e.target.value)
+                          }
                           className="block w-full pl-10 pr-2 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                         />
                       </div>
@@ -110,8 +123,10 @@ const ThirdStep = ({
                           id="eventTitle"
                           name="eventTitle"
                           required
-                          value={eventTitle}
-                          onChange={(e) => setEventTitle(e.target.value)}
+                          value={event.eventTitle}
+                          onChange={(e) =>
+                            handleChange(event.id, "eventTitle", e.target.value)
+                          }
                           className="block w-full px-3 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                           placeholder="event title"
                         />
@@ -131,8 +146,14 @@ const ThirdStep = ({
                         name="eventDescription"
                         id="eventDescription"
                         type="text"
-                        onChange={(e) => setEventDescription(e.target.value)}
-                        value={eventDescription}
+                        onChange={(e) =>
+                          handleChange(
+                            event.id,
+                            "eventDescription",
+                            e.target.value
+                          )
+                        }
+                        value={event.eventDescription}
                         required
                         className="block w-full p-4 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                         placeholder="Brief description of the event"
@@ -142,7 +163,7 @@ const ThirdStep = ({
                   <div className="justify-end flex ">
                     <button
                       className="font-3xl font-bold bg-rosewood hover:bg-rosewood/80 px-4 py-2 text-amber-50 rounded-xl   "
-                      onClick={() => removeEvent(div.id)}
+                      onClick={() => removeEvent(event.id)}
                     >
                       {" "}
                       remove
@@ -160,11 +181,3 @@ const ThirdStep = ({
 };
 
 export default ThirdStep;
-
-{
-  /* <div key={div.id} className="border-2 p-4 bg-amber-700">
-  <h1> Event {index + 1}</h1>
-  <h1 className="text-3xl "> THis new content id : {div.id}</h1>
-  
-</div>; */
-}

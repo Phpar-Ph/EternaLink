@@ -15,26 +15,25 @@ export const submitMemorial = async ({
   navigate,
   setProfilePhoto,
   biography,
-  eventDescription,
-  eventTitle,
-  eventDate,
   coverPhoto,
+  addEvent,
   message,
 }) => {
   try {
     e.preventDefault();
     axios.defaults.withCredentials = true;
-    // Create event array only if all event fields are present
-    const event =
-      eventTitle && eventDate && eventDescription
-        ? [
-            {
-              eventTitle,
-              eventDate,
-              eventDescription,
-            },
-          ]
-        : [];
+    // Filter out empty events and format the event data
+    const events = addEvent
+      .filter(
+        (event) => event.eventDate && event.eventTitle && event.eventDescription
+      )
+      .map((event) => ({
+        eventDate: event.eventDate,
+        eventTitle: event.eventTitle.trim(),
+        eventDescription: event.eventDescription.trim(),
+      }));
+    console.log("events : ", events);
+
     const { data } = await axios.post(`${backendUrl}/api/create/memorial`, {
       name,
       birthDate,
@@ -43,18 +42,17 @@ export const submitMemorial = async ({
       relationship,
       profilePhoto,
       biography,
-      event,
+      event: events,
       message,
       coverPhoto,
     });
 
     if (data.success) {
       toast.success("Created Memorial successfully");
-      setTimeout(() => {
-        getUserData();
-        setProfilePhoto(false);
-        navigate("/homepage");
-      }, 2000);
+      await getUserData();
+
+      setProfilePhoto(false);
+      navigate("/homepage");
     } else {
       toast.error("Creating Memorial failed");
     }

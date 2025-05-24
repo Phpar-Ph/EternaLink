@@ -24,7 +24,14 @@ const CreateMemorial = () => {
   const [eventDescription, setEventDescription] = useState("");
   const [biography, setBiography] = useState("");
   const [message, setMessage] = useState("");
-  const [addEvent, setAddEvent] = useState([{ id: Date.now() }]);
+  const [addEvent, setAddEvent] = useState([
+    {
+      eventDate: "",
+      eventTitle: "",
+      eventDescription: "",
+      id: Date.now(),
+    },
+  ]);
   const {
     profileInputRef,
     coverInputRef,
@@ -39,6 +46,16 @@ const CreateMemorial = () => {
     setCoverPhoto,
   });
   const submitHandler = (e) => {
+    // Validate event data before submission
+    const validEvents = addEvent.filter(
+      (event) => event.eventDate && event.eventTitle && event.eventDescription
+    );
+
+    if (validEvents.length === 0) {
+      alert("Please add at least one event with all fields filled");
+      return;
+    }
+
     submitMemorial({
       e,
       name,
@@ -58,6 +75,7 @@ const CreateMemorial = () => {
       eventTitle,
       eventDate,
       message,
+      addEvent: validEvents,
     });
   };
 
