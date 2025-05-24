@@ -30,10 +30,13 @@ const HomeLogin = () => {
           </div>
           <div className=" flex justify-center ">
             {/* POST */}
-            <div className="w-full p-4 m-4">
+            <div className="w-full p-4 m-4 ">
               {userData?.memorialPosts?.length > 0 ? (
                 userData.memorialPosts.map((memorial) => (
-                  <div key={memorial._id} className="w-full mb-8 border-2">
+                  <div
+                    key={memorial._id}
+                    className="w-full mb-8 border-2 rounded-2xl drop-shadow-amber-950 shadow-2xl"
+                  >
                     <div className="bg-gentle-stone rounded-xl ">
                       {/* Post heading */}
                       <div className="p-6">
@@ -82,16 +85,14 @@ const HomeLogin = () => {
                       </div>
                       {/* Post Description */}
                       <div className="p-6">
-                        <p className="text-xl font-lato text-gray-800 font-medium">
-                          <p className="text-xl font-lato text-gray-800 font-medium mb-2">
-                            Today marks one year since we lost our beloved
-                            father. His wisdom, kindness, and infectious laugh
-                            continue to echo in our hearts. Dad taught us the
-                            value of hard work, integrity, and most importantly,
-                            how to find joy in life's simple moments. We miss
-                            you every day, Dad. Your legacy lives on through the
-                            countless lives you touched. 🌟
-                          </p>
+                        <p className="text-xl font-lato text-gray-800 font-medium mb-2">
+                          Today marks one year since we lost our beloved father.
+                          His wisdom, kindness, and infectious laugh continue to
+                          echo in our hearts. Dad taught us the value of hard
+                          work, integrity, and most importantly, how to find joy
+                          in life's simple moments. We miss you every day, Dad.
+                          Your legacy lives on through the countless lives you
+                          touched. 🌟
                         </p>
                       </div>
 
