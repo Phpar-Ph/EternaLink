@@ -8,10 +8,7 @@ import { MdIosShare } from "react-icons/md";
 
 const HomeLogin = () => {
   const { userData } = useContext(AppContent);
-  useEffect(() => {
-    console.log("UserData:", userData);
-    console.log("Memorial Posts:", userData?.memorialPosts);
-  }, [userData]);
+  useEffect(() => {}, [userData]);
 
   // {
   //   new Date(memorial.birthDate).toLocaleDateString("en-US", {

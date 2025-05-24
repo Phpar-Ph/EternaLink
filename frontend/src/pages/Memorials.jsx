@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { memorials } from "../data/PersonData";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router";
-
+import { AppContent } from "../context/AppContentProvider";
 function Memorials() {
   const [searchTerm, setSearchTerm] = useState("");
+  const { userData } = useContext(AppContent);
   const navigate = useNavigate();
+  useEffect(() => {}, [userData]);
   return (
     <div className="min-h-screen bg-rose-beige">
       <div className="max-w-7xl mx-auto px-4 py-20">
@@ -49,7 +51,12 @@ function Memorials() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   {memorial.name}
                 </h3>
+                {/* <p className="text-gray-600 mb-4">
+                  {new Date(memorial.birthDate).getFullYear()}
+                  {" - "} {new Date(memorial.datePassing).getFullYear()}
+                </p> */}
                 <p className="text-gray-600 mb-4">{memorial.lifeDates}</p>
+
                 <button
                   className="w-full py-2 px-4 bg-soft-lavender text-rosewood/80 hover:text-rosewood rounded-lg font-medium transition-all duration-300 hover:bg-memorial-purple/40 focus:ring-2 focus:ring-amber-300 focus:outline-none"
                   onClick={() => navigate(`/memorialsPerson/${index}`)}

@@ -19,9 +19,6 @@ const CreateMemorial = () => {
   const [coverPhoto, setCoverPhoto] = useState(false);
   const { backendUrl, getUserData } = useContext(AppContent);
   const { step, nextStep, prevStep } = useStepNavigation();
-  const [eventDate, setEventDate] = useState("");
-  const [eventTitle, setEventTitle] = useState("");
-  const [eventDescription, setEventDescription] = useState("");
   const [biography, setBiography] = useState("");
   const [message, setMessage] = useState("");
   const [addEvent, setAddEvent] = useState([
@@ -71,9 +68,6 @@ const CreateMemorial = () => {
       setCoverPhoto,
       coverPhoto,
       biography,
-      eventDescription,
-      eventTitle,
-      eventDate,
       message,
       addEvent: validEvents,
     });
@@ -156,12 +150,6 @@ const CreateMemorial = () => {
               {/* Step 3 */}
               {step === 3 && (
                 <ThirdStep
-                  setEventTitle={setEventTitle}
-                  eventTitle={eventTitle}
-                  eventDescription={eventDescription}
-                  setEventDescription={setEventDescription}
-                  setEventDate={setEventDate}
-                  eventDate={eventDate}
                   biography={biography}
                   setBiography={setBiography}
                   setAddEvent={setAddEvent}

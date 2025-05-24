@@ -1,16 +1,5 @@
 import { Icons } from "../../data/IconsData";
-const ThirdStep = ({
-  // setEventTitle,
-  // eventTitle,
-  // eventDescription,
-  // setEventDescription,
-  // setEventDate,
-  // eventDate,
-  biography,
-  setBiography,
-  addEvent,
-  setAddEvent,
-}) => {
+const ThirdStep = ({ biography, setBiography, addEvent, setAddEvent }) => {
   const addEventClick = () => {
     console.log("Clicked");
     console.log(addEvent);
