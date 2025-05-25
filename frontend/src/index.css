@@ -11,9 +11,10 @@
   --color-gentle-stone: #f8f6f2;
   /* Add Memory, Share Tribute buttons, etc */
   --color-rosewood: #e63946;
-  --color-rose-beige: #fff4f4;
+  /* --color-rose-beige: #fff4f4; */
   --font-playfair: "Playfair Display", "serif";
   --font-lato: "Lato", "sans-serif";
+  /* gray-800 , gray-600, gray-400 */
 }
 
 @layer components {

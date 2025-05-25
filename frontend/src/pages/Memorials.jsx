@@ -9,14 +9,14 @@ function Memorials() {
   const navigate = useNavigate();
   useEffect(() => {}, [userData]);
   return (
-    <div className="min-h-screen bg-rose-beige">
+    <div className="min-h-screen bg-gentle-stone">
       <div className="max-w-7xl mx-auto px-4 py-20">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h1 className="text-6xl font-bold text-gray-800 mb-4">
             Memorial Pages
           </h1>
-          <p className="text-lg text-gray-700 mb-8">
+          <p className="text-lg text-gray-600 mb-8">
             Browse through our collection of memorial pages honoring loved ones
             who have passed away.
           </p>
@@ -37,7 +37,7 @@ function Memorials() {
           {memorials.map((memorial, index) => (
             <div
               key={index}
-              className="group bg-gentle-stone rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+              className="group bg-soft-lavender text-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
             >
               <div className="relative overflow-hidden">
                 <img
@@ -48,7 +48,7 @@ function Memorials() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
                   {memorial.name}
                 </h3>
                 {/* <p className="text-gray-600 mb-4">
@@ -58,7 +58,7 @@ function Memorials() {
                 <p className="text-gray-600 mb-4">{memorial.lifeDates}</p>
 
                 <button
-                  className="w-full py-2 px-4 bg-soft-lavender text-rosewood/80 hover:text-rosewood rounded-lg font-medium transition-all duration-300 hover:bg-memorial-purple/40 focus:ring-2 focus:ring-amber-300 focus:outline-none"
+                  className="w-full py-2 px-4 bg-gentle-stone text-gray-400 rounded-lg font-medium transition-all duration-300 hover:bg-memorial-purple/20 focus:ring-2 focus:ring-amber-300 focus:outline-none"
                   onClick={() => navigate(`/memorialsPerson/${index}`)}
                 >
                   View Memorial

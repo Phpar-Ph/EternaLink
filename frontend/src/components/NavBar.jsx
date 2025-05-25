@@ -66,8 +66,8 @@ const NavBar = () => {
     <nav
       className={
         navbar
-          ? "w-full bg-rose-beige fixed top-0 z-50 shadow"
-          : "w-full bg-rose-beige fixed top-0 z-50"
+          ? "w-full bg-gentle-stone fixed top-0 z-50 !shadow"
+          : "w-full bg-gentle-stone fixed top-0 z-50"
       }
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">

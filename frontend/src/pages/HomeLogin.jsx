@@ -19,7 +19,7 @@ const HomeLogin = () => {
   // }
 
   return (
-    <div className="w-full bg-rose-beige">
+    <div className="w-full bg-gentle-stone">
       <div className="max-w-7xl mx-auto text-4xl py-20  ">
         <div className="flex justify-center flex-col pt-20">
           <div>
@@ -32,7 +32,7 @@ const HomeLogin = () => {
                 userData.memorialPosts.map((memorial) => (
                   <div
                     key={memorial._id}
-                    className="w-full mb-8 border-2 rounded-2xl drop-shadow-amber-950 shadow-2xl"
+                    className="w-full mb-8  rounded-2xl !inset-shadow-md  !shadow-xl "
                   >
                     <div className="bg-gentle-stone rounded-xl ">
                       {/* Post heading */}
@@ -42,7 +42,7 @@ const HomeLogin = () => {
                             <img
                               src="https://thumbs.dreamstime.com/b/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg"
                               alt=""
-                              className="rounded-full ring-1 ring-rosewood ring-opacity-5 h-12 w-12"
+                              className="rounded-full !ring-1 !ring-rosewood ring-opacity-5 h-12 w-12"
                             />
                           </div>
                           <h1 className="font-lato text-gray-800 font-bold text-lg ">
@@ -65,11 +65,11 @@ const HomeLogin = () => {
                           <img
                             src={memorial.profilePhoto}
                             alt=""
-                            className="rounded-full ring-1 ring-white ring-opacity-5 h-20 w-20 object-cover"
+                            className="rounded-full !ring-1 !ring-gray-100 ring-opacity-5 h-20 w-20 object-cover"
                           />
 
                           <div>
-                            <h2 className="font-lato text-xl text-gray-50 font-bold">
+                            <h2 className="font-lato text-xl text-gray-100 font-bold">
                               {memorial.name}
                             </h2>
                             <p className="text-sm font-lato text-gray-50">
@@ -94,15 +94,15 @@ const HomeLogin = () => {
                       </div>
 
                       {/* React and Comment */}
-                      <div className="flex justify-between py-4 px-8 text-gray-500 text-2xl border-t border-gray-100">
+                      <div className="flex justify-between py-4 px-8 text-gray-600 text-2xl">
                         <div className="flex gap-4">
-                          <FaRegHeart className="hover:text-gray-700" />
-                          <LuFlower />
-                          <PiHandsPrayingBold />
+                          <FaRegHeart className="hover:text-gray-800" />
+                          <LuFlower className="hover:text-gray-800" />
+                          <PiHandsPrayingBold className="hover:text-gray-800" />
                         </div>
                         <div className="flex gap-4">
-                          <FaRegComment />
-                          <MdIosShare />
+                          <FaRegComment className="hover:text-gray-800" />
+                          <MdIosShare className="hover:text-gray-800" />
                         </div>
                       </div>
                     </div>

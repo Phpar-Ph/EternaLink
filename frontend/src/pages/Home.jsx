@@ -17,7 +17,7 @@ function Home() {
     <div>
       {/* <UnderConstruction /> */}
       {/* Hero Section */}
-      <div className="w-full bg-rose-beige">
+      <div className="w-full bg-gentle-stone">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <div className="flex flex-row items-center gap-4 py-20">
             <div className="flex-1 text-center lg:text-left">
@@ -28,7 +28,7 @@ function Home() {
                 <h2 className="text-4xl font-playfair lg:text-5xl font-bold tracking-tight text-gray-800">
                   Preserve their legacy.
                 </h2>
-                <p className="text-xl lg:text-2xl font-lato text-gray-500 max-w-2xl">
+                <p className="text-xl lg:text-2xl font-lato text-gray-600 max-w-2xl">
                   Create beautiful digital memorials for your loved ones. Share
                   memories, photos, and stories that celebrate their life.
                 </p>
@@ -49,24 +49,24 @@ function Home() {
         </div>
       </div>
       {/* Features Section*/}
-      <div className="w-full bg-soft-lavender">
+      <div className="w-full bg-gentle-stone">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold font-playfair text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold font-playfair text-gray-800 mb-4">
               Features
             </h2>
             <p className="text-xl text-gray-600 font-lato">
               Everything you need to create a lasting digital memorial
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-12 ">
             {/* Feature cards here - repeat this structure for each feature */}
             {featureData.map((feature, index) => (
               <div
-                className="bg-gentle-stone rounded-xl shadow-lg p-8 transform hover:scale-105 transition-all"
+                className="bg-soft-lavender !drop-shadow rounded-xl shadow-lg p-8 "
                 key={index}
               >
-                <h3 className="text-2xl font-bold font-playfair text-gray-900 mb-4">
+                <h3 className="text-2xl font-bold font-playfair text-gray-800 mb-4">
                   {feature.heading}
                 </h3>
                 <p className="text-gray-600 font-lato">{feature.description}</p>
@@ -77,22 +77,22 @@ function Home() {
       </div>
 
       {/* How It Works Section*/}
-      <div className="w-full bg-rose-beige">
+      <div className="w-full bg-gentle-stone">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold font-playfair text-center mb-16">
             How EternaLink Works
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-gray-800">
             {/* Step cards - repeat this structure for each step */}
             {howItWorks.map((step, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-lg p-8 text-center transform hover:scale-105 transition-all"
+                className="bg-soft-lavender rounded-xl shadow-lg p-8 text-center "
               >
                 <div className="flex justify-center mb-6 text-5xl text-purple-600">
                   <step.icon />
                 </div>
-                <h3 className="text-xl font-bold font-playfair mb-4">
+                <h3 className="text-xl font-bold font-playfair mb-4 text-gray-800">
                   {step.heading}
                 </h3>
                 <p className="text-gray-600 font-lato">{step.description}</p>
@@ -102,12 +102,12 @@ function Home() {
         </div>
       </div>
       {/* Memorial Example Section */}
-      <div className="w-full bg-soft-lavender text-gray-800 ">
+      <div className="w-full bg-gentle-stone text-gray-800">
         <div className="max-w-7xl mx-auto px-4 py-20">
           <div className="flex w-full">
             <div className="flex-1  p-4">
               <div className=" mb-10 lg:mb-0">
-                <h2 className="text-3xl font-playfair font-bold text-gray-900 mb-6">
+                <h2 className="text-3xl font-playfair font-bold text-gray-800 mb-6">
                   Beautiful, Respectful Memorials
                 </h2>
                 <p className="text-lg text-gray-600 font-lato  mb-6">
@@ -118,7 +118,7 @@ function Home() {
                 <ul className="space-y-4">
                   {MemorialExamples.map((example, index) => (
                     <li key={index} className="flex items-start">
-                      <div className="flex-shrink-0 text-indigo-600 dark:text-indigo-400">
+                      <div className="flex-shrink-0 text-memorial-purple !drop-shadow-2xl">
                         <example.icon size={24} />
                       </div>
                       <p className="ml-3 text-gray-600 ">
@@ -132,7 +132,7 @@ function Home() {
                 </ul>
               </div>
             </div>
-            <div className="flex-1 p-4  bg-gentle-stone rounded-2xl">
+            <div className="flex-1 p-6  bg-soft-lavender rounded-2xl !shadow">
               <div className="text-gray-800 flex items-center mb-6 gap-4">
                 <img
                   src={memorials[1].profilePhoto}
@@ -158,7 +158,7 @@ function Home() {
                 ))}
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-500 font-lato ">
+                <span className="text-sm text-gray-400 font-lato ">
                   {memorials[1].memories.length} memories shared
                 </span>
                 <button
@@ -175,13 +175,13 @@ function Home() {
         </div>
       </div>
       {/* CTA Section */}
-      <div className="w-full bg-rose-beige">
+      <div className="w-full bg-gentle-stone">
         <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
           <div className="text-center text-gray-800">
             <h2 className="text-4xl font-playfair font-bold mb-6">
               Create a Lasting Memorial Today
             </h2>
-            <p className="text-xl mb-12  font-lato max-w-2xl mx-auto">
+            <p className="text-xl mb-12  font-lato max-w-2xl mx-auto text-gray-600">
               Honor your loved one with a beautiful digital memorial that
               preserves their memory for generations to come.
             </p>

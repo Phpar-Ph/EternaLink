@@ -1,19 +1,13 @@
 import React, { useState, useContext } from "react";
-import {
-  FaUser,
-  FaLock,
-  FaEye,
-  FaEyeSlash,
-  FaFacebook,
-  FaGoogle,
-} from "react-icons/fa";
+
 import { Link } from "react-router";
 import { useNavigate } from "react-router";
 import { AppContent } from "../context/AppContentProvider";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import { Icons } from "../data/IconsData";
 const Login = () => {
+  1;
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -60,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-rose-beige">
+    <div className="w-full h-screen bg-gentle-stone">
       <div className="max-w-7xl mx-auto px-4 py-20 h-full ">
         <div className="flex justify-center items-center  h-full">
           <div className="w-full max-w-md bg-soft-lavender p-8 rounded-xl shadow-md">
@@ -71,65 +65,69 @@ const Login = () => {
               className="space-y-6 mt-6"
               onSubmit={onSubmitHandler}
               autoComplete="on"
+              noValidate
             >
               {/* Email Field */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-800"
-                >
-                  Email address
-                </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaUser size={18} className="text-gray-600" />
+                  <div className="absolute bottom-0 p-3 flex items-center pointer-events-none">
+                    <Icons.FaUser size={18} className="text-gray-600" />
                   </div>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                    placeholder="you@example.com"
-                  />
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-800"
+                  >
+                    Email address
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                      placeholder="you@example.com"
+                      aria-label="Email address"
+                    />
+                  </label>
                 </div>
               </div>
 
               {/* Password Field */}
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-deep-charcoal"
-                >
-                  Password
-                </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaLock size={18} className="text-gray-600" />
+                  <div className="absolute bottom-0 p-3 flex items-center pointer-events-none">
+                    <Icons.FaLock size={18} className="text-gray-600" />
                   </div>
-                  <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    autoComplete="current-password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                  />
-                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-deep-charcoal"
+                  >
+                    Password
+                    <input
+                      id="password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      autoComplete="current-password"
+                      required
+                      value={password}
+                      aria-label="Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                    />
+                  </label>
+
+                  <div className="absolute bottom-0 p-3 right-0 flex items-center">
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="text-gray-800 hover:text-gray-600"
                     >
                       {showPassword ? (
-                        <FaEyeSlash size={18} />
+                        <Icons.FaEyeSlash size={18} />
                       ) : (
-                        <FaEye size={18} />
+                        <Icons.FaEye size={18} />
                       )}
                     </button>
                   </div>
@@ -142,14 +140,17 @@ const Login = () => {
                   <input
                     id="remember-me"
                     type="checkbox"
+                    name="remember-me"
                     className="h-4 w-4 text-royal-blue border-gray-300 rounded"
-                    onChange={() => setRememberMe(!rememberMe)}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    checked={rememberMe}
                   />
                   <span className="ml-2">Remember me</span>
                 </label>
                 <Link
                   to="/forgot-password"
                   className="text-sm text-rosewood hover:underline"
+                  tabIndex={0}
                 >
                   Forgot password?
                 </Link>
@@ -158,11 +159,19 @@ const Login = () => {
               {/* Submit Button */}
               <button
                 type="submit"
+                disabled={isLoading}
                 className={`w-full py-3 px-4 rounded-md text-white font-medium bg-memorial-purple hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-royal-blue ${
                   isLoading ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
-                {isLoading ? "Signing in..." : "Sign in"}
+                {isLoading ? (
+                  <span className="flex items-center justify-center">
+                    <Icons.FaSpinner className="animate-spin -ml-1 mr-3 h-5 w-5" />
+                    Signing in...
+                  </span>
+                ) : (
+                  "Sign in"
+                )}
               </button>
             </form>
             <div className="mt-6">
@@ -195,7 +204,7 @@ const Login = () => {
                   type="button"
                   className="flex justify-center items-center py-2 px-4 rounded-md bg-white text-deep-charcoal hover:bg-gray-100 shadow-sm border border-gray-300"
                 >
-                  <FaGoogle className="w-5 h-5 mr-2" /* Google Icon */ />
+                  <Icons.FaGoogle className="w-5 h-5 mr-2" /* Google Icon */ />
                   Google
                 </button>
 
@@ -204,7 +213,9 @@ const Login = () => {
                   type="button"
                   className="flex justify-center items-center py-2 px-4 rounded-md bg-white text-deep-charcoal hover:bg-gray-100 shadow-sm border border-gray-300"
                 >
-                  <FaFacebook className="w-5 h-5 mr-2" /* Facebook Icon */ />
+                  <Icons.FaFacebook
+                    className="w-5 h-5 mr-2" /* Facebook Icon */
+                  />
                   Facebook
                 </button>
               </div>

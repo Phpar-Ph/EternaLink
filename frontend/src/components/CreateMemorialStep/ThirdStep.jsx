@@ -1,23 +1,38 @@
 import { Icons } from "../../data/IconsData";
-const ThirdStep = ({ biography, setBiography, addEvent, setAddEvent }) => {
+const ThirdStep = ({ formData, setFormData, handleChange }) => {
   const addEventClick = () => {
-    console.log("Clicked");
-    console.log(addEvent);
-    setAddEvent((prev) => [
+    setFormData((prev) => ({
       ...prev,
-      { eventDate: "", eventTitle: "", eventDescription: "", id: Date.now() },
-    ]);
+      addEvent: [
+        ...prev.addEvent,
+        {
+          eventDate: "",
+          eventTitle: "",
+          eventDescription: "",
+          id: Date.now(),
+        },
+      ],
+    }));
   };
   const removeEvent = (id) => {
-    setAddEvent((prev) => prev.filter((event) => event.id !== id));
+    setFormData((prev) => ({
+      ...prev,
+      addEvent: prev.filter((event) => event.id !== id),
+    }));
   };
 
-  const handleChange = (id, field, value) => {
-    setAddEvent((prev) =>
-      prev.map((event) =>
-        event.id === id ? { ...event, [field]: value } : event
-      )
-    );
+  const updateEventHandleChange = (id, field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      addEvent: prev.addEvent.map((event) =>
+        event.id === id
+          ? {
+              ...event,
+              [field]: value,
+            }
+          : event
+      ),
+    }));
   };
 
   return (
@@ -30,21 +45,28 @@ const ThirdStep = ({ biography, setBiography, addEvent, setAddEvent }) => {
             className="block text-sm font-medium text-gray-800"
           >
             Biography
+            <textarea
+              name="biography"
+              id="biography"
+              rows={8}
+              type="text"
+              value={formData.biography}
+              onChange={handleChange}
+              placeholder="Share the story of your loved one's life..."
+              autoComplete="off"
+              spellCheck="true"
+              area-label="Biography text"
+              maxLength={2000}
+              className="block w-full p-4 max-h-100 h-40 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+            ></textarea>
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Write about their life, achievements, personality, and what made
+              them special.{" "}
+              <span className="text-gray-400 ml-1">
+                (Maximum 2000 characters)
+              </span>
+            </p>
           </label>
-          <textarea
-            name="biography"
-            id="biography"
-            rows={8}
-            type="text"
-            value={biography}
-            onChange={(e) => setBiography(e.target.value)}
-            placeholder="Share the story of your loved one's life..."
-            className="block w-full p-4 max-h-100 h-40 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-          ></textarea>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-            Write about their life, achievements, personality, and what made
-            them special.
-          </p>
         </div>
         {/* Events Timeline */}
         <div>
@@ -62,7 +84,7 @@ const ThirdStep = ({ biography, setBiography, addEvent, setAddEvent }) => {
               </button>
             </div>
             {/* Date and events .map() */}
-            {addEvent.map((event) => {
+            {formData.addEvent.map((event) => {
               return (
                 <div
                   className="mb-4 bg-gentle-stone rounded-md  p-4  space-y-4"
@@ -72,53 +94,66 @@ const ThirdStep = ({ biography, setBiography, addEvent, setAddEvent }) => {
                   <div className="flex justify-between gap-4 ">
                     {/* Date */}
                     <div className="w-full">
-                      <label
-                        htmlFor="eventDate"
-                        className="block text-sm font-medium text-gray-800"
-                      >
-                        Date
-                      </label>
                       <div className="mt-1 relative rounded-md shadow-sm">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <div className="absolute bottom-0 p-3 flex items-center pointer-events-none">
                           <Icons.MdDateRange
                             size={18}
                             className="text-gray-600"
                           />
                         </div>
-                        <input
-                          type="date"
-                          id="eventDate"
-                          name="eventDate"
-                          required
-                          value={event.eventDate}
-                          onChange={(e) =>
-                            handleChange(event.id, "eventDate", e.target.value)
-                          }
-                          className="block w-full pl-10 pr-2 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                        />
+                        <label
+                          htmlFor="eventDate"
+                          className="block text-sm font-medium text-gray-800"
+                        >
+                          Date
+                          <input
+                            type="date"
+                            id="eventDate"
+                            name="eventDate"
+                            required
+                            value={event.eventDate}
+                            onChange={(e) =>
+                              updateEventHandleChange(
+                                event.id,
+                                "eventDate",
+                                e.target.value
+                              )
+                            }
+                            className="block w-full pl-10 pr-2 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                            autoComplete="off"
+                            aria-label="Event date"
+                          />
+                        </label>
                       </div>
                     </div>
                     {/* Title */}
                     <div className="w-full">
-                      <label
-                        htmlFor="eventTitle"
-                        className="block text-sm font-medium text-gray-800"
-                      >
-                        Title
-                      </label>
                       <div className="mt-1 relative rounded-md shadow-sm ">
-                        <input
-                          type="text"
-                          id="eventTitle"
-                          name="eventTitle"
-                          required
-                          value={event.eventTitle}
-                          onChange={(e) =>
-                            handleChange(event.id, "eventTitle", e.target.value)
-                          }
-                          className="block w-full px-3 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                          placeholder="event title"
-                        />
+                        <label
+                          htmlFor="eventTitle"
+                          className="block text-sm font-medium text-gray-800"
+                        >
+                          Title
+                          <input
+                            type="text"
+                            id="eventTitle"
+                            name="eventTitle"
+                            required
+                            value={event.eventTitle}
+                            onChange={(e) =>
+                              updateEventHandleChange(
+                                event.id,
+                                "eventTitle",
+                                e.target.value
+                              )
+                            }
+                            className="block w-full px-3 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                            placeholder="event title"
+                            autoComplete="off"
+                            maxLength={100}
+                            aria-label="Event title"
+                          />
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -130,31 +165,36 @@ const ThirdStep = ({ biography, setBiography, addEvent, setAddEvent }) => {
                         className="block text-sm font-medium text-gray-800"
                       >
                         Description
+                        <input
+                          name="eventDescription"
+                          id="eventDescription"
+                          type="text"
+                          onChange={(e) =>
+                            updateEventHandleChange(
+                              event.id,
+                              "eventDescription",
+                              e.target.value
+                            )
+                          }
+                          value={event.eventDescription}
+                          required
+                          className="block w-full p-4 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                          placeholder="Brief description of the event"
+                          autoComplete="off"
+                          maxLength={500}
+                          aria-label="Event description"
+                          spellCheck="true"
+                        />
                       </label>
-                      <input
-                        name="eventDescription"
-                        id="eventDescription"
-                        type="text"
-                        onChange={(e) =>
-                          handleChange(
-                            event.id,
-                            "eventDescription",
-                            e.target.value
-                          )
-                        }
-                        value={event.eventDescription}
-                        required
-                        className="block w-full p-4 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                        placeholder="Brief description of the event"
-                      />
                     </div>
                   </div>
+                  {/* Remove button */}
                   <div className="justify-end flex ">
                     <button
                       className="font-3xl font-bold bg-rosewood hover:bg-rosewood/80 px-4 py-2 text-amber-50 rounded-xl   "
                       onClick={() => removeEvent(event.id)}
+                      aria-label="Remove event"
                     >
-                      {" "}
                       remove
                     </button>
                   </div>

@@ -8,27 +8,32 @@ import { useStepNavigation } from "../hooks/useStepNavigation";
 import { stepIcons } from "../data/IconsData";
 import SecondStep from "../components/CreateMemorialStep/SecondStep";
 import ThirdStep from "../components/CreateMemorialStep/ThirdStep";
+import { toast } from "react-toastify";
 const CreateMemorial = () => {
-  const [name, setName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [datePassing, setDatePassing] = useState("");
-  const [relationship, setRelationship] = useState("");
-  const [location, setLocation] = useState("");
-  const [profilePhoto, setProfilePhoto] = useState(false);
   const navigate = useNavigate();
-  const [coverPhoto, setCoverPhoto] = useState(false);
   const { backendUrl, getUserData } = useContext(AppContent);
   const { step, nextStep, prevStep } = useStepNavigation();
-  const [biography, setBiography] = useState("");
-  const [message, setMessage] = useState("");
-  const [addEvent, setAddEvent] = useState([
-    {
-      eventDate: "",
-      eventTitle: "",
-      eventDescription: "",
-      id: Date.now(),
-    },
-  ]);
+  const [profilePhotoReview, setProfilePhotoReview] = useState(null);
+  const [coverPhotoReview, setCoverPhotoReview] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    birthDate: "",
+    datePassing: "",
+    location: "",
+    relationship: "",
+    profilePhoto: "",
+    biography: "",
+    coverPhoto: "",
+    message: "",
+    addEvent: [
+      {
+        eventDate: "",
+        eventTitle: "",
+        eventDescription: "",
+        id: Date.now(),
+      },
+    ],
+  });
   const {
     profileInputRef,
     coverInputRef,
@@ -39,42 +44,62 @@ const CreateMemorial = () => {
     isProfileUploading,
     isCoverUploading,
   } = useImageUploadHandlers({
-    setProfilePhoto,
-    setCoverPhoto,
+    setFormData,
+    setProfilePhotoReview,
+    setCoverPhotoReview,
   });
   const submitHandler = (e) => {
-    // Validate event data before submission
-    const validEvents = addEvent.filter(
+    e.preventDefault();
+
+    // Validate all required fields
+    if (
+      !formData.name ||
+      !formData.birthDate ||
+      !formData.datePassing ||
+      !formData.location ||
+      !formData.relationship
+    ) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+
+    // Validate photos
+    if (!formData.profilePhoto || !formData.coverPhoto) {
+      toast.error("Please upload both profile and cover photos");
+      return;
+    }
+
+    // Validate event data
+    const validEvents = formData.addEvent.filter(
       (event) => event.eventDate && event.eventTitle && event.eventDescription
     );
 
     if (validEvents.length === 0) {
-      alert("Please add at least one event with all fields filled");
+      toast.error("Please add at least one event with all fields filled");
       return;
     }
 
     submitMemorial({
       e,
-      name,
-      birthDate,
-      datePassing,
-      location,
-      relationship,
-      profilePhoto,
       backendUrl,
       getUserData,
       navigate,
-      setProfilePhoto,
-      setCoverPhoto,
-      coverPhoto,
-      biography,
-      message,
-      addEvent: validEvents,
+      formData: {
+        ...formData,
+        addEvent: validEvents, // Send only valid events
+      },
     });
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   return (
-    <div className="bg-gentle-stone w-full">
+    <div className="bg-rose-beige w-full">
       <div className="max-w-7xl mx-auto py-20 ">
         <div className="  p-8 mt-10 w-1/2 mx-auto bg-soft-lavender rounded-2xl drop-shadow-2xl">
           <div className="text-center mb-4 ">
@@ -114,46 +139,32 @@ const CreateMemorial = () => {
           </div>
 
           <div className="  relative">
-            <form action="" onSubmit={submitHandler} className="">
+            <form onSubmit={submitHandler} className="">
               {/* Step 1 */}
               {step === 1 && (
-                <FirstStep
-                  setName={setName}
-                  name={name}
-                  birthDate={birthDate}
-                  setBirthDate={setBirthDate}
-                  datePassing={datePassing}
-                  setDatePassing={setDatePassing}
-                  setLocation={setLocation}
-                  location={location}
-                  setRelationship={setRelationship}
-                  relationship={relationship}
-                  message={message}
-                  setMessage={setMessage}
-                />
+                <FirstStep formData={formData} handleChange={handleChange} />
               )}
 
               {step === 2 && (
                 <SecondStep
-                  profilePhoto={profilePhoto}
                   profileInputRef={profileInputRef}
                   handleProfileChange={handleProfileChange}
                   isProfileUploading={isProfileUploading}
                   handleProfileClick={handleProfileClick}
-                  coverPhoto={coverPhoto}
                   coverInputRef={coverInputRef}
                   handleCoverChange={handleCoverChange}
                   isCoverUploading={isCoverUploading}
                   handleCoverClick={handleCoverClick}
+                  profilePhotoReview={profilePhotoReview}
+                  coverPhotoReview={coverPhotoReview}
                 />
               )}
               {/* Step 3 */}
               {step === 3 && (
                 <ThirdStep
-                  biography={biography}
-                  setBiography={setBiography}
-                  setAddEvent={setAddEvent}
-                  addEvent={addEvent}
+                  formData={formData}
+                  setFormData={setFormData}
+                  handleChange={handleChange}
                 />
               )}
               {/* Form Submit button */}

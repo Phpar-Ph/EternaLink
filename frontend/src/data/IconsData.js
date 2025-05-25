@@ -3,6 +3,14 @@ import { AiOutlinePicture } from "react-icons/ai";
 import { TfiWrite } from "react-icons/tfi";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
+import {
+  FaUser,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaFacebook,
+  FaGoogle,
+} from "react-icons/fa";
 export const stepIcons = {
   icon: [FaRegUser, AiOutlinePicture, TfiWrite],
 };
@@ -14,4 +22,10 @@ export const Icons = {
   IoLocationOutline,
   MdDateRange,
   FaSpinner,
+  FaUser,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaFacebook,
+  FaGoogle,
 };
