@@ -10,6 +10,7 @@ export const AppContextProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const getAuthState = async () => {
     try {
@@ -18,12 +19,16 @@ export const AppContextProvider = (props) => {
       });
       if (data.success) {
         setIsLogin(true);
-        getUserData();
+        await getUserData();
       }
     } catch (error) {
-      // Only show error toast if it's not an auth error
-      if (error.response?.status !== 401) {
-        toast.error("Authentication check failed");
+      if (error.response?.status === 401) {
+        setIsLogin(false);
+        setUserData(null);
+      } else {
+        // Show error for other types of errors
+        console.error("Auth check error:", error);
+        toast.error("Failed to check authentication status");
       }
     }
   };
@@ -37,11 +42,13 @@ export const AppContextProvider = (props) => {
         setUserData(data.userData);
         // toast.success("data fetch");
       } else {
-        toast.error(data.message);
+        setUserData(null);
+        setIsLogin(false);
       }
     } catch (error) {
       console.error("Get user data error:", error);
-      toast.error(error.response?.data?.message || "Failed to fetch user data");
+      setUserData(null);
+      setIsLogin(false);
     }
   };
 
@@ -58,6 +65,8 @@ export const AppContextProvider = (props) => {
     setUserData,
     getUserData,
     getAuthState,
+    setIsOpen,
+    isOpen,
   };
 
   return (

@@ -9,7 +9,7 @@ const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
   // const [hasProfile, setHasProfile] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const { backendUrl, setIsLogin, isLogin, userData, setUserData } =
     useContext(AppContent);
@@ -27,26 +27,28 @@ const NavBar = () => {
     try {
       axios.defaults.withCredentials = true;
       const { data } = await axios.post(backendUrl + "/api/auth/logout");
-      if (data.success) {
-        toast.success("Logout successful!");
 
-        // Navigate and refresh
-        // add delay
-        setTimeout(() => {
-          setIsLogin(false);
-          setUserData(false);
-          navigate("/");
-          window.location.reload();
-        }, 2000);
+      if (data.success) {
+        setIsLogin(false);
+        setUserData(null);
+        navigate("/");
+        toast.success("Logout successful!");
       }
     } catch (error) {
       toast.error(error.message);
     }
   };
+  // Reset dropdown state when login and register status changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [isLogin]);
 
   // toggle
-  const toggleDropdown = () => {
+  const toggleDropdown = (e) => {
+    e.preventDefault();
     setIsOpen((prev) => !prev);
+    console.log(isOpen);
+    // setIsOpen(true);
   };
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -56,9 +58,9 @@ const NavBar = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("pointerdown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("pointerdown", handleClickOutside);
     };
   }, []);
 

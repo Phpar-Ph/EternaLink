@@ -95,6 +95,7 @@ const FirstStep = ({ formData, handleChange }) => {
               Location
               <input
                 name="location"
+                id="location"
                 type="text"
                 onChange={handleChange}
                 value={formData.location}
@@ -117,6 +118,7 @@ const FirstStep = ({ formData, handleChange }) => {
               Your Relationship
               <select
                 name="relationship"
+                id="relationship"
                 type="text"
                 onChange={handleChange}
                 value={formData.relationship}

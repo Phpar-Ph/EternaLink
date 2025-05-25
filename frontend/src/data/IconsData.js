@@ -11,6 +11,8 @@ import {
   FaFacebook,
   FaGoogle,
 } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
 export const stepIcons = {
   icon: [FaRegUser, AiOutlinePicture, TfiWrite],
 };
@@ -28,4 +30,5 @@ export const Icons = {
   FaEyeSlash,
   FaFacebook,
   FaGoogle,
+  MdEmail,
 };

@@ -30,18 +30,16 @@ const Login = () => {
 
       if (data.success) {
         setIsLoading(true);
-        toast.success("Login successful!");
-        setTimeout(() => {
-          const nextLoginState = true;
-          setIsLogin(nextLoginState);
-          getUserData();
 
-          if (nextLoginState) {
-            navigate("/homepage");
-          } else {
-            navigate("/");
-          }
-        }, 2000);
+        getUserData();
+        const nextLoginState = true;
+        setIsLogin(nextLoginState);
+        if (nextLoginState) {
+          navigate("/homepage");
+        } else {
+          navigate("/");
+        }
+        toast.success("Login successful!");
       } else {
         toast.error(data.message || "Login failed");
       }
@@ -74,12 +72,12 @@ const Login = () => {
                     <Icons.FaUser size={18} className="text-gray-600" />
                   </div>
                   <label
-                    htmlFor="email"
+                    htmlFor="login-email"
                     className="block text-sm font-medium text-gray-800"
                   >
                     Email address
                     <input
-                      id="email"
+                      id="login-email"
                       name="email"
                       type="email"
                       autoComplete="email"
@@ -101,12 +99,12 @@ const Login = () => {
                     <Icons.FaLock size={18} className="text-gray-600" />
                   </div>
                   <label
-                    htmlFor="password"
+                    htmlFor="login-password"
                     className="block text-sm font-medium text-deep-charcoal"
                   >
                     Password
                     <input
-                      id="password"
+                      id="login-password"
                       name="password"
                       type={showPassword ? "text" : "password"}
                       autoComplete="current-password"
@@ -136,9 +134,12 @@ const Login = () => {
 
               {/* Remember Me */}
               <div className="flex items-center justify-between">
-                <label className="flex items-center text-sm text-gray-800">
+                <label
+                  htmlFor="login-remember-me"
+                  className="flex items-center text-sm text-gray-800"
+                >
                   <input
-                    id="remember-me"
+                    id="login-remember-me"
                     type="checkbox"
                     name="remember-me"
                     className="h-4 w-4 text-royal-blue border-gray-300 rounded"

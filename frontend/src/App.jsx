@@ -13,7 +13,7 @@ import MyMemories from "./pages/MyMemories";
 const App = () => {
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer position="bottom-right" autoClose={3000} />
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />

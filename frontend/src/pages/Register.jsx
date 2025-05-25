@@ -3,23 +3,15 @@ import { useNavigate } from "react-router";
 import { AppContent } from "../context/AppContentProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
-import {
-  FaUser,
-  FaLock,
-  FaEye,
-  FaEyeSlash,
-  FaFacebook,
-  FaGoogle,
-} from "react-icons/fa";
+
 import { Link } from "react-router";
-import { MdEmail } from "react-icons/md";
+import { Icons } from "../data/IconsData";
 
 const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,20 +32,16 @@ const Register = () => {
         });
 
         if (data.success) {
+          getUserData();
           setIsLoading(true);
-
-          // Add delay fetching data after login
-          setTimeout(() => {
-            const nextLoginState = true;
-            setIsLogin(nextLoginState);
-            getUserData();
-
-            if (nextLoginState) {
-              navigate("/homepage");
-            } else {
-              navigate("/");
-            }
-          }, 2000);
+          const nextLoginState = true;
+          setIsLogin(nextLoginState);
+          if (nextLoginState) {
+            navigate("/homepage");
+          } else {
+            navigate("/");
+          }
+          toast.success("Register successfully");
         } else {
           toast.error(data.message || "an error getUserData");
         }
@@ -79,84 +67,91 @@ const Register = () => {
             >
               {/* Name Field */}
               <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-800"
-                >
-                  Full Name
-                </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaUser size={18} className="text-gray-600" />
+                  <div className="absolute bottom-0 p-3 flex items-center pointer-events-none">
+                    <Icons.FaUser size={18} className="text-gray-600" />
                   </div>
-                  <input
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                    required
-                    className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                    placeholder="Enter Full Name "
-                  />
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-800"
+                  >
+                    Full Name
+                    <input
+                      name="name"
+                      id="name"
+                      type="text"
+                      autoComplete="name"
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
+                      required
+                      disabled={isLoading}
+                      className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                      placeholder="Enter Full Name "
+                    />
+                  </label>
                 </div>
               </div>
               {/* Email Field */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-800"
-                >
-                  Email address
-                </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <MdEmail size={18} className="text-gray-600" />
+                  <div className="absolute p-3 bottom-0 flex items-center pointer-events-none">
+                    <Icons.MdEmail size={18} className="text-gray-600" />
                   </div>
-                  <input
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                    placeholder="you@example.com"
-                  />
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-800"
+                  >
+                    Email address
+                    <input
+                      name="email"
+                      id="email"
+                      type="email"
+                      autoComplete="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      disabled={isLoading}
+                      className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                      placeholder="you@example.com"
+                    />
+                  </label>
                 </div>
               </div>
 
               {/* Password Field */}
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-deep-charcoal"
-                >
-                  Password
-                </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaLock size={18} className="text-gray-600" />
+                  <div className="absolute bottom-0 p-3 flex items-center pointer-events-none">
+                    <Icons.FaLock size={18} className="text-gray-600" />
                   </div>
-                  <input
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    autoComplete="new-password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                  />
-                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-deep-charcoal"
+                  >
+                    Password
+                    <input
+                      name="password"
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      autoComplete="new-password"
+                      required
+                      disabled={isLoading}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                    />
+                  </label>
+
+                  <div className="absolute bottom-0 right-0 p-3 flex items-center">
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="text-gray-800 hover:text-gray-600"
                     >
                       {showPassword ? (
-                        <FaEyeSlash size={18} />
+                        <Icons.FaEyeSlash size={18} />
                       ) : (
-                        <FaEye size={18} />
+                        <Icons.FaEye size={18} />
                       )}
                     </button>
                   </div>
@@ -164,26 +159,29 @@ const Register = () => {
               </div>
               {/* Confirm Password */}
               <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-deep-charcoal"
-                >
-                  Confirm Password
-                </label>
                 <div className="mt-1 relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <FaLock size={18} className="text-gray-600" />
+                  <div className="absolute bottom-0 p-3 flex items-center pointer-events-none">
+                    <Icons.FaLock size={18} className="text-gray-600" />
                   </div>
-                  <input
-                    name="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    autoComplete="new-password"
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
-                  />
-                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <label
+                    htmlFor="confirm-password"
+                    className="block text-sm font-medium text-deep-charcoal"
+                  >
+                    Confirm Password
+                    <input
+                      id="confirm-password"
+                      name="confirm-password"
+                      type={showConfirmPassword ? "text" : "password"}
+                      autoComplete="new-password"
+                      required
+                      disabled={isLoading}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                    />
+                  </label>
+
+                  <div className="absolute bottom-0 p-3 right-0 flex items-center">
                     <button
                       type="button"
                       onClick={() =>
@@ -192,9 +190,9 @@ const Register = () => {
                       className="text-gray-800 hover:text-gray-600"
                     >
                       {showConfirmPassword ? (
-                        <FaEyeSlash size={18} />
+                        <Icons.FaEyeSlash size={18} />
                       ) : (
-                        <FaEye size={18} />
+                        <Icons.FaEye size={18} />
                       )}
                     </button>
                   </div>
@@ -209,6 +207,7 @@ const Register = () => {
                     name="terms"
                     type="checkbox"
                     required
+                    disabled={isLoading}
                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                   />
                 </div>
@@ -232,11 +231,19 @@ const Register = () => {
               {/* Submit Button */}
               <button
                 type="submit"
+                disabled={isLoading}
                 className={`w-full py-3 px-4 rounded-md text-white font-medium bg-memorial-purple hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-royal-blue ${
                   isLoading ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
-                {isLoading ? "Creating account..." : "Create Account"}
+                {isLoading ? (
+                  <span className="flex items-center justify-center">
+                    <Icons.FaSpinner className="animate-spin -ml-1 mr-3 h-5 w-5" />
+                    Creating account...
+                  </span>
+                ) : (
+                  "Create Account"
+                )}
               </button>
             </form>
             <div className="mt-6">
@@ -269,7 +276,7 @@ const Register = () => {
                   type="button"
                   className="flex justify-center items-center py-2 px-4 rounded-md bg-white text-deep-charcoal hover:bg-gray-100 shadow-sm border border-gray-300"
                 >
-                  <FaGoogle className="w-5 h-5 mr-2" /* Google Icon */ />
+                  <Icons.FaGoogle className="w-5 h-5 mr-2" /* Google Icon */ />
                   Google
                 </button>
 
@@ -278,7 +285,9 @@ const Register = () => {
                   type="button"
                   className="flex justify-center items-center py-2 px-4 rounded-md bg-white text-deep-charcoal hover:bg-gray-100 shadow-sm border border-gray-300"
                 >
-                  <FaFacebook className="w-5 h-5 mr-2" /* Facebook Icon */ />
+                  <Icons.FaFacebook
+                    className="w-5 h-5 mr-2" /* Facebook Icon */
+                  />
                   Facebook
                 </button>
               </div>
