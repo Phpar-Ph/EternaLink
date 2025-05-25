@@ -11,7 +11,7 @@ export const AppContextProvider = (props) => {
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [memorialData, setMemorialData] = useState(false);
   const getAuthState = async () => {
     try {
       const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {
@@ -20,6 +20,7 @@ export const AppContextProvider = (props) => {
       if (data.success) {
         setIsLogin(true);
         await getUserData();
+        await getMemorialData();
       }
     } catch (error) {
       if (error.response?.status === 401) {
@@ -51,6 +52,25 @@ export const AppContextProvider = (props) => {
       setIsLogin(false);
     }
   };
+  const getMemorialData = async (id) => {
+    try {
+      if (!id) {
+        console.warn("No memorial ID provided");
+        return;
+      }
+      const { data } = await axios.get(
+        `${backendUrl}/api/create/memorial-profile/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (data.success) {
+        setMemorialData(data.memorial);
+      }
+    } catch (error) {
+      console.error("Get user data error:", error);
+    }
+  };
 
   useEffect(() => {
     getAuthState();
@@ -67,6 +87,9 @@ export const AppContextProvider = (props) => {
     getAuthState,
     setIsOpen,
     isOpen,
+    memorialData,
+    getMemorialData,
+    setMemorialData,
   };
 
   return (

@@ -111,3 +111,34 @@ export const addReactionToMemorial = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const getMemorialProfile = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Then find all memorials created by this user
+    // Find memorial by ID and populate necessary fields
+    const memorial = await Memorial.findById(id)
+      .select(
+        "name birthDate datePassing location createdAt relationship profilePhoto coverPhoto biography event eventTitle eventDate eventDescription createdBy"
+      )
+      .populate("createdBy", "name email");
+
+    if (!memorial) {
+      return res.status(404).json({
+        success: false,
+        message: "Memorial not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      memorial,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message || "Memorial not found",
+    });
+  }
+};

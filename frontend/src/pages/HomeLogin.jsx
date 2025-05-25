@@ -5,11 +5,12 @@ import { FaRegHeart } from "react-icons/fa";
 import { PiHandsPrayingBold } from "react-icons/pi";
 import { FaRegComment } from "react-icons/fa";
 import { MdIosShare } from "react-icons/md";
+import { useNavigate } from "react-router";
 
 const HomeLogin = () => {
   const { userData } = useContext(AppContent);
   useEffect(() => {}, [userData]);
-
+  const navigate = useNavigate();
   // {
   //   new Date(memorial.birthDate).toLocaleDateString("en-US", {
   //     year: "numeric",
@@ -34,7 +35,13 @@ const HomeLogin = () => {
                     key={memorial._id}
                     className="w-full mb-8  rounded-2xl !inset-shadow-md  !shadow-xl "
                   >
-                    <div className="bg-gentle-stone rounded-xl ">
+                    <div
+                      className="bg-gentle-stone rounded-xl "
+                      onClick={() => {
+                        console.log(memorial._id);
+                        navigate(`/memorialsPerson/${memorial._id}`);
+                      }}
+                    >
                       {/* Post heading */}
                       <div className="p-6">
                         <div className="flex gap-4 items-center">
