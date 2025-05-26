@@ -55,7 +55,7 @@ const ThirdStep = ({ formData, setFormData, handleChange }) => {
               placeholder="Share the story of your loved one's life..."
               autoComplete="off"
               spellCheck="true"
-              area-label="Biography text"
+              aria-label="Biography text"
               maxLength={2000}
               className="block w-full p-4 max-h-100 h-40 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
             ></textarea>
