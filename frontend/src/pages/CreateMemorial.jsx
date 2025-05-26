@@ -25,14 +25,26 @@ const CreateMemorial = () => {
     biography: "",
     coverPhoto: "",
     message: "",
-    photos: [],
+    photos: [
+      {
+        url: "",
+        id: Date.now(),
+        fileName: "",
+      },
+    ],
     memories: [
       {
-        id: "",
+        id: Date.now(),
         author: "",
         relationship: "",
         text: "",
         date: "",
+        photo: [
+          {
+            url: "",
+            fileName: "",
+          },
+        ],
       },
     ],
     addEvent: [

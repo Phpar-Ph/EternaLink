@@ -12,6 +12,29 @@ const memorialSchema = mongoose.Schema(
     coverPhoto: { type: String },
     biography: { type: String },
     message: { type: String, required: true },
+    memorialPhotos: [
+      {
+        url: {
+          type: String,
+          required: true,
+        },
+        fileName: {
+          type: String,
+          required: true,
+        },
+        uploadedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    memories: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+        required: true,
+      },
+    ],
     event: [
       {
         eventDate: {

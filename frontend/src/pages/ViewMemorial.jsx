@@ -9,6 +9,7 @@ function ViewMemorial() {
   const { id } = useParams(); // Get memorial ID from URL
   const { getMemorialData, memorialData } = useContext(AppContent);
   const [activeTab, setActiveTab] = useState("about");
+
   useEffect(() => {
     const loadMemorial = async () => {
       try {
@@ -118,31 +119,6 @@ function ViewMemorial() {
               </li>
             </ul>
           </div>
-          {/* <div className="border-2">
-            <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-8">
-              <div className="flex items-center space-x-2">
-                <IoCalendarOutline className="w-5 h-5 text-memorial-purple" />
-                <span className="text-gray-700">{birthDate}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <AiOutlineClockCircle className="w-5 h-5 text-memorial-purple" />
-                <span className="text-gray-700">{datePassing}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <AiOutlineComment className="w-5 h-5 text-memorial-purple" />
-                <span className="text-gray-700">Memories</span>
-              </div>
-            </div>
-            <div className="flex space-x-2 mt-6 md:mt-0">
-              <button className="text-memorial-purple border border-memorial-purple px-4 py-2 rounded hover:bg-memorial-purple-light flex items-center">
-                <IoShareSocialOutline className="w-4 h-4 mr-2" />
-                Share
-              </button>
-              <button className="bg-memorial-purple text-white px-4 py-2 rounded hover:bg-memorial-purple-dark">
-                Add Memory
-              </button>
-            </div>
-          </div> */}
 
           {/* About Section */}
           {activeTab === "about" && (
@@ -160,9 +136,18 @@ function ViewMemorial() {
                 <div className="border-2 p-4 flex-2/5">
                   <h2 className="text-center">Details</h2>
                   <ul>
-                    <li>Birth Date</li>
-                    <li>Passed Away</li>
-                    <li>Resting Place</li>
+                    <li>
+                      Birth Date
+                      <span>{birthDate}</span>
+                    </li>
+                    <li>
+                      Passed Away
+                      <span>{datePassing}</span>
+                    </li>
+                    <li>
+                      Resting Place
+                      <span>{memorialData.location}</span>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -204,13 +189,15 @@ function ViewMemorial() {
                     className="block w-full p-4 max-h-100 h-40 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                   ></textarea>
                 </label>
-                <button
-                  type="button"
-                  className="bg-memorial-purple text-white px-4 py-2 rounded hover:bg-memorial-purple-dark"
-                >
-                  Share a Memory
-                </button>
-                <button type="button">Add photo</button>
+                <div className="flex justify-between">
+                  <button type="button">Add photo</button>
+                  <button
+                    type="button"
+                    className="bg-memorial-purple text-white px-4 py-2 rounded hover:bg-memorial-purple-dark"
+                  >
+                    Share a Memory
+                  </button>
+                </div>
               </div>
               <div className="space-y-8">
                 {memorialData.memories > 0 &&
