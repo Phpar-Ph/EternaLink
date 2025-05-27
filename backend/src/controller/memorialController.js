@@ -10,8 +10,6 @@ export const createMemorial = async (req, res) => {
       location,
       profilePhoto,
       coverPhoto,
-      biography,
-      event,
       message,
     } = req.body;
     if (
@@ -21,7 +19,8 @@ export const createMemorial = async (req, res) => {
       !datePassing ||
       !location ||
       !profilePhoto ||
-      !coverPhoto
+      !coverPhoto ||
+      !message
     ) {
       return res.json({
         success: false,
@@ -39,8 +38,6 @@ export const createMemorial = async (req, res) => {
       profilePhoto,
       coverPhoto,
       message,
-      biography,
-      event,
       createdBy: userId,
     });
 

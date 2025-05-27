@@ -3,6 +3,8 @@ import { AiOutlinePicture } from "react-icons/ai";
 import { TfiWrite } from "react-icons/tfi";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
+import { CiCircleRemove } from "react-icons/ci";
+
 import {
   FaUser,
   FaLock,
@@ -14,7 +16,7 @@ import {
 import { MdEmail } from "react-icons/md";
 
 export const stepIcons = {
-  icon: [FaRegUser, AiOutlinePicture, TfiWrite],
+  icon: [FaRegUser, AiOutlinePicture],
 };
 
 export const Icons = {
@@ -31,4 +33,5 @@ export const Icons = {
   FaFacebook,
   FaGoogle,
   MdEmail,
+  CiCircleRemove,
 };

@@ -18,10 +18,6 @@ const memorialSchema = mongoose.Schema(
           type: String,
           required: true,
         },
-        fileName: {
-          type: String,
-          required: true,
-        },
         uploadedAt: {
           type: Date,
           default: Date.now,
@@ -30,9 +26,14 @@ const memorialSchema = mongoose.Schema(
     ],
     memories: [
       {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true,
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        text: { type: String, required: true },
+        images: [{ url: { type: String, default: "" } }],
+        createdAt: { type: Date, default: Date.now },
       },
     ],
     event: [

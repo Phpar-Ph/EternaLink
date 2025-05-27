@@ -40,6 +40,9 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    avatar: {
+      url: { type: String, default: "" },
+    },
     memorialPosts: [
       {
         type: mongoose.Schema.Types.ObjectId,

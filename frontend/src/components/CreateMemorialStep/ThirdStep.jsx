@@ -17,7 +17,7 @@ const ThirdStep = ({ formData, setFormData, handleChange }) => {
   const removeEvent = (id) => {
     setFormData((prev) => ({
       ...prev,
-      addEvent: prev.filter((event) => event.id !== id),
+      addEvent: prev.addEvent.filter((event) => event.id !== id),
     }));
   };
 

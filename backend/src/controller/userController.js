@@ -1,5 +1,5 @@
 // import { EMAIL_RESET_OTP_TEMPLATE } from "../config/EmailTemplate.js";
-import User from "../model/userModel.js";
+import User from "../model/userSchema.js";
 import Memorial from "../model/memorialSchema.js";
 export const getUserData = async (req, res) => {
   try {
@@ -13,7 +13,7 @@ export const getUserData = async (req, res) => {
     // Then find all memorials created by this user
     const memorials = await Memorial.find({ createdBy: req.userId })
       .select(
-        "name birthDate datePassing location createdAt relationship  profilePhoto coverPhoto biography event eventTitle eventDate eventDescription"
+        "name birthDate datePassing location createdAt relationship  profilePhoto coverPhoto biography event"
       )
       .sort({ createdAt: -1 });
 

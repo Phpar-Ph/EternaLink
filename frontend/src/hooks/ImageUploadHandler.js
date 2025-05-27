@@ -21,7 +21,7 @@ export const useImageUploadHandlers = ({
             ...prev,
             profilePhoto: res[0].ufsUrl,
           }));
-          toast.success("Profile photo uploaded successfully");
+          console.log("Profile photo uploaded successfully");
         }
       },
       onUploadError: (err) => {
@@ -40,7 +40,7 @@ export const useImageUploadHandlers = ({
             ...prev,
             coverPhoto: res[0].ufsUrl,
           }));
-          toast.success("Cover photo uploaded successfully");
+          console.log("Cover photo uploaded successfully");
         }
       },
       onUploadError: (err) => {
@@ -59,7 +59,7 @@ export const useImageUploadHandlers = ({
             ...prev,
             photos: res[0].ufsUrl,
           }));
-          toast.success("Cover photo uploaded successfully");
+          console.log("Cover photo uploaded successfully");
         }
       },
       onUploadError: (err) => {

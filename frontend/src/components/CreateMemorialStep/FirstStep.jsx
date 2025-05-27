@@ -4,11 +4,10 @@ const FirstStep = ({ formData, handleChange }) => {
   return (
     <div>
       <div>
-        {" "}
         {/* Name Field */}
         <div>
           <div className="relative rounded-md shadow-sm ">
-            <div className="absolute bottom-0 p-3   pointer-events-none">
+            <div className="absolute bottom-0 p-3  pointer-events-none">
               <Icons.FaRegUser size={18} className="text-gray-600" />
             </div>
             <label
