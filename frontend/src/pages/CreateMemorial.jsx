@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
-import FirstStep from "../components/CreateMemorialStep/FirstStep";
+import FirstStep from "../components/CreateMemorialStep/MemorialInformation";
 import { submitMemorial } from "../utils/submitMemorial";
 import { AppContent } from "../context/AppContentProvider";
 import { useNavigate } from "react-router";
 import { useImageUploadHandlers } from "../hooks/ImageUploadHandler";
-import SecondStep from "../components/CreateMemorialStep/SecondStep";
+import SecondStep from "../components/CreateMemorialStep/MemorialPhotos";
 import { toast } from "react-toastify";
 
 //  photos: [
