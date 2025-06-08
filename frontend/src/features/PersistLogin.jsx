@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { usePersist } from "../store/usePersistUserStore";
 import { useStoreToken } from "../store/useStoreToken";
 import axios from "axios";
-import { BASEURL } from "../constants/baseUrl";
 import { API_ROUTES } from "../constants/apiRoutes";
 import { Outlet } from "react-router";
+import { BASEURL } from "../constants/baseUrl";
 
 const PersistLogin = () => {
   const persist = usePersist();
