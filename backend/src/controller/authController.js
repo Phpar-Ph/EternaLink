@@ -48,10 +48,10 @@ export const register = async (req, res) => {
     );
     // Add token to cookie
     res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: true, // 🔒 Prevent JS access to cookie
+      secure: process.env.NODE_ENV === "production", // 🔒 Only send over HTTPS in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // ⚠️ "none" requires `secure: true`
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     // Send Welocome Email to User
     //  const mailOptions = {
@@ -124,12 +124,10 @@ export const login = async (req, res) => {
     );
     // add token to cookie
     res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      // secure: process.env.NODE_ENV === "production",
-      secure: false,
-      sameSite: "Lax",
-      // sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: true, // 🔒 Prevent JS access to cookie
+      secure: process.env.NODE_ENV === "production", // 🔒 Only send over HTTPS in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // ⚠️ "none" requires `secure: true`
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     res.status(200).json({
       success: true,
