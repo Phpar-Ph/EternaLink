@@ -4,7 +4,7 @@ import { Outlet } from "react-router";
 
 const MemorialProfileLayout = () => {
   return (
-    <div className="max-w-7xl mx-auto min-h-screen bg-gentle-stone ">
+    <div>
       <MemorialProfile />
       <Outlet />
     </div>

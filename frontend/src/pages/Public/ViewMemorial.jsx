@@ -1,11 +1,12 @@
 import { useParams } from "react-router";
 import { memorials } from "../../data/DummyPersonMemorialData";
 import { useState } from "react";
-import About from "../../components/memorials/About";
-import Memories from "../../components/memorials/Memories";
-import Gallery from "../../components/memorials/Gallery";
-import Timeline from "../../components/memorials/Timeline";
-import QrCode from "../../components/memorials/QrCode";
+import About from "../../components/memorials/memorialsDummy/About";
+import Memories from "../../components/memorials/memorialsDummy/Memories";
+import Gallery from "../../components/memorials/memorialsDummy/Gallery";
+import Timeline from "../../components/memorials/memorialsDummy/Timeline";
+import QrCode from "../../components/memorials/memorialsDummy/QrCode";
+
 function ViewMemorial() {
   const { itemId } = useParams();
   const [activeTab, setActiveTab] = useState("about");

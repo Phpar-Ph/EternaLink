@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @import "uploadthing/tw/v4";
 @import "../node_modules/@uploadthing/react/dist";
+
 @theme {
   /* Buttons, icons, accents */
   --color-memorial-purple: #6b4eff;
@@ -17,23 +18,42 @@
   /* gray-800 , gray-600, gray-400 */
 }
 
+body {
+  background-color: #f8f6f2;
+  box-sizing: border-box;
+}
+
 @layer components {
-  .button {
-    @apply transform hover:scale-105 transition-all bg-memorial-purple/90 text-white px-8 py-4 text-xl font-semibold rounded-xl shadow-lg hover:bg-memorial-purple;
+  .buttonCtaPrimary {
+    @apply bg-memorial-purple/90 text-white hover:bg-memorial-purple transform hover:scale-105 transition-all rounded-xl shadow-lg font-semibold text-xl px-8 py-4;
   }
-  .button2 {
-    @apply transform hover:scale-105 transition-all bg-pink-100 text-memorial-purple px-8 py-4 text-xl font-semibold rounded-xl shadow-lg hover:bg-pink-200;
+  .buttonCtaSecondary {
+    @apply bg-pink-100 text-memorial-purple   hover:bg-pink-200 transform hover:scale-105 transition-all rounded-xl shadow-lg font-semibold text-xl px-8 py-4;
   }
 }
 
 /* @layer base {
   h1 {
-    font-size: var(--text-2xl);
+    @apply text-4xl md:text-5xl font-bold font-playfair tracking-tight text-gray-800;
   }
+
   h2 {
-    font-size: var(--text-xl);
+    @apply text-3xl md:text-4xl font-semibold font-playfair tracking-tight;
   }
+
+  h3 {
+    @apply text-2xl md:text-3xl font-semibold font-lato;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl font-medium font-lato;
+  }
+
   p {
-    font-size: var(--text-xl);
+    @apply text-base md:text-lg font-lato text-gray-600;
   }
 } */
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}

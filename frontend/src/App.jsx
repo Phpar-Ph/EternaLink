@@ -24,6 +24,9 @@ import QrCode from "./components/memorials/QrCode";
 import Timeline from "./components/memorials/Timeline";
 import Error from "./components/Error";
 import { Navigate } from "react-router";
+import PersistLogin from "./features/PersistLogin";
+import ProtectedRoute from "./pages/Protected/ProtectedRoute";
+
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -37,22 +40,24 @@ const App = () => {
         <Route path="memorials/:itemId" element={<ViewMemorial />} />
 
         {/* PROTECTED ROUTE */}
-        <Route>
-          <Route path="home" element={<Home />} />
-          <Route path="create-memorial" element={<CreateMemorial />} />
-          <Route
-            path="memorial-profile/:id"
-            element={<MemorialProfileLayout errorElement={<Error />} />}
-          >
-            {/* Default tab */}
-            <Route index element={<Navigate to="about" replace />} />
-            <Route path="about" element={<About />} />
-            <Route path="gallery" element={<Gallery />} />
-            <Route path="memories" element={<Memories />} />
-            <Route path="qr code" element={<QrCode />} />
-            <Route path="timeline" element={<Timeline />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<PersistLogin />}>
+            <Route path="home" element={<Home />} />
+            <Route path="create-memorial" element={<CreateMemorial />} />
+            <Route
+              path="memorial-profile/:id"
+              element={<MemorialProfileLayout errorElement={<Error />} />}
+            >
+              {/* Default tab */}
+              <Route index element={<Navigate to="about" replace />} />
+              <Route path="about" element={<About />} />
+              <Route path="gallery" element={<Gallery />} />
+              <Route path="memories" element={<Memories />} />
+              <Route path="qr code" element={<QrCode />} />
+              <Route path="timeline" element={<Timeline />} />
+            </Route>
+            <Route path="my-memories" element={<MyMemories />} />
           </Route>
-          <Route path="my-memories" element={<MyMemories />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>

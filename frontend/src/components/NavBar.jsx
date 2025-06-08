@@ -28,6 +28,7 @@ const NavBar = () => {
   const toggleDropdown = (e) => {
     e.preventDefault();
     setIsOpen((prev) => !prev);
+
     // setIsOpen(true);
   };
   // Close dropdown when clicking outside

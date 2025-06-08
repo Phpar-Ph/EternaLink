@@ -11,7 +11,7 @@ const Register = () => {
   const onSubmit = (data) => {
     console.log("click");
     mutate(data);
-  };
+}
 
   return (
     <div className="w-full h-screen bg-gentle-stone">
