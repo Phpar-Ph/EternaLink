@@ -146,7 +146,7 @@ function Public() {
                 {memorials[1].photos.slice(0, 3).map((photo, index) => (
                   <img
                     key={index}
-                    src={photo}
+                    src={photo.link}
                     alt=""
                     className="w-full h-24 object-cover rounded"
                   />
@@ -157,9 +157,7 @@ function Public() {
                   {memorials[1].memories.length} memories shared
                 </span>
                 <button
-                  onClick={() =>
-                    navigate(`/memorialsPerson/${memorials[1].id}`)
-                  }
+                  onClick={() => navigate(`/memorials/${memorials[1].id}`)}
                   className="text-rosewood  text-sm font-medium hover:underline font-lato"
                 >
                   View Memorial

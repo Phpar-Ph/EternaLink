@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const useUserStateStore = create(
+export const useUserStateStore = create(
   persist(
     (set) => ({
-      persist: false,
-      setPersistState: (value) => set({ persist: value }),
+      isPersist: false,
+      setPersistState: (value) => set({ isPersist: value }),
     }),
     {
       name: "user-state",
@@ -13,6 +13,6 @@ const useUserStateStore = create(
   )
 );
 
-export const usePersist = () => useUserStateStore((state) => state.persist);
-export const useSetPersist = () =>
-  useUserStateStore((state) => state.setPersistState);
+// export const usePersist = () => useUserStateStore((state) => state.isPersist);
+// export const useSetPersist = () =>
+//   useUserStateStore((state) => state.setPersistState);

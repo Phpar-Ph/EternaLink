@@ -40,25 +40,25 @@ const App = () => {
         <Route path="memorials/:itemId" element={<ViewMemorial />} />
 
         {/* PROTECTED ROUTE */}
-        <Route element={<ProtectedRoute />}>
-          <Route element={<PersistLogin />}>
-            <Route path="home" element={<Home />} />
-            <Route path="create-memorial" element={<CreateMemorial />} />
-            <Route
-              path="memorial-profile/:id"
-              element={<MemorialProfileLayout errorElement={<Error />} />}
-            >
-              {/* Default tab */}
-              <Route index element={<Navigate to="about" replace />} />
-              <Route path="about" element={<About />} />
-              <Route path="gallery" element={<Gallery />} />
-              <Route path="memories" element={<Memories />} />
-              <Route path="qr code" element={<QrCode />} />
-              <Route path="timeline" element={<Timeline />} />
-            </Route>
-            <Route path="my-memories" element={<MyMemories />} />
+        {/* <Route element={<ProtectedRoute />}> */}
+        <Route element={<PersistLogin />}>
+          <Route path="home" element={<Home />} />
+          <Route path="create-memorial" element={<CreateMemorial />} />
+          <Route
+            path="memorial-profile/:id"
+            element={<MemorialProfileLayout errorElement={<Error />} />}
+          >
+            {/* Default tab */}
+            <Route index element={<Navigate to="about" replace />} />
+            <Route path="about" element={<About />} />
+            <Route path="gallery" element={<Gallery />} />
+            <Route path="memories" element={<Memories />} />
+            <Route path="qr code" element={<QrCode />} />
+            <Route path="timeline" element={<Timeline />} />
           </Route>
+          <Route path="my-memories" element={<MyMemories />} />
         </Route>
+        {/* </Route> */}
         <Route path="*" element={<NotFound />} />
       </Route>
     )

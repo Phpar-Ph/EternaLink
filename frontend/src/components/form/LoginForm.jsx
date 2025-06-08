@@ -2,12 +2,17 @@ import { useState } from "react";
 import ButtonForm from "../button/ButtonForm";
 import { Icons } from "../../data/IconsData";
 import { Link } from "react-router";
+import { useUserStateStore } from "../../store/usePersistUserStore";
 
 const LoginForm = ({ register, handleSubmit, isLoading, onSubmit }) => {
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(
+    useUserStateStore.getState().isPersist
+  );
   const [showPassword, setShowPassword] = useState(false);
-  
-
+  const handleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
+    useUserStateStore.getState().setPersistState(e.target.checked);
+  };
 
   return (
     <form
@@ -92,7 +97,7 @@ const LoginForm = ({ register, handleSubmit, isLoading, onSubmit }) => {
             type="checkbox"
             name="remember-me"
             className="h-4 w-4 text-royal-blue border-gray-300 rounded"
-            onChange={(e) => setRememberMe(e.target.checked)}
+            onChange={handleRememberMe}
             checked={rememberMe}
           />
           <span className="ml-2">Remember me</span>

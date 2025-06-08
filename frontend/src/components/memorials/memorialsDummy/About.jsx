@@ -97,11 +97,11 @@ const About = ({
               </div>
               {/* Photo grid here */}
               <div className="grid grid-cols-4">
-                {memorials.photos.map((photo) => (
-                  <div key={photo.id}>
+                {memorials.photos.map((photo, index) => (
+                  <div key={index}>
                     <img
                       src={photo.link}
-                      alt=""
+                      alt={`Memorial photo ${index + 1}`}
                       className="
                   h-40 w-40 object-contain
                   "

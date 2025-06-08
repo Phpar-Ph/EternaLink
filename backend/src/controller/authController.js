@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../model/userSchema.js";
-const expireToken = "10m";
+const expireToken = "15m";
 // Register
 
 export const register = async (req, res) => {
@@ -47,6 +47,12 @@ export const register = async (req, res) => {
       }
     );
     // Add token to cookie
+    // res.cookie("refreshToken", refreshToken, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    //   maxAge: 24 * 60 * 60 * 1000,
+    // });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true, // 🔒 Prevent JS access to cookie
       secure: process.env.NODE_ENV === "production", // 🔒 Only send over HTTPS in production
@@ -123,6 +129,13 @@ export const login = async (req, res) => {
       }
     );
     // add token to cookie
+    // res.cookie("refreshToken", refreshToken, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    //   maxAge: 24 * 60 * 60 * 1000,
+    // });
+
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true, // 🔒 Prevent JS access to cookie
       secure: process.env.NODE_ENV === "production", // 🔒 Only send over HTTPS in production

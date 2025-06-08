@@ -81,7 +81,10 @@ export const memorials = [
     profilePhoto:
       "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
     photos: [
-      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      {
+        id: 0,
+        link: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      },
     ],
     memories: [
       {
@@ -106,7 +109,10 @@ export const memorials = [
     profilePhoto:
       "https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=500",
     photos: [
-      "https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=500",
+      {
+        id: 0,
+        link: "https://images.unsplash.com/photo-1602233158242-3ba0ac4d2167?q=80&w=500",
+      },
     ],
     memories: [
       {
@@ -131,7 +137,10 @@ export const memorials = [
     profilePhoto:
       "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
     photos: [
-      "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      {
+        id: 0,
+        link: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      },
     ],
     memories: [
       {
@@ -156,7 +165,10 @@ export const memorials = [
     profilePhoto:
       "https://images.unsplash.com/photo-1631947430066-48c30d57b943?q=80&w=500",
     photos: [
-      "https://images.unsplash.com/photo-1631947430066-48c30d57b943?q=80&w=500",
+      {
+        id: 0,
+        link: "https://images.unsplash.com/photo-1631947430066-48c30d57b943?q=80&w=500",
+      },
     ],
     memories: [
       {
@@ -181,7 +193,10 @@ export const memorials = [
     profilePhoto:
       "https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=500",
     photos: [
-      "https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=500",
+      {
+        id: 0,
+        link: "https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=500",
+      },
     ],
     memories: [
       {
@@ -206,7 +221,10 @@ export const memorials = [
     profilePhoto:
       "https://images.unsplash.com/photo-1596434300655-e48d3ff3dd5e?q=80&w=500",
     photos: [
-      "https://images.unsplash.com/photo-1596434300655-e48d3ff3dd5e?q=80&w=500",
+      {
+        id: 0,
+        link: "https://images.unsplash.com/photo-1596434300655-e48d3ff3dd5e?q=80&w=500",
+      },
     ],
     memories: [
       {
