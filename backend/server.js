@@ -5,7 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRouter from "./src/routes/authRoute.js";
 import userRouter from "./src/routes/userRoute.js";
-import postRouter from "./src/routes/postRoute.js";
+import memorialRouter from "./src/routes/memorialRoute.js";
 import { createRouteHandler } from "uploadthing/express";
 import uploadRouter from "./src/routes/router.js";
 dotenv.config();
@@ -24,7 +24,7 @@ app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
-app.use("/api/create", postRouter);
+app.use("/api/memorial", memorialRouter);
 app.use(
   "/api/uploadthing",
   createRouteHandler({

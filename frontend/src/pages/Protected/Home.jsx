@@ -1,36 +1,30 @@
-import { useContext, useEffect } from "react";
-import { AppContent } from "../context/AppContentProvider";
 import { LuFlower } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa";
 import { PiHandsPrayingBold } from "react-icons/pi";
 import { FaRegComment } from "react-icons/fa";
 import { MdIosShare } from "react-icons/md";
 import { useNavigate } from "react-router";
-
-const HomeLogin = () => {
-  const { userData } = useContext(AppContent);
-  useEffect(() => {}, [userData]);
+import { useGetUserData } from "../../hooks/api/useGetUserData";
+const Home = () => {
   const navigate = useNavigate();
-  // {
-  //   new Date(memorial.birthDate).toLocaleDateString("en-US", {
-  //     year: "numeric",
-  //     month: "long",
-  //     day: "numeric",
-  //   });
-  // }
-
+  const { data, isLoading } = useGetUserData();
   return (
-    <div className="w-full bg-gentle-stone">
+    <div className="w-full bg-gentle-stone h-screen">
       <div className="max-w-7xl mx-auto text-4xl py-20  ">
+        {isLoading && (
+          <p className="absolute inset-0 flex items-center justify-center text-2xl font-bold animate-pulse">
+            Loading...
+          </p>
+        )}
         <div className="flex justify-center flex-col pt-20">
           <div>
-            <h1 className="text-center">Welcome {userData?.name}</h1>
+            <h1 className="text-center">Welcome {data?.name}</h1>
           </div>
           <div className=" flex justify-center ">
             {/* POST */}
             <div className="w-full p-4 m-4 ">
-              {userData?.memorialPosts?.length > 0 ? (
-                userData.memorialPosts.map((memorial) => (
+              {data?.memorialPosts?.length > 0 ? (
+                data.memorialPosts.map((memorial) => (
                   <div
                     key={memorial._id}
                     className="w-full mb-8  rounded-2xl !inset-shadow-md  !shadow-xl "
@@ -39,7 +33,7 @@ const HomeLogin = () => {
                       className="bg-gentle-stone rounded-xl "
                       onClick={() => {
                         console.log(memorial._id);
-                        navigate(`/memorialsPerson/${memorial._id}`);
+                        navigate(`/memorial-profile/${memorial._id}`);
                       }}
                     >
                       {/* Post heading */}
@@ -53,7 +47,7 @@ const HomeLogin = () => {
                             />
                           </div>
                           <h1 className="font-lato text-gray-800 font-bold text-lg ">
-                            {userData?.name}{" "}
+                            {data?.name}{" "}
                             <span className="text-gray-600 text-lg font-medium font-lato">
                               created a memorial for {memorial.name}
                             </span>
@@ -76,7 +70,7 @@ const HomeLogin = () => {
                           />
 
                           <div>
-                            <h2 className="font-lato text-xl text-gray-100 font-bold">
+                            <h2 className="font-lato text-xl text-gray-100 font-bold hover:text-memorial-purple hover:cursor-pointer hover:underline">
                               {memorial.name}
                             </h2>
                             <p className="text-sm font-lato text-gray-50">
@@ -90,13 +84,7 @@ const HomeLogin = () => {
                       {/* Post Description */}
                       <div className="p-6">
                         <p className="text-xl font-lato text-gray-800 font-medium mb-2">
-                          Today marks one year since we lost our beloved father.
-                          His wisdom, kindness, and infectious laugh continue to
-                          echo in our hearts. Dad taught us the value of hard
-                          work, integrity, and most importantly, how to find joy
-                          in life's simple moments. We miss you every day, Dad.
-                          Your legacy lives on through the countless lives you
-                          touched. 🌟
+                          {memorial.message}
                         </p>
                       </div>
 
@@ -128,4 +116,4 @@ const HomeLogin = () => {
   );
 };
 
-export default HomeLogin;
+export default Home;

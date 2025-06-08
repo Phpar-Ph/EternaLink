@@ -1,8 +1,9 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../model/userSchema.js";
-
+const expireToken = "10m";
 // Register
+
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
   // check if user entered all fields
@@ -30,17 +31,23 @@ export const register = async (req, res) => {
     });
     await user.save();
 
-    const token = jwt.sign(
-      {
-        id: user._id,
-      },
-      process.env.JWT_SECRET,
+    //  ACCESS token 15min
+    const accessToken = jwt.sign(
+      { id: user._id },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: expireToken }
+    );
+
+    // REFRESH TOKEN 7Days
+    const refreshToken = jwt.sign(
+      { id: user._id },
+      process.env.REFRESH_TOKEN_SECRET,
       {
         expiresIn: "1d",
       }
     );
     // Add token to cookie
-    res.cookie("token", token, {
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
@@ -60,8 +67,11 @@ export const register = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "User created successfully",
-      user,
-      token,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+      accessToken,
     });
   } catch (error) {
     res.json({
@@ -73,7 +83,7 @@ export const register = async (req, res) => {
 
 // Login
 export const login = async (req, res) => {
-  const { email, password, rememberMe } = req.body;
+  const { email, password } = req.body;
   // Check if user fill up all the input fields
   if (!email || !password) {
     res.status(400).json({
@@ -97,23 +107,38 @@ export const login = async (req, res) => {
         message: "Invalid Password",
       });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-    //  add token to cookie
-    // if true cookie set to 30 days else 2hours
-    const maxAge = rememberMe ? 30 * 24 * 60 * 60 * 1000 : 2 * 60 * 60 * 1000;
-    res.cookie("token", token, {
+    //  ACCESS token 15min
+    const accessToken = jwt.sign(
+      { id: user._id },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: expireToken }
+    );
+
+    // REFRESH TOKEN 7Days
+    const refreshToken = jwt.sign(
+      { id: user._id },
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
+    // add token to cookie
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge,
+      // secure: process.env.NODE_ENV === "production",
+      secure: false,
+      sameSite: "Lax",
+      // sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      maxAge: 24 * 60 * 60 * 1000,
     });
     res.status(200).json({
       success: true,
       message: "User logged in successfully",
-      user,
-      token,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+      accessToken,
     });
   } catch (error) {
     res.json({
@@ -126,7 +151,7 @@ export const login = async (req, res) => {
 // logout
 export const logout = async (req, res) => {
   try {
-    res.clearCookie("token", {
+    res.clearCookie("refreshToken", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
@@ -339,6 +364,49 @@ export const resetPassword = async (req, res) => {
     res.json({
       success: false,
       message: error.message,
+    });
+  }
+};
+
+// REFRESH
+export const handleRefresh = async (req, res) => {
+  try {
+    const cookies = req.cookies;
+
+    if (!cookies?.refreshToken) {
+      return res.status(401).json({
+        success: false,
+        message: "No refresh token provided",
+      });
+    }
+
+    const refreshToken = cookies.refreshToken;
+    // Verify refresh token
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    // Find user
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    // Generate new access token
+    const accessToken = jwt.sign(
+      { id: user._id },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: expireToken }
+    );
+    console.log("successfully");
+
+    res.json({
+      success: true,
+      accessToken,
+    });
+  } catch (error) {
+    res.status(403).json({
+      success: false,
+      message: "Invalid Refresh token",
     });
   }
 };

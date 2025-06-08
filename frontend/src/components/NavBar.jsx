@@ -1,19 +1,16 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router";
-import { AppContent } from "../context/AppContentProvider";
-import axios from "axios";
-import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
 
+import { useIsLogin } from "../store/useAuthStore";
+import { useLogout } from "../hooks/api/useUserAuth";
+import { useGetUserData } from "../hooks/api/useGetUserData";
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
-  // const [hasProfile, setHasProfile] = useState(false);
+  const isLogin = useIsLogin();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const navigate = useNavigate();
-  const { backendUrl, setIsLogin, isLogin, userData, setUserData } =
-    useContext(AppContent);
-  // navbar scroll event
+  const { mutate: logout } = useLogout();
+  const { data } = useGetUserData();
   const changeBackground = () => {
     if (window.scrollY >= 80) {
       setNavbar(true);
@@ -22,23 +19,7 @@ const NavBar = () => {
     }
   };
   window.addEventListener("scroll", changeBackground);
-  // Logout
-  const logout = async () => {
-    try {
-      axios.defaults.withCredentials = true;
-      const { data } = await axios.post(backendUrl + "/api/auth/logout");
 
-      if (data.success) {
-        setIsLogin(false);
-        setUserData(null);
-        navigate("/");
-        toast.success("Logout successful!");
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-  // Reset dropdown state when login and register status changes
   useEffect(() => {
     setIsOpen(false);
   }, [isLogin]);
@@ -76,7 +57,7 @@ const NavBar = () => {
         <div className="flex justify-between items-center h-20 font-medium ">
           <div>
             <NavLink
-              to={isLogin ? "homepage" : "/"}
+              to={isLogin ? "home" : "/"}
               className="text-2xl font-playfair font-extrabold text-gray-800 hover:text-gray-600 transition-colors"
             >
               EternaLink
@@ -86,7 +67,7 @@ const NavBar = () => {
             <ul className="flex items-center gap-8 font-lato ">
               <li>
                 <NavLink
-                  to={isLogin ? "homepage" : "/"}
+                  to={isLogin ? "home" : "/"}
                   className={({ isActive }) =>
                     `text-lg font-bold transition-all hover:text-gray-600 ${
                       isActive ? "text-memorial-purple" : "text-gray-800"
@@ -175,10 +156,8 @@ const NavBar = () => {
                   {isOpen && (
                     <div className="absolute  top-14 w-fit right-0 drop-shadow-2xl p-4 rounded-2xl  bg-amber-50 text-gray-800 transition-all duration-900">
                       <ul className="space-y-2 text-gray-800">
-                        <li className="font-semibold">{userData?.name}</li>
-                        <li className="text-sm text-gray-500">
-                          {userData?.email}
-                        </li>
+                        <li className="font-semibold">{data?.name}</li>
+                        <li className="text-sm text-gray-500">{data?.email}</li>
                         <hr className="my-2" />
                         <li className="hover:text-blue-600 cursor-pointer">
                           Dashboard
@@ -197,7 +176,7 @@ const NavBar = () => {
                         </li>
                         <hr className="my-2" />
                         <li
-                          onClick={logout}
+                          onClick={() => logout()}
                           className="cursor-pointer text-red-600 font-semibold hover:text-red-400"
                         >
                           Logout

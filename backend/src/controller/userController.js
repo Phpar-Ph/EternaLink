@@ -1,6 +1,7 @@
 // import { EMAIL_RESET_OTP_TEMPLATE } from "../config/EmailTemplate.js";
 import User from "../model/userSchema.js";
 import Memorial from "../model/memorialSchema.js";
+
 export const getUserData = async (req, res) => {
   try {
     const user = await User.findById(req.userId);
@@ -13,7 +14,7 @@ export const getUserData = async (req, res) => {
     // Then find all memorials created by this user
     const memorials = await Memorial.find({ createdBy: req.userId })
       .select(
-        "name birthDate datePassing location createdAt relationship  profilePhoto coverPhoto biography event"
+        "name birthDate datePassing location createdAt relationship  profilePhoto coverPhoto message "
       )
       .sort({ createdAt: -1 });
 
@@ -23,8 +24,6 @@ export const getUserData = async (req, res) => {
         name: user.name,
         email: user.email,
         memorialPosts: memorials || [],
-        // profilePic: user.profilePic,
-        // isAccountVerified: user.isAccountVerified,
       },
     });
   } catch (error) {

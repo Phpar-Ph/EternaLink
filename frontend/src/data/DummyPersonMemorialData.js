@@ -12,9 +12,18 @@ export const memorials = [
     profilePhoto:
       "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
     photos: [
-      "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-      "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500",
-      "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=500",
+      {
+        id: 0,
+        link: "https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      },
+      {
+        id: 1,
+        link: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500",
+      },
+      {
+        id: 2,
+        link: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=500",
+      },
     ],
     memories: [
       {
@@ -39,9 +48,16 @@ export const memorials = [
     profilePhoto:
       "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
     photos: [
-      "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
-      "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500",
+      {
+        id: 0,
+        link: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+      },
+      {
+        id: 1,
+        link: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500",
+      },
     ],
+
     memories: [
       {
         id: 1,
@@ -215,11 +231,24 @@ export const memorials = [
     profilePhoto:
       "https://images.unsplash.com/photo-1551966775-a4ddc8df052b?w=500&auto=format&fit=crop&q=60",
     photos: [
-      "https://images.unsplash.com/photo-1551966775-a4ddc8df052b?w=500&auto=format&fit=crop&q=60",
-      "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500&auto=format&fit=crop&q=60",
-      "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500&auto=format&fit=crop&q=60",
-      "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=500&auto=format&fit=crop&q=60",
+      {
+        id: 0,
+        link: "https://images.unsplash.com/photo-1551966775-a4ddc8df052b?w=500&auto=format&fit=crop&q=60",
+      },
+      {
+        id: 1,
+        link: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500&auto=format&fit=crop&q=60",
+      },
+      {
+        id: 2,
+        link: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500&auto=format&fit=crop&q=60",
+      },
+      {
+        id: 3,
+        link: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=500&auto=format&fit=crop&q=60",
+      },
     ],
+
     memories: [
       {
         id: 1,

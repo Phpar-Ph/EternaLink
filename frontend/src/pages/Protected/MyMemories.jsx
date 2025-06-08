@@ -78,7 +78,7 @@ const MyMemories = () => {
   };
   return (
     <div>
-      <div className="w-full h-full m-20 p-20">
+      <div className="w-full h-screen m-20 p-20">
         <input type="file" accept="image/*" onChange={handleChange} />
         {image && (
           <img

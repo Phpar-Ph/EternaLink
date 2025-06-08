@@ -3,7 +3,7 @@ import { useUploadThing } from "../uploadthing/Uploadthing";
 import { toast } from "react-toastify";
 
 export const useImageUploadHandlers = ({
-  setFormData,
+  setValue,
   setProfilePhotoReview,
   setCoverPhotoReview,
   setPhotosReview,
@@ -12,15 +12,17 @@ export const useImageUploadHandlers = ({
   const coverInputRef = useRef(null);
   const photosInputRef = useRef();
   //  PROFILE PHOTO
+
   const { startUpload: startProfileUpload, isUploading: isProfileUploading } =
     useUploadThing("videoAndImage", {
       onClientUploadComplete: (res) => {
         console.log("Profile upload complete:", res);
         if (res?.[0]?.ufsUrl) {
-          setFormData((prev) => ({
-            ...prev,
-            profilePhoto: res[0].ufsUrl,
-          }));
+          setValue("profilePhoto", res[0].ufsUrl);
+          // setFormData((prev) => ({
+          //   ...prev,
+          //   profilePhoto: res[0].ufsUrl,
+          // }));
           console.log("Profile photo uploaded successfully");
         }
       },
@@ -36,10 +38,11 @@ export const useImageUploadHandlers = ({
       onClientUploadComplete: (res) => {
         console.log("Cover upload complete:", res);
         if (res?.[0]?.ufsUrl) {
-          setFormData((prev) => ({
-            ...prev,
-            coverPhoto: res[0].ufsUrl,
-          }));
+          setValue("coverPhoto", res[0].ufsUrl);
+          // setFormData((prev) => ({
+          //   ...prev,
+          //   coverPhoto: res[0].ufsUrl,
+          // }));
           console.log("Cover photo uploaded successfully");
         }
       },
@@ -55,10 +58,10 @@ export const useImageUploadHandlers = ({
       onClientUploadComplete: (res) => {
         console.log("Cover upload complete:", res);
         if (res?.[0]?.ufsUrl) {
-          setFormData((prev) => ({
-            ...prev,
-            photos: res[0].ufsUrl,
-          }));
+          // setFormData((prev) => ({
+          //   ...prev,
+          //   photos: res[0].ufsUrl,
+          // }));
           console.log("Cover photo uploaded successfully");
         }
       },

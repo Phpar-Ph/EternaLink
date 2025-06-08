@@ -36,19 +36,18 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    rememberMe: {
-      type: Boolean,
-      default: false,
-    },
     avatar: {
       url: { type: String, default: "" },
     },
-    memorialPosts: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Memorial",
-      },
-    ],
+    // memorialPosts: [
+    //   {
+    //     post: {
+    //       type: mongoose.Schema.Types.ObjectId,
+    //       ref: "Memorial",
+    //       required: true,
+    //     },
+    //   },
+    // ],
   },
   { timestamps: true }
 );

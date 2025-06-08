@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 // --- Memorial Schema ---
 const memorialSchema = mongoose.Schema(
   {
+    // Initial creation of memorial  Basic Information
     name: { type: String, required: true },
     birthDate: { type: Date, required: true },
     datePassing: { type: Date, required: true },
@@ -10,9 +11,13 @@ const memorialSchema = mongoose.Schema(
     relationship: { type: String, required: true },
     profilePhoto: { type: String },
     coverPhoto: { type: String },
-    biography: { type: String },
     message: { type: String, required: true },
-    memorialPhotos: [
+    biography: {
+      text: { type: String },
+      createdAt: { type: Date, default: Date.now },
+    },
+    // Photos Gallery
+    photos: [
       {
         url: {
           type: String,
@@ -24,6 +29,7 @@ const memorialSchema = mongoose.Schema(
         },
       },
     ],
+    // Memories
     memories: [
       {
         user: {
@@ -31,12 +37,14 @@ const memorialSchema = mongoose.Schema(
           ref: "User",
           required: true,
         },
-        text: { type: String, required: true },
+        text: { type: String, required: true, trim: true },
         images: [{ url: { type: String, default: "" } }],
         createdAt: { type: Date, default: Date.now },
+        updatedAt: { type: Date },
       },
     ],
-    event: [
+    // Timeline Events
+    events: [
       {
         eventDate: {
           type: Date,
@@ -50,31 +58,43 @@ const memorialSchema = mongoose.Schema(
           type: String,
           required: true,
         },
+        createdBy: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
       },
     ],
+    // Comments
+    comments: [
+      {
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        comment: { type: String },
+        createdAt: { type: Date, default: Date.now },
+        updatedAt: { type: Date },
+      },
+    ],
+    // Reactions
+    reactions: [
+      {
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        type: {
+          type: String,
+          enum: ["heart", "candle", "flower", "prayer"],
+          default: "heart",
+        },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
+    // Memorial Creator
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    // comments: [
-    //   {
-    //     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    //     comment: { type: String },
-    //     createdAt: { type: Date, default: Date.now },
-    //   },
-    // ],
-    // reactions: [
-    //   {
-    //     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    //     type: {
-    //       type: String,
-    //       enum: ["heart", "candle", "flower", "prayer"],
-    //       default: "heart",
-    //     },
-    //     createdAt: { type: Date, default: Date.now },
-    //   },
-    // ],
+    // Status
+    isPublic: { type: Boolean, default: true },
+    isArchived: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

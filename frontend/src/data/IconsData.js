@@ -4,7 +4,9 @@ import { TfiWrite } from "react-icons/tfi";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
 import { CiCircleRemove } from "react-icons/ci";
-
+import { MdOutlinePhotoLibrary } from "react-icons/md";
+import { FaCamera, FaShare, FaBookOpen } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import {
   FaUser,
   FaLock,
@@ -30,8 +32,13 @@ export const Icons = {
   FaLock,
   FaEye,
   FaEyeSlash,
+  FaSearch,
   FaFacebook,
+  FaBookOpen,
+  FaCamera,
+  FaShare,
   FaGoogle,
   MdEmail,
   CiCircleRemove,
+  MdOutlinePhotoLibrary,
 };

@@ -8,6 +8,7 @@ import {
   isAuthenticated,
   sendPasswordResetOtp,
   resetPassword,
+  handleRefresh,
 } from "../controller/authController.js";
 import userAuth from "../middleware/userAuth.js";
 
@@ -21,5 +22,6 @@ authRouter.post("/verify-email", userAuth, verifyEmail);
 authRouter.get("/is-auth", userAuth, isAuthenticated);
 authRouter.post("/send-reset-otp", sendPasswordResetOtp);
 authRouter.post("/reset-password", resetPassword);
+authRouter.get("/refresh", handleRefresh);
 
 export default authRouter;

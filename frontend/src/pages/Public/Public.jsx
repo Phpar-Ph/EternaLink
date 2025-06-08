@@ -1,18 +1,13 @@
-import { FaCamera, FaShare, FaBookOpen } from "react-icons/fa";
-
-import { memorials } from "../data/PersonData";
+import { memorials } from "../../data/DummyPersonMemorialData";
+import { howItWorks, featureData, MemorialExamples } from "../../data/HomeData";
+import { Icons } from "../../data/IconsData";
+import {
+  ButtonCtaPrimary,
+  ButtonCtaSecondary,
+} from "../../components/button/ButtonCTA";
 import { useNavigate } from "react-router";
-import { howItWorks, featureData, MemorialExamples } from "../data/HomeData";
-import UnderConstruction from "../components/UnderConstruction";
-import { useContext, useEffect } from "react";
-import { AppContent } from "../context/AppContentProvider";
-function Home() {
+function Public() {
   const navigate = useNavigate();
-  const { getUserData, isLogin } = useContext(AppContent);
-  useEffect(() => {
-    isLogin && getUserData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <div>
       {/* <UnderConstruction /> */}
@@ -33,8 +28,8 @@ function Home() {
                   memories, photos, and stories that celebrate their life.
                 </p>
                 <div className="flex flex-row font-lato font-bold gap-4 justify-center lg:justify-start ">
-                  <button className="button ">Create a memorial</button>
-                  <button className="button2">Learn more</button>
+                  <ButtonCtaPrimary text={"Create a memorial"} />
+                  <ButtonCtaSecondary text={"Learn more"} />
                 </div>
               </div>
             </div>
@@ -186,13 +181,11 @@ function Home() {
               preserves their memory for generations to come.
             </p>
             <div className="flex flex-row gap-6 justify-center">
-              <button className="button font-lato">Get Started</button>
-              <button
-                className="button2 font-lato"
-                onClick={() => navigate("/memorials")}
-              >
-                View Example Memorial
-              </button>
+              <ButtonCtaPrimary text={"Get Started"} />
+              <ButtonCtaSecondary
+                text={"View Example Memorial"}
+                navigateTo={"/memorials"}
+              />
             </div>
           </div>
         </div>
@@ -201,4 +194,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Public;

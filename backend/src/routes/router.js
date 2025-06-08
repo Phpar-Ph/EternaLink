@@ -39,7 +39,7 @@ export const uploadRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       //   try {
-      //     // Create new file document in database
+      // Create new file document in database
       //     const newFile = await File.create({
       //       file: [
       //         {

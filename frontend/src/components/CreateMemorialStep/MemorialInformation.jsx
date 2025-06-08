@@ -1,6 +1,6 @@
 import { Icons } from "../../data/IconsData";
 
-const FirstStep = ({ formData, handleChange }) => {
+const FirstStep = ({ register }) => {
   return (
     <div>
       <div>
@@ -19,8 +19,7 @@ const FirstStep = ({ formData, handleChange }) => {
                 name="name"
                 id="name"
                 type="text"
-                onChange={handleChange}
-                value={formData.name}
+                {...register("name")}
                 required
                 className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                 placeholder="Enter Full Name"
@@ -47,8 +46,7 @@ const FirstStep = ({ formData, handleChange }) => {
                   id="birthDate"
                   name="birthDate"
                   required
-                  value={formData.birthDate}
-                  onChange={handleChange}
+                  {...register("birthDate")}
                   autoComplete="bday-day"
                   aria-label="Date of birth"
                   className="block w-full pl-10 pr-2 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
@@ -71,8 +69,7 @@ const FirstStep = ({ formData, handleChange }) => {
                   id="datePassing"
                   name="datePassing"
                   required
-                  value={formData.datePassing}
-                  onChange={handleChange}
+                  {...register("datePassing")}
                   autoComplete="off"
                   aria-label="Date of passing"
                   className="block w-full pl-10 py-3 pr-2 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
@@ -96,8 +93,7 @@ const FirstStep = ({ formData, handleChange }) => {
                 name="location"
                 id="location"
                 type="text"
-                onChange={handleChange}
-                value={formData.location}
+                {...register("location")}
                 required
                 aria-label="Location"
                 autoComplete="street-address"
@@ -119,8 +115,7 @@ const FirstStep = ({ formData, handleChange }) => {
                 name="relationship"
                 id="relationship"
                 type="text"
-                onChange={handleChange}
-                value={formData.relationship}
+                {...register("relationship")}
                 required
                 aria-label="Relationship"
                 autoComplete="off"
@@ -149,8 +144,7 @@ const FirstStep = ({ formData, handleChange }) => {
             <textarea
               name="message"
               id="message"
-              value={formData.message}
-              onChange={handleChange}
+              {...register("message")}
               required
               aria-label="Message"
               className="block w-full p-4 max-h-100 h-40 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"

@@ -1,13 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
-import { memorials } from "../data/PersonData";
-import { FaSearch } from "react-icons/fa";
+import { useState } from "react";
+import { memorials } from "../../data/DummyPersonMemorialData";
+import { Icons } from "../../data/IconsData";
 import { useNavigate } from "react-router";
-import { AppContent } from "../context/AppContentProvider";
 function Memorials() {
   const [searchTerm, setSearchTerm] = useState("");
-  const { userData } = useContext(AppContent);
   const navigate = useNavigate();
-  useEffect(() => {}, [userData]);
   return (
     <div className="min-h-screen bg-gentle-stone">
       <div className="max-w-7xl mx-auto px-4 py-20">
@@ -28,7 +25,7 @@ function Memorials() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full px-6 py-4 rounded-xl border border-rosewood/50 focus:outline-none focus:ring-2 focus:ring-rosewood focus:border-transparent shadow-md text-gray-700 pr-12"
             />
-            <FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <Icons.FaSearch className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
         </div>
 
@@ -59,7 +56,7 @@ function Memorials() {
 
                 <button
                   className="w-full py-2 px-4 bg-gentle-stone text-gray-400 rounded-lg font-medium transition-all duration-300 hover:bg-memorial-purple/20 focus:ring-2 focus:ring-amber-300 focus:outline-none"
-                  onClick={() => navigate(`/memorialsPerson/${index}`)}
+                  onClick={() => navigate(`/memorials/${memorial.id}`)}
                 >
                   View Memorial
                 </button>
