@@ -25,3 +25,15 @@
     @apply transform hover:scale-105 transition-all bg-pink-100 text-memorial-purple px-8 py-4 text-xl font-semibold rounded-xl shadow-lg hover:bg-pink-200;
   }
 }
+
+/* @layer base {
+  h1 {
+    font-size: var(--text-2xl);
+  }
+  h2 {
+    font-size: var(--text-xl);
+  }
+  p {
+    font-size: var(--text-xl);
+  }
+} */

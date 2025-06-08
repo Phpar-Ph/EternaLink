@@ -28,7 +28,6 @@ const NavBar = () => {
   const toggleDropdown = (e) => {
     e.preventDefault();
     setIsOpen((prev) => !prev);
-    console.log(isOpen);
     // setIsOpen(true);
   };
   // Close dropdown when clicking outside
@@ -49,8 +48,8 @@ const NavBar = () => {
     <nav
       className={
         navbar
-          ? "w-full bg-gentle-stone fixed top-0 z-50 !shadow"
-          : "w-full bg-gentle-stone fixed top-0 z-50"
+          ? "w-full bg-gentle-stone  fixed top-0 z-50 !shadow"
+          : "bg-gentle-stone w-full fixed top-0 z-50"
       }
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">

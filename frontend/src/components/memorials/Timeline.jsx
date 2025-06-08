@@ -1,33 +1,31 @@
 import { Icons } from "../../data/IconsData";
 
-const Timeline = ({ activeTab }) => {
+const Timeline = () => {
   return (
     <div>
       {/* Events Timeline */}
-      {activeTab === "timeline" && (
-        <div>
-          <div className="bg-soft-lavender">
-            <div className="py-4">
-              <div className="flex w-full justify-between p-4">
-                <h2 className="text-2xl font-playfair text-gray-800 font-semibold">
-                  Timeline Events
-                </h2>
-                <button
-                  type="button"
-                  //   onClick={addEventClick}
-                  className="bg-memorial-purple font-lato font-bold hover:bg-memorial-purple/80 px-4 py-2 text-lg text-amber-50 rounded-2xl"
-                >
-                  Add Events
-                </button>
-              </div>
-
-              {/* Date and events .map() */}
-
-              {/* End .map */}
+      <div>
+        <div className="bg-soft-lavender">
+          <div className="py-4">
+            <div className="flex w-full justify-between p-4">
+              <h2 className="text-2xl font-playfair text-gray-800 font-semibold">
+                Timeline Events
+              </h2>
+              <button
+                type="button"
+                //   onClick={addEventClick}
+                className="bg-memorial-purple font-lato font-bold hover:bg-memorial-purple/80 px-4 py-2 text-lg text-amber-50 rounded-2xl"
+              >
+                Add Events
+              </button>
             </div>
+
+            {/* Date and events .map() */}
+
+            {/* End .map */}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

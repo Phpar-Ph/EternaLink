@@ -1,4 +1,7 @@
-const About = ({ activeTab, isModalOpen, closeModal, memorial, openModal }) => {
+import { useState } from "react";
+import { useFetchMemorial } from "../../hooks/api/memorial/useFetchMemorial";
+const About = () => {
+  const { data: memorial } = useFetchMemorial();
   const datePassing = new Date(memorial?.datePassing).toLocaleDateString(
     "en-US",
     {
@@ -15,10 +18,14 @@ const About = ({ activeTab, isModalOpen, closeModal, memorial, openModal }) => {
   // const lifeDates = ` ${new Date(memorial.birthDate).getFullYear()}
   //  -  ${new Date(memorial.datePassing).getFullYear()}`;
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
-    <div className="bg-soft-lavender p-6 rounded-b-xl shadow-md">
-      {/* About Section */}
-      {activeTab === "about" && (
+    <div>
+      <div className="bg-soft-lavender p-6 rounded-b-xl shadow-md">
+        {/* About Section */}
         <div className="grid grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="col-span-2 space-y-6">
@@ -146,7 +153,7 @@ const About = ({ activeTab, isModalOpen, closeModal, memorial, openModal }) => {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

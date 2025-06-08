@@ -1,23 +1,11 @@
-import React from "react";
 import { useFetchMemorial } from "../../hooks/api/memorial/useFetchMemorial";
-import { useState } from "react";
-import About from "../../components/memorials/About";
-import Memories from "../../components/memorials/Memories";
-import Gallery from "../../components/memorials/Gallery";
-import Timeline from "../../components/memorials/Timeline";
-import QrCode from "../../components/memorials/QrCode";
-
+import { NavLink } from "react-router";
 const MemorialProfile = () => {
   const { data: memorial } = useFetchMemorial();
-  const [activeTab, setActiveTab] = useState("about");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
-  console.log(memorial);
   return (
-    <div className="w-full bg-gentle-stone min-h-screen  ">
-      <div className="max-w-7xl mx-auto px-4   py-20">
+    <div className="w-full bg-gentle-stone ">
+      <div className="max-w-7xl mx-auto   mt-20 pb-4">
         {/* Hero Section */}
         <div className="w-full h-[50vh] relative overflow-hidden  shadow-2xl">
           <img
@@ -28,7 +16,7 @@ const MemorialProfile = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
             <div className="flex absolute bottom-0 items-center gap-6 p-8">
               <div className="relative">
-                <img 
+                <img
                   src={memorial?.profilePhoto}
                   alt={memorial?.name}
                   className="h-48 w-48 rounded-full object-cover border-4 border-amber-50 shadow-xl"
@@ -44,39 +32,28 @@ const MemorialProfile = () => {
           </div>
         </div>
         {/* Info & Action Section */}
-        <div className=" bg-gentle-stone rounded-t-xl shadow-md">
-          <ul className="flex space-x-1  pt-2 font-lato text-gray-800">
+        <div className="rounded-t-xl shadow-md">
+          <ul className="flex space--1  pt-2 font-lato text-gray-800 ">
             {["about", "memories", "gallery", "timeline", "qr code"].map(
               (tab) => (
-                <li
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`
-                  capitalize px-6 py-4 cursor-pointer transition-all duration-200
-                  ${
-                    activeTab === tab
-                      ? "bg-soft-lavender font-bold rounded-t-xl shadow-inner"
-                      : "hover:bg-gentle-stone/50 rounded-t-lg"
-                  }
-                `}
-                >
-                  {tab}
+                <li key={tab}>
+                  <NavLink
+                    to={tab}
+                    className={({ isActive }) =>
+                      `capitalize px-6 py-4 cursor-pointer transition-all duration-200 ${
+                        isActive
+                          ? "bg-soft-lavender font-bold rounded-t-xl shadow-inner"
+                          : "hover:bg-gentle-stone/50 rounded-t-lg"
+                      }`
+                    }
+                  >
+                    {tab}
+                  </NavLink>
                 </li>
               )
             )}
           </ul>
         </div>
-        <About
-          activeTab={activeTab}
-          isModalOpen={isModalOpen}
-          closeModal={closeModal}
-          memorial={memorial}
-          openModal={openModal}
-        />
-        <Memories activeTab={activeTab} memorial={memorial} />
-        <Gallery activeTab={activeTab} memorial={memorial} />
-        <Timeline activeTab={activeTab} />
-        <QrCode activeTab={activeTab} />
       </div>
     </div>
   );

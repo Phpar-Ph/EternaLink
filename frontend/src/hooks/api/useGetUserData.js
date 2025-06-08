@@ -5,7 +5,6 @@ export const useGetUserData = () => {
   const axiosPrivate = useAxiosPrivate();
   const getUser = async () => {
     const response = await axiosPrivate.get(API_ROUTES.USER.DATA);
-    console.log(response.data);
     return response.data.userData;
   };
   return useQuery({

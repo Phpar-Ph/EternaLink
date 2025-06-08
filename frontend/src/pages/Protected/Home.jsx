@@ -9,7 +9,7 @@ const Home = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetUserData();
   return (
-    <div className="w-full bg-gentle-stone h-screen">
+    <div className="w-full bg-gentle-stone min-h-screen">
       <div className="max-w-7xl mx-auto text-4xl py-20  ">
         {isLoading && (
           <p className="absolute inset-0 flex items-center justify-center text-2xl font-bold animate-pulse">
@@ -32,7 +32,6 @@ const Home = () => {
                     <div
                       className="bg-gentle-stone rounded-xl "
                       onClick={() => {
-                        console.log(memorial._id);
                         navigate(`/memorial-profile/${memorial._id}`);
                       }}
                     >

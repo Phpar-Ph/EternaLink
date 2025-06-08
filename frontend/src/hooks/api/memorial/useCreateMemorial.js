@@ -17,7 +17,6 @@ export const useCreateMemorial = () => {
       coverPhoto: formData.coverPhoto,
       message: formData.message,
     });
-    console.log(response.data);
     return response.data;
   };
 

@@ -9,7 +9,6 @@ const Login = () => {
   const { mutate } = useLoginUsers();
 
   const onSubmit = (data) => {
-    console.log("click");
     mutate(data);
   };
 
