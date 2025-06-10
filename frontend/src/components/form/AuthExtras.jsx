@@ -1,5 +1,5 @@
-import ButtonFacebook from "../button/ButtonFacebook";
-import ButtonGoogle from "../button/ButtonGoogle";
+import ButtonGoogle from "../shared/button/ButtonGoogle";
+import ButtonFacebook from "../shared/button/ButtonFacebook";
 import { useNavigate } from "react-router";
 function AuthExtras({ actionText, message, navigateTo }) {
   const navigate = useNavigate();
@@ -29,13 +29,13 @@ function AuthExtras({ actionText, message, navigateTo }) {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="flex justify-between px-8">
           {/* Google Button */}
           <ButtonGoogle />
 
           {/* Facebook Button */}
           <ButtonFacebook />
-        </div>
+        </div>  
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import Public from "./pages/Public/Public";
+import Public from "./pages/Public/LandingPage";
 import Memorials from "./pages/Public/Memorials";
 import {
   Route,
@@ -14,7 +14,7 @@ import Home from "./pages/Protected/Home";
 import CreateMemorial from "./pages/Protected/CreateMemorial";
 import MyMemories from "./pages/Protected/MyMemories";
 import MemorialProfile from "./pages/Protected/MemorialProfile";
-import NotFound from "./components/NotFound";
+import NotFound from "./components/shared/NotFound";
 import RootLayout from "./Layout/RootLayout";
 import MemorialProfileLayout from "./Layout/MemorialProfileLayout";
 import About from "./components/memorials/About";
@@ -22,9 +22,9 @@ import Gallery from "./components/memorials/Gallery";
 import Memories from "./components/memorials/Memories";
 import QrCode from "./components/memorials/QrCode";
 import Timeline from "./components/memorials/Timeline";
-import Error from "./components/Error";
+import Error from "./components/shared/Error";
 import { Navigate } from "react-router";
-import PersistLogin from "./features/PersistLogin";
+import PersistLogin from "./features/PersistLogin/PersistLogin";
 import ProtectedRoute from "./pages/Protected/ProtectedRoute";
 
 const App = () => {

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Icons } from "../../data/IconsData";
 import { Link } from "react-router";
-import ButtonForm from "../button/ButtonForm";
 
+import ButtonForm from "../shared/button/ButtonForm";
 function RegisterForm({ register, handleSubmit, isLoading, onSubmit }) {
   // const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);

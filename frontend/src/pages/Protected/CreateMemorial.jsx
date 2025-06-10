@@ -2,9 +2,10 @@ import { useState } from "react";
 import FirstStep from "../../components/CreateMemorialStep/MemorialInformation";
 import { useImageUploadHandlers } from "../../hooks/ImageUploadHandler";
 import SecondStep from "../../components/CreateMemorialStep/MemorialPhotos";
-import { ButtonCtaPrimary } from "../../components/button/ButtonCTA";
+
 import { useCreateMemorial } from "../../hooks/api/memorial/useCreateMemorial";
 import { useCreateMemorialHookForm } from "../../hooks/form/useCreateMemorialHookForm";
+import { ButtonCtaPrimary } from "../../components/shared/button/ButtonCTA";
 
 const CreateMemorial = () => {
   const { mutate } = useCreateMemorial();

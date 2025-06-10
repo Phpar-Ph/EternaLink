@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ButtonForm from "../button/ButtonForm";
+import ButtonForm from "../shared/button/ButtonForm";
 import { Icons } from "../../data/IconsData";
 import { Link } from "react-router";
 import { useUserStateStore } from "../../store/usePersistUserStore";

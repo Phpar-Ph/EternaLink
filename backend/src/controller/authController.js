@@ -135,7 +135,7 @@ export const login = async (req, res) => {
     //   sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
     //   maxAge: 24 * 60 * 60 * 1000,
     // });
-
+    
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true, // 🔒 Prevent JS access to cookie
       secure: process.env.NODE_ENV === "production", // 🔒 Only send over HTTPS in production
