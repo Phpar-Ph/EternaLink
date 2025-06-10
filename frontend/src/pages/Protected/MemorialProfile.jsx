@@ -3,6 +3,9 @@ import { NavLink } from "react-router";
 const MemorialProfile = () => {
   const { data: memorial } = useFetchMemorial();
 
+  const lifeDates = ` ${new Date(memorial?.birthDate).getFullYear()}
+   -  ${new Date(memorial?.datePassing).getFullYear()}`;
+
   return (
     <div className="w-full bg-gentle-stone ">
       <div className="max-w-7xl mx-auto   mt-20 pb-4">
@@ -26,7 +29,7 @@ const MemorialProfile = () => {
                 <h1 className="text-5xl font-playfair font-bold mb-3">
                   {memorial?.name}
                 </h1>
-                <p className="text-2xl font-lato">{memorial?.lifeDates}</p>
+                <p className="text-2xl font-lato">{lifeDates}</p>
               </div>
             </div>
           </div>

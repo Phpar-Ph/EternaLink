@@ -39,10 +39,6 @@ export const useImageUploadHandlers = ({
         console.log("Cover upload complete:", res);
         if (res?.[0]?.ufsUrl) {
           setValue("coverPhoto", res[0].ufsUrl);
-          // setFormData((prev) => ({
-          //   ...prev,
-          //   coverPhoto: res[0].ufsUrl,
-          // }));
           console.log("Cover photo uploaded successfully");
         }
       },

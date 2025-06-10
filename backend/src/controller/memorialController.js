@@ -76,39 +76,12 @@ export const getMemorialProfileData = async (req, res) => {
   }
 };
 
-export const getMemorialProfile = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    // Then find all memorials created by this user
-    // Find memorial by ID and populate necessary fields
-    const memorial = await Memorial.findById(id);
-
-    if (!memorial) {
-      return res.status(404).json({
-        success: false,
-        message: "Memorial not found",
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      memorial,
-    });
-  } catch (error) {
-    res.json({
-      success: false,
-      message: error.message || "Memorial not found",
-    });
-  }
-};
 // Create biography
 export const createBiography = async (req, res) => {
-  const { memorialId } = req.params;
-
-  const { text } = req.body;
+  const { id } = req.params;
+  const { biography } = req.body;
   try {
-    if (!text) {
+    if (!biography) {
       return res.status(400).json({
         success: false,
         message: "Biography text is required.",
@@ -116,9 +89,12 @@ export const createBiography = async (req, res) => {
     }
 
     const memorial = await Memorial.findByIdAndUpdate(
-      memorialId,
+      id,
       {
-        biography: { text, createdAt: new Date() },
+        biography: {
+          text: biography,
+          createdAt: new Date(),
+        },
       },
       { new: true }
     );
@@ -133,12 +109,45 @@ export const createBiography = async (req, res) => {
       biography,
     });
 
-    const saved = await newMemorial.save();
-
-    res.status(201).json({
+    return res.status(200).json({
       success: true,
-      message: "Memorial created successfully",
-      memorial: saved,
+      message: "Biography created successfully",
+      memorial,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Edit Biography
+export const updateBiography = async (req, res) => {
+  const { memorialId } = req.params;
+  const { text } = req.body;
+  try {
+    if (!text) {
+      return res.status(400).json({
+        success: false,
+        message: "Biography text is required.",
+      });
+    }
+
+    const updatedMemorial = await Memorial.findByIdAndUpdate(
+      memorialId,
+      { biography: { text, createdAt: new Date() } },
+      { new: true }
+    );
+
+    if (!updatedMemorial) {
+      return res.status(404).json({
+        success: false,
+        message: "Memorial not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Biography updated successfully",
+      memorial: updatedMemorial,
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -189,60 +198,6 @@ export const addPhotos = async (req, res) => {
       success: false,
       message: error.message || "Memorial not found",
     });
-  }
-};
-
-export const createPostMemorial = async (req, res) => {
-  try {
-    const {
-      name,
-      birthDate,
-      relationship,
-      datePassing,
-      location,
-      profilePhoto,
-      coverPhoto,
-      message,
-    } = req.body;
-    if (
-      !name ||
-      !birthDate ||
-      !relationship ||
-      !datePassing ||
-      !location ||
-      !profilePhoto ||
-      !coverPhoto ||
-      !message
-    ) {
-      return res.json({
-        success: false,
-        message: "Please fill up",
-      });
-    }
-    const userId = req.userId;
-
-    const newMemorial = new Post({
-      name,
-      birthDate,
-      datePassing,
-      relationship,
-      location,
-      profilePhoto,
-      coverPhoto,
-      message: message.trim(),
-      userId,
-      createdBy: userId,
-    });
-
-    const saved = await newMemorial.save();
-
-    res.status(201).json({
-      success: true,
-      message: "Memorial created successfully",
-      memorial: saved,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
   }
 };
 

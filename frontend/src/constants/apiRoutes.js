@@ -11,6 +11,7 @@ export const API_ROUTES = {
   },
   MEMORIAL: {
     CREATE: "/api/memorial/createMemorial",
-    DATA: "api/memorial/getMemorial",
+    DATA: "/api/memorial/getMemorial",
+    BIO: "/api/memorial/create-biography",
   },
 };

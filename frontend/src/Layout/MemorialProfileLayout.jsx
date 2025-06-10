@@ -4,9 +4,11 @@ import { Outlet } from "react-router";
 
 const MemorialProfileLayout = () => {
   return (
-    <div>
+    <div className="min-h-screen">
       <MemorialProfile />
-      <Outlet />
+      <div className="max-w-7xl mx-auto mb-20">
+        <Outlet />
+      </div>
     </div>
   );
 };

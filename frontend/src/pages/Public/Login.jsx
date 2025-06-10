@@ -5,8 +5,8 @@ import { useNavigate } from "react-router";
 import { useLoginUsers } from "../../hooks/api/useUserAuth";
 const Login = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit, isLoading } = useLoginForm();
-  const { mutate } = useLoginUsers();
+  const { register, handleSubmit } = useLoginForm();
+  const { mutate, isLoading } = useLoginUsers();
 
   const onSubmit = (data) => {
     mutate(data);

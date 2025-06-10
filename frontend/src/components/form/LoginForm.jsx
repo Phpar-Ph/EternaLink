@@ -36,6 +36,7 @@ const LoginForm = ({ register, handleSubmit, isLoading, onSubmit }) => {
               id="login-email"
               name="email"
               type="email"
+              disabled={isLoading}
               autoComplete="email"
               required
               {...register("email")}
@@ -66,6 +67,7 @@ const LoginForm = ({ register, handleSubmit, isLoading, onSubmit }) => {
               required
               {...register("password")}
               aria-label="Password"
+              disabled={isLoading}
               className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
             />
           </label>

@@ -5,13 +5,13 @@ import { useNavigate } from "react-router";
 import { useRegister } from "../../hooks/api/useUserAuth";
 const Register = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit, isLoading } = useRegisterForm();
-  const { mutate } = useRegister();
+  const { register, handleSubmit } = useRegisterForm();
+  const { mutate, isLoading } = useRegister();
 
   const onSubmit = (data) => {
     console.log("click");
     mutate(data);
-}
+  };
 
   return (
     <div className="w-full h-screen bg-gentle-stone">

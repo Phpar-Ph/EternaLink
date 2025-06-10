@@ -17,7 +17,7 @@ import MemorialProfile from "./pages/Protected/MemorialProfile";
 import NotFound from "./components/shared/NotFound";
 import RootLayout from "./Layout/RootLayout";
 import MemorialProfileLayout from "./Layout/MemorialProfileLayout";
-import About from "./components/memorials/About";
+import About from "./components/memorials/About/About";
 import Gallery from "./components/memorials/Gallery";
 import Memories from "./components/memorials/Memories";
 import QrCode from "./components/memorials/QrCode";
@@ -26,40 +26,43 @@ import Error from "./components/shared/Error";
 import { Navigate } from "react-router";
 import PersistLogin from "./features/PersistLogin/PersistLogin";
 import ProtectedRoute from "./pages/Protected/ProtectedRoute";
+import Loading from "./features/Loading";
 
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       // <ToastContainer position="bottom-right" autoClose={3000} />
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<Public />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        {/* PUBLIC MEMORIAL WITH DUMMY DATA */}
-        <Route path="memorials" element={<Memorials />} />
-        <Route path="memorials/:itemId" element={<ViewMemorial />} />
+        <Route element={<Loading />}>
+          <Route index element={<Public />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          {/* PUBLIC MEMORIAL WITH DUMMY DATA */}
+          <Route path="memorials" element={<Memorials />} />
+          <Route path="memorials/:itemId" element={<ViewMemorial />} />
 
-        {/* PROTECTED ROUTE */}
-        {/* <Route element={<ProtectedRoute />}> */}
-        <Route element={<PersistLogin />}>
-          <Route path="home" element={<Home />} />
-          <Route path="create-memorial" element={<CreateMemorial />} />
-          <Route
-            path="memorial-profile/:id"
-            element={<MemorialProfileLayout errorElement={<Error />} />}
-          >
-            {/* Default tab */}
-            <Route index element={<Navigate to="about" replace />} />
-            <Route path="about" element={<About />} />
-            <Route path="gallery" element={<Gallery />} />
-            <Route path="memories" element={<Memories />} />
-            <Route path="qr code" element={<QrCode />} />
-            <Route path="timeline" element={<Timeline />} />
+          {/* PROTECTED ROUTE */}
+          {/* <Route element={<ProtectedRoute />}> */}
+          <Route element={<PersistLogin />}>
+            <Route path="home" element={<Home />} />
+            <Route path="create-memorial" element={<CreateMemorial />} />
+            <Route
+              path="memorial-profile/:id"
+              element={<MemorialProfileLayout errorElement={<Error />} />}
+            >
+              {/* Default tab */}
+              <Route index element={<Navigate to="about" replace />} />
+              <Route path="about" element={<About />} />
+              <Route path="gallery" element={<Gallery />} />
+              <Route path="memories" element={<Memories />} />
+              <Route path="qr code" element={<QrCode />} />
+              <Route path="timeline" element={<Timeline />} />
+            </Route>
+            <Route path="my-memories" element={<MyMemories />} />
           </Route>
-          <Route path="my-memories" element={<MyMemories />} />
+          {/* </Route> */}
+          <Route path="*" element={<NotFound />} />
         </Route>
-        {/* </Route> */}
-        <Route path="*" element={<NotFound />} />
       </Route>
     )
   );
