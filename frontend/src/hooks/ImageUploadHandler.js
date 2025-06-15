@@ -6,11 +6,9 @@ export const useImageUploadHandlers = ({
   setValue,
   setProfilePhotoReview,
   setCoverPhotoReview,
-  setPhotosReview,
 }) => {
   const profileInputRef = useRef(null);
   const coverInputRef = useRef(null);
-  const photosInputRef = useRef();
   //  PROFILE PHOTO
 
   const { startUpload: startProfileUpload, isUploading: isProfileUploading } =
@@ -19,10 +17,6 @@ export const useImageUploadHandlers = ({
         console.log("Profile upload complete:", res);
         if (res?.[0]?.ufsUrl) {
           setValue("profilePhoto", res[0].ufsUrl);
-          // setFormData((prev) => ({
-          //   ...prev,
-          //   profilePhoto: res[0].ufsUrl,
-          // }));
           console.log("Profile photo uploaded successfully");
         }
       },
@@ -48,26 +42,6 @@ export const useImageUploadHandlers = ({
       },
     });
 
-  // PHOTOS
-  const { startUpload: startPhotosUpload, isUploading: isPhotosUploading } =
-    useUploadThing("videoAndImage", {
-      onClientUploadComplete: (res) => {
-        console.log("Cover upload complete:", res);
-        if (res?.[0]?.ufsUrl) {
-          // setFormData((prev) => ({
-          //   ...prev,
-          //   photos: res[0].ufsUrl,
-          // }));
-          console.log("Cover photo uploaded successfully");
-        }
-      },
-      onUploadError: (err) => {
-        console.error("Cover upload failed:", err);
-        toast.error("Cover photo upload failed");
-      },
-    });
-
-  const handlePhotosClick = () => photosInputRef.current?.click();
   const handleProfileClick = () => profileInputRef.current?.click();
   const handleCoverClick = () => coverInputRef.current?.click();
 
@@ -92,15 +66,6 @@ export const useImageUploadHandlers = ({
     }
   };
 
-  const handlePhotosChange = (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length > 0) {
-      startPhotosUpload(files);
-      const file = files[0];
-      setPhotosReview(URL.createObjectURL(file));
-    }
-  };
-
   return {
     profileInputRef,
     coverInputRef,
@@ -110,8 +75,5 @@ export const useImageUploadHandlers = ({
     handleCoverChange,
     isProfileUploading,
     isCoverUploading,
-    isPhotosUploading,
-    handlePhotosChange,
-    handlePhotosClick,
   };
 };

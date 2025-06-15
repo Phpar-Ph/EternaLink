@@ -11,7 +11,6 @@ import { useCreateBiography } from "../../../hooks/api/memorial/useCreateBiograp
 import Biography from "./Biography";
 import Details from "./Details";
 import Photos from "./Photos";
-// import {useImageUploadHandlers} from "../../../hooks/ImageUploadHandler";
 
 const formSchema = z.object({
   biography: z.string().optional(),
@@ -26,7 +25,6 @@ const About = () => {
     },
     resolver: zodResolver(formSchema),
   });
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
     reset({ biography: memorial?.biography?.text || "" });

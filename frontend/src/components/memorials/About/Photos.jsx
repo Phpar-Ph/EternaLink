@@ -1,8 +1,7 @@
 import { ButtonProfileCta } from "../../shared/button/ButtonCTA";
+
+
 const Photos = ({ memorial, openPhotosModal }) => {
-
-
-
   return (
     <div className="bg-gentle-stone rounded-xl p-6 shadow-sm">
       <div className="flex justify-between items-center mb-4">
