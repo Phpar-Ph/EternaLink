@@ -33,17 +33,17 @@ const App = () => {
     createRoutesFromElements(
       // <ToastContainer position="bottom-right" autoClose={3000} />
       <Route path="/" element={<RootLayout />}>
-        <Route element={<Loading />}>
-          <Route index element={<Public />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          {/* PUBLIC MEMORIAL WITH DUMMY DATA */}
-          <Route path="memorials" element={<Memorials />} />
-          <Route path="memorials/:itemId" element={<ViewMemorial />} />
+        <Route index element={<Public />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        {/* PUBLIC MEMORIAL WITH DUMMY DATA */}
+        <Route path="memorials" element={<Memorials />} />
+        <Route path="memorials/:itemId" element={<ViewMemorial />} />
 
-          {/* PROTECTED ROUTE */}
-          {/* <Route element={<ProtectedRoute />}> */}
-          <Route element={<PersistLogin />}>
+        {/* PROTECTED ROUTE */}
+
+        <Route element={<PersistLogin />}>
+          <Route element={<ProtectedRoute />}>
             <Route path="home" element={<Home />} />
             <Route path="create-memorial" element={<CreateMemorial />} />
             <Route
@@ -55,14 +55,13 @@ const App = () => {
               <Route path="about" element={<About />} />
               <Route path="gallery" element={<Gallery />} />
               <Route path="memories" element={<Memories />} />
-              <Route path="qr code" element={<QrCode />} />
+              <Route path="qr-code" element={<QrCode />} />
               <Route path="timeline" element={<Timeline />} />
             </Route>
             <Route path="my-memories" element={<MyMemories />} />
           </Route>
-          {/* </Route> */}
-          <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
     )
   );

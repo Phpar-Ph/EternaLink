@@ -1,17 +1,18 @@
 import { useEffect } from "react";
 import { axiosPrivate } from "../../api/axiosPrivate";
-import { useStoreToken } from "../../store/useStoreToken";
 import { API_ROUTES } from "../../constants/apiRoutes";
 import { BASEURL } from "../../constants/baseUrl";
 import axios from "axios";
+import { useAuthStore } from "../../store/useAuthStore";
 
 const useAxiosPrivate = () => {
-  const token = useStoreToken((state) => state.accessToken);
-  const setToken = useStoreToken((state) => state.setAccessToken);
+  const token = useAuthStore((state) => state.token);
+  const setToken = useAuthStore((state) => state.setToken);
 
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
+        console.log("axios interceptors", token);
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -55,7 +56,7 @@ const useAxiosPrivate = () => {
       axiosPrivate.interceptors.request.eject(requestIntercept);
       axiosPrivate.interceptors.response.eject(responseIntercept);
     };
-  }, [token, setToken]);
+  }, [setToken, token]);
 
   return axiosPrivate;
 };

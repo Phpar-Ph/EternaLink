@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 function Public() {
   const navigate = useNavigate();
   return (
-    <div className=" min-h-screen max-w-7xl mx-auto p-4">
+    <div>
       {/* <UnderConstruction /> */}
       {/* Hero Section */}
       <Hero />

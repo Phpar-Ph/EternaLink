@@ -1,46 +1,49 @@
-import { useEffect, useState } from "react";
-import { useStoreToken } from "../../store/useStoreToken";
-import { API_ROUTES } from "../../constants/apiRoutes";
+import { useEffect } from "react";
 import { Outlet } from "react-router";
-import { useUserStateStore } from "../../store/usePersistUserStore";
-import { useSetLogin } from "../../store/useAuthStore";
-// import axiosPrivate from "../api/axiosPrivate";
-import { instance } from "../../api/axiosPrivate";
+import { useAuthStore } from "../../store/useAuthStore";
+import { useState } from "react";
+import { API_ROUTES } from "../../constants/apiRoutes";
+import axios from "axios";
+import { BASEURL } from "../../constants/baseUrl";
+
 const PersistLogin = () => {
-  const persist = useUserStateStore((state) => state.setPersistState);
-  const token = useStoreToken((state) => state.accessToken);
-  const newToken = useStoreToken((state) => state.setAccessToken);
+  const setToken = useAuthStore((state) => state.setToken);
   const [isLoading, setIsLoading] = useState(true);
-  const setLogin = useSetLogin();
-
-
+  const setIsLogin = useAuthStore((state) => state.setIsLogin);
+  const token = useAuthStore((state) => state.token);
+  const setIsLoadingToken = useAuthStore((state) => state.setIsLoadingToken);
 
   useEffect(() => {
     let isMounted = true;
-    const verifyRefresh = async () => {
+    const verifyRefreshToken = async () => {
+      setIsLoadingToken(true);
       try {
-        const response = await instance.get(API_ROUTES.AUTH.REFRESH, {
+        const res = await axios.get(BASEURL + API_ROUTES.AUTH.REFRESH, {
           withCredentials: true,
         });
-        const Token = response.data.accessToken;
-        newToken(Token);
-        setLogin(true);
+
+        setToken(res.data.accessToken);
+        setIsLogin(true);
       } catch (err) {
-        console.error(err);
+        console.log("Error fetching refresh token : ", err);
       } finally {
-        isMounted && setIsLoading(false);
+        if (isMounted) setIsLoading(false);
+        setIsLoadingToken(false);
       }
     };
-
-    !token && persist ? verifyRefresh() : setIsLoading(false);
+    if (!token) {
+      verifyRefreshToken();
+    } else {
+      setIsLoading(false);
+    }
     return () => (isMounted = false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setIsLoading, setIsLogin, setToken, token, setIsLoadingToken]);
 
-
-  
+  if (isLoading) return <p>Loading...</p>;
   return (
-    <>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>
+    <>
+      <Outlet />
+    </>
   );
 };
 

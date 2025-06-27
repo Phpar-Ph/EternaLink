@@ -1,15 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router";
-import { useIsLogin } from "../../store/useAuthStore";
-import { useLogout } from "../../hooks/api/useUserAuth";
-import { useGetUserData } from "../../hooks/api/useGetUserData";
+import { useAuthStore } from "../../store/useAuthStore";
+import { useLogout } from "../../hooks/useAuthHook";
+
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
-  const isLogin = useIsLogin();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { mutate: logout } = useLogout();
-  const { data } = useGetUserData();
+  const { mutate } = useLogout();
+  const isLogin = useAuthStore((state) => state.isLogin);
+  const userData = useAuthStore((state) => state.userData);
+
+  const defaultImage =
+    "https://thumbs.dreamstime.com/b/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg";
   const changeBackground = () => {
     if (window.scrollY >= 80) {
       setNavbar(true);
@@ -21,14 +24,12 @@ const NavBar = () => {
 
   useEffect(() => {
     setIsOpen(false);
-  }, [isLogin]);
+  }, [userData]);
 
   // toggle
   const toggleDropdown = (e) => {
     e.preventDefault();
     setIsOpen((prev) => !prev);
-
-    // setIsOpen(true);
   };
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -134,7 +135,7 @@ const NavBar = () => {
               <li>
                 <NavLink to="/register">
                   <button className="transform px-4 py-2 text-white  bg-memorial-purple/90 rounded-lg font-bold hover:scale-105 hover:bg-memorial-purple transition-all">
-                    Register
+                    Sign up
                   </button>
                 </NavLink>
               </li>
@@ -146,7 +147,7 @@ const NavBar = () => {
                   onClick={toggleDropdown}
                 >
                   <img
-                    src="https://thumbs.dreamstime.com/b/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg"
+                    src={defaultImage}
                     alt=""
                     className="rounded-full ring-1 ring-rosewood ring-opacity-5 h-12 w-12"
                   />
@@ -154,8 +155,10 @@ const NavBar = () => {
                 {isOpen && (
                   <div className="absolute  top-14 w-fit right-0 drop-shadow-2xl p-4 rounded-2xl  bg-amber-50 text-gray-800 transition-all duration-900">
                     <ul className="space-y-2 text-gray-800">
-                      <li className="font-semibold">{data?.name}</li>
-                      <li className="text-sm text-gray-500">{data?.email}</li>
+                      <li className="font-semibold">{userData?.user?.name}</li>
+                      <li className="text-sm text-gray-500">
+                        {userData?.user?.email}
+                      </li>
                       <hr className="my-2" />
                       <li className="hover:text-blue-600 cursor-pointer">
                         Dashboard
@@ -174,7 +177,7 @@ const NavBar = () => {
                       </li>
                       <hr className="my-2" />
                       <li
-                        onClick={() => logout()}
+                        onClick={() => mutate()}
                         className="cursor-pointer text-red-600 font-semibold hover:text-red-400"
                       >
                         Logout

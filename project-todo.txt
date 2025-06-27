@@ -1,0 +1,11 @@
+[x] login user
+[x] register user
+[x] create Post
+[x] view memorial profile
+[x] create biography
+[] add Photos
+[] add timeline
+[] add memories
+[] add QR Code
+
+

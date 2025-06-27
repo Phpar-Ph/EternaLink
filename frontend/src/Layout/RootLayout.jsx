@@ -1,13 +1,17 @@
 import NavBar from "../components/shared/NavBar";
 import { Outlet } from "react-router";
 import Footer from "../components/shared/Footer";
-
+import { useAuthStore } from "../store/useAuthStore";
 const RootLayout = () => {
+  const isLoadingToken = useAuthStore((state) => state.isLoadingToken);
+  if (isLoadingToken) return <p>Loading...</p>;
   return (
-    <div>
+    <div className="w-full min-h-screen">
       <NavBar />
-      <Outlet />
-      <Footer />
+      <div className="max-w-7xl mx-auto">
+        <Outlet />
+      </div>
+      {isLoadingToken && <Footer />}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import Memorial from "../model/memorialSchema.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const createMemorial = async (req, res) => {
   try {
@@ -28,6 +29,8 @@ export const createMemorial = async (req, res) => {
       });
     }
     const userId = req.userId;
+    const uploadProfilePhoto = await cloudinary.uploader.upload(profilePhoto);
+    const uploadCoverPhto = await cloudinary.uploader.upload(coverPhoto);
 
     const newMemorial = new Memorial({
       name,
@@ -35,8 +38,8 @@ export const createMemorial = async (req, res) => {
       datePassing,
       relationship,
       location,
-      profilePhoto,
-      coverPhoto,
+      profilePhoto: uploadProfilePhoto.secure_url,
+      coverPhoto: uploadCoverPhto.secure_url,
       message,
       createdBy: userId,
     });

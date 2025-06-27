@@ -4,10 +4,11 @@ import { PiHandsPrayingBold } from "react-icons/pi";
 import { FaRegComment } from "react-icons/fa";
 import { MdIosShare } from "react-icons/md";
 import { useNavigate } from "react-router";
-import { useGetUserData } from "../../hooks/api/useGetUserData";
+
 const Home = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetUserData();
+  const isLoading = false;
+  const data = [];
   return (
     <div className="w-full bg-gentle-stone min-h-screen">
       <div className="max-w-7xl mx-auto text-4xl py-20  ">

@@ -6,11 +6,13 @@ import useAxiosPrivate from "../hooks/api/useAxiosPrivate";
 
 const Prefetch = () => {
   const axiosPrivate = useAxiosPrivate();
+
   useEffect(() => {
     queryClient.prefetchQuery({
       queryKey: ["userData"],
       queryFn: async () => {
-        const res = axiosPrivate.get(API_ROUTES.USER.DATA);
+        const res = await axiosPrivate.get(API_ROUTES.USER.DATA);
+
         return res.data.userData;
       },
     });

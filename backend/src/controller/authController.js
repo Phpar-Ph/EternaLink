@@ -89,7 +89,7 @@ export const register = async (req, res) => {
 
 // Login
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body;
   // Check if user fill up all the input fields
   if (!email || !password) {
     res.status(400).json({
@@ -135,13 +135,13 @@ export const login = async (req, res) => {
     //   sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
     //   maxAge: 24 * 60 * 60 * 1000,
     // });
-    
-    res.cookie("refreshToken", refreshToken, {
+ res.cookie("refreshToken", refreshToken, {
       httpOnly: true, // 🔒 Prevent JS access to cookie
       secure: process.env.NODE_ENV === "production", // 🔒 Only send over HTTPS in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // ⚠️ "none" requires `secure: true`
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000, // if remeberME set to 30 day else 1 day
     });
+   
     res.status(200).json({
       success: true,
       message: "User logged in successfully",
@@ -165,7 +165,7 @@ export const logout = async (req, res) => {
     res.clearCookie("refreshToken", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 24 * 60 * 60 * 1000,
     });
     res.status(200).json({
