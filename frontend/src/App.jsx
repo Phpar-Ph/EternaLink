@@ -41,7 +41,6 @@ const App = () => {
         <Route path="memorials/:itemId" element={<ViewMemorial />} />
 
         {/* PROTECTED ROUTE */}
-
         <Route element={<PersistLogin />}>
           <Route element={<ProtectedRoute />}>
             <Route path="home" element={<Home />} />

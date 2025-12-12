@@ -14,7 +14,9 @@ const CtaSection = () => {
         their memory for generations to come.
       </p>
       <div className="flex flex-row gap-6 justify-center">
-        <ButtonCtaPrimary text={"Get Started"} />
+        <ButtonCtaPrimary text={"Get Started"}
+          navigateTo ={"/register"}
+        />
         <ButtonCtaSecondary
           text={"View Example Memorial"}
           navigateTo={"/memorials"}

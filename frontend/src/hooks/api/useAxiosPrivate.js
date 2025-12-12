@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { axiosPrivate } from "../../api/axiosPrivate";
+
+import { axiosPrivate } from "../../config/axiosPrivate";
 import { API_ROUTES } from "../../constants/apiRoutes";
 import { BASEURL } from "../../constants/baseUrl";
 import axios from "axios";
 import { useAuthStore } from "../../store/useAuthStore";
+// import { axiosInstance } from "../../config/axiosPrivate";
 
 const useAxiosPrivate = () => {
   const token = useAuthStore((state) => state.token);

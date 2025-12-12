@@ -92,11 +92,20 @@ const memorialSchema = mongoose.Schema(
       ref: "User",
       required: true,
     },
-    // Status
-    isPublic: { type: Boolean, default: true },
-    isArchived: { type: Boolean, default: false },
+    // Status option 1
+    isPublic: { type: Boolean, default: false },
+    isPrivate: { type: Boolean, default: true },
+ // status option 2 
+     visibility : {
+    type: String,
+    enum: ["public", "private"],
+    default: "private"
   },
+  },
+  
+  
   { timestamps: true }
+
 );
 
 const Memorial =
