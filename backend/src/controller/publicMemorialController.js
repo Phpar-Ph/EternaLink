@@ -1,12 +1,12 @@
-import Memorial from "../model/memorialSchema";
+import Memorial from "../model/memorialSchema.js";
 
-
-export const getMyMemorials = async (req, res) => {
+export const getPublicMemorials = async (req, res) => {
   try {
-    const memorials = await Memorial.find({ userId: req.user.id });
+    const memorialsFeed = await Memorial.find({ visibility: "public" }).sort({
+      createdAt: -1,
+    });
 
-    res.json({ success: true, data: memorials });
-
+    res.json({ success: true, data: memorialsFeed });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

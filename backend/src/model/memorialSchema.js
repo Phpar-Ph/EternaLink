@@ -93,8 +93,8 @@ const memorialSchema = mongoose.Schema(
       required: true,
     },
     // Status option 1
-    isPublic: { type: Boolean, default: false },
-    isPrivate: { type: Boolean, default: true },
+    
+ 
  // status option 2 
      visibility : {
     type: String,
@@ -112,3 +112,5 @@ const Memorial =
   mongoose.models.Memorial || mongoose.model("Memorial", memorialSchema);
 
 export default Memorial;
+//    isPublic: { type: Boolean, default: false },
+ //    isPrivate: { type: Boolean, default: true },

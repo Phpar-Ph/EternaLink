@@ -24,10 +24,10 @@ body {
 }
 
 @layer components {
-  .buttonCtaPrimary {
+  .btn-CtaPrimary {
     @apply bg-memorial-purple/90 text-white hover:bg-memorial-purple transform hover:scale-105 transition-all rounded-xl shadow-lg font-semibold text-xl px-8 py-4;
   }
-  .buttonCtaSecondary {
+  .btn-CtaSecondary {
     @apply bg-pink-100 text-memorial-purple   hover:bg-pink-200 transform hover:scale-105 transition-all rounded-xl shadow-lg font-semibold text-xl px-8 py-4;
   }
 }

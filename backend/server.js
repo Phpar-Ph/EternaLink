@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./src/routes/authRoute.js";
 import userRouter from "./src/routes/userRoute.js";
 import memorialRouter from "./src/routes/memorialRoute.js";
+import feedMemorialRouter from "./src/routes/feedMemorialRoute.js";
 
 dotenv.config();
 const app = express();
@@ -27,6 +28,7 @@ app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/memorial", memorialRouter);
+app.use("/api/feed", feedMemorialRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

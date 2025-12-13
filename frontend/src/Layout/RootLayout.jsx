@@ -11,7 +11,8 @@ const RootLayout = () => {
       <div className="max-w-7xl mx-auto">
         <Outlet />
       </div>
-      {isLoadingToken && <Footer />}
+      {/* {isLoadingToken && <Footer />} */}
+      <Footer/>
     </div>
   );
 };

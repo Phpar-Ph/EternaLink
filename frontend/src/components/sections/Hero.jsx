@@ -1,15 +1,12 @@
 import {
   ButtonCtaPrimary,
   ButtonCtaSecondary,
-} from "../../components/shared/button/ButtonCTA";
+} from "../shared/button/ButtonCTA";
+import { heroImage } from "../../constants/heroImage";
 
-import { useNavigate } from "react-router";
-
-const Hero = () => {
-  const heroImage =
-    "https://imgs.search.brave.com/z_UyBFw9Gw_0QNsWCgdZYnD0DVrcocXmhV1ogGpPnBE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9z/Y2VuZXJ5LWNlbWV0/ZXJ5LXNvbGRpZXJz/LXdoby1kaWVkLXNl/Y29uZC13b3JsZC13/YXItbm9ybWFuZHlf/MTgxNjI0LTcyMjIu/anBnP3NlbXQ9YWlz/X2h5YnJpZCZ3PTc0/MA";
-
-  const navigate = useNavigate();
+const Hero = ({ onPrimaryCtaClick }) => {
+  // hero image in landingpage
+  const hero = heroImage;
 
   return (
     <div className="flex flex-row items-center gap-4 py-20">
@@ -26,17 +23,19 @@ const Hero = () => {
             memories, photos, and stories that celebrate their life.
           </p>
           <div className="flex flex-row font-lato font-bold gap-4 justify-center lg:justify-start ">
+            {/* Button CTA Primary */}
             <ButtonCtaPrimary
               text={"Create a memorial"}
-              navigateTo={"/register"}
+              onClick={onPrimaryCtaClick}
             />
+
             <ButtonCtaSecondary text={"Learn more"} />
           </div>
         </div>
       </div>
       <div className="flex-1 ">
         <img
-          src={heroImage}
+          src={hero}
           alt="Memorial"
           className=" rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-500 object-cover w-full"
         />

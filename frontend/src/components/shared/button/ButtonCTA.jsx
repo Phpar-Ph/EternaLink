@@ -1,33 +1,30 @@
 import React from "react";
-import { useNavigate } from "react-router";
-export const ButtonCtaPrimary = ({ text, navigateTo }) => {
-  const navigate = useNavigate();
+export const ButtonCtaPrimary = ({ text, onClick }) => {
   return (
     <button
-      className="  buttonCtaPrimary "
-      onClick={() => navigate(navigateTo)}
+      className="  btn-CtaPrimary "
+      onClick={onClick}
     >
       {text}
     </button>
   );
 };
 
-export const ButtonCtaSecondary = ({ text, navigateTo }) => {
-  const navigate = useNavigate();
+export const ButtonCtaSecondary = ({ text, onClick }) => {
   return (
     <button
-      className=" buttonCtaSecondary"
-      onClick={() => navigate(navigateTo)}
+      className=" btn-CtaSecondary"
+      onClick={onClick}
     >
       {text}
     </button>
   );
 };
 
-export const ButtonProfileCta = ({ text, action }) => {
+export const ButtonProfileCta = ({ text, onClick }) => {
   return (
     <button
-      onClick={action}
+      onClick={onClick}
       className="px-4 py-2 bg-memorial-purple text-white rounded-xl hover:bg-memorial-purple/90 transition-colors duration-200"
     >
       {text}
@@ -35,11 +32,11 @@ export const ButtonProfileCta = ({ text, action }) => {
   );
 };
 
-export const ButtonProfileClose = ({ text, action }) => {
+export const ButtonProfileClose = ({ text, onClick }) => {
   return (
     <button
       type="button"
-      onClick={action}
+      onClick={onClick}
       className="px-4 py-2 bg-rosewood text-white rounded-lg hover:bg-rosewood/80 transition"
     >
       {text}
