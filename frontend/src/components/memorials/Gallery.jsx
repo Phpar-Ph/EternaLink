@@ -1,8 +1,8 @@
 import { Icons } from "../../data/IconsData";
-import { useFetchMemorial } from "../../hooks/api/memorial/useFetchMemorial";
+import { useFetchUserMemorial } from "../../hooks/api/memorial/useFetchUserMemorial";
 
 const Gallery = () => {
-  const { data: memorial } = useFetchMemorial();
+  const { data: memorial } = useFetchUserMemorial();
 
   return (
     <div>

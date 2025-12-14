@@ -1,7 +1,8 @@
-import { useFetchMemorial } from "../../hooks/api/memorial/useFetchMemorial";
+
+import { useFetchUserMemorial } from "../../hooks/api/memorial/useFetchUserMemorial";
 import { NavLink } from "react-router";
 const MemorialProfile = () => {
-  const { data: memorial } = useFetchMemorial();
+  const { data: memorial } = useFetchUserMemorial();
 
   const lifeDates = ` ${new Date(memorial?.birthDate).getFullYear()}
    -  ${new Date(memorial?.datePassing).getFullYear()}`;

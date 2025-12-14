@@ -9,9 +9,9 @@ import { useFetchPublicMemorialFeed } from "../../hooks/api/memorial/useMemorial
 const Home = () => {
   const navigate = useNavigate();
   const isLoading = false;
-  const data = useFetchPublicMemorialFeed();
+  const { data: memorials } = useFetchPublicMemorialFeed();
+   
   return (
-
     <div className="w-full bg-gentle-stone min-h-screen">
       <div className="max-w-7xl mx-auto text-4xl py-20  ">
         {isLoading && (
@@ -21,13 +21,13 @@ const Home = () => {
         )}
         <div className="flex justify-center flex-col pt-20">
           <div>
-            <h1 className="text-center">Welcome {data?.name}</h1>
+            <h1 className="text-center">Welcome {memorials?.name}</h1>
           </div>
           <div className=" flex justify-center ">
             {/* POST */}
             <div className="w-full p-4 m-4 ">
-              {data?.memorialPosts?.length > 0 ? (
-                data.memorialPosts.map((memorial) => (
+              {memorials?.data.length > 0 ? (
+                memorials.data.map((memorial) => (
                   <div
                     key={memorial._id}
                     className="w-full mb-8  rounded-2xl !inset-shadow-md  !shadow-xl "
@@ -49,7 +49,7 @@ const Home = () => {
                             />
                           </div>
                           <h1 className="font-lato text-gray-800 font-bold text-lg ">
-                            {data?.name}{" "}
+                            {memorials?.name}{" "}
                             <span className="text-gray-600 text-lg font-medium font-lato">
                               created a memorial for {memorial.name}
                             </span>

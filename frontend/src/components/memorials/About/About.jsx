@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFetchMemorial } from "../../../hooks/api/memorial/useFetchMemorial";
+import { useFetchUserMemorial } from "../../../hooks/api/memorial/useFetchUserMemorial";
 import {
   ButtonProfileCta,
   ButtonProfileClose,
@@ -17,7 +17,7 @@ const formSchema = z.object({
 });
 
 const About = () => {
-  const { data: memorial, isLoading } = useFetchMemorial();
+  const { data: memorial, isLoading } = useFetchUserMemorial();
   const { mutate } = useCreateBiography();
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
