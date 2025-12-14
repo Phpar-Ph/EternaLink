@@ -17,9 +17,9 @@ const formLoginSchema = z.object({
 
 const Login = () => {
   const navigate = useNavigate();
-  const { isLoggingIn } = useAuthStore();
+  const { isLogin } = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
-  const { mutate } = useLogin();
+  const { mutate:login } = useLogin();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       email: "",
@@ -30,7 +30,7 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    mutate(data);
+    login(data);
   };
 
   return (
@@ -62,7 +62,7 @@ const Login = () => {
                       id="login-email"
                       name="email"
                       type="email"
-                      disabled={isLoggingIn}
+                      disabled={isLogin}
                       autoComplete="email"
                       required
                       {...register("email")}
@@ -93,7 +93,7 @@ const Login = () => {
                       required
                       {...register("password")}
                       aria-label="Password"
-                      disabled={isLoggingIn}
+                      disabled={isLogin}
                       className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                     />
                   </label>
@@ -140,7 +140,7 @@ const Login = () => {
 
               {/* Submit Button */}
               <ButtonForm
-                isLoading={isLoggingIn}
+                isLoading={isLogin}
                 label="Sign in"
                 type="submit"
               />

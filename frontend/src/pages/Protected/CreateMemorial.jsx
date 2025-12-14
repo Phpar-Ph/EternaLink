@@ -6,6 +6,7 @@ import { Icons } from "../../data/IconsData";
 import { useCreateMemorial } from "../../hooks/api/memorial/useCreateMemorial";
 import { useStoreMemorial } from "../../store/useStoreMemorial";
 
+// zod schema
 const memorialFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   birthDate: z.string().min(1, "Birth date is required"), // can be changed to date if needed
@@ -21,9 +22,9 @@ const CreateMemorial = () => {
   const { mutate } = useCreateMemorial();
   const [profilePhotoPreview, setProfilePhotoPreview] = useState(null);
   const [coverPhotoPreview, setCoverPhotoPreview] = useState(null);
-  const isCreatingMemorial = useStoreMemorial(
-    (state) => state.isCreatingMemorial
-  );
+
+  const { isCreatingMemorial } = useStoreMemorial();
+
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       name: "",
@@ -82,6 +83,7 @@ const CreateMemorial = () => {
                         id="name"
                         type="text"
                         {...register("name")}
+                        disabled={isCreatingMemorial}
                         required
                         className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                         placeholder="Enter Full Name"
@@ -111,6 +113,7 @@ const CreateMemorial = () => {
                           id="birthDate"
                           name="birthDate"
                           required
+                          disabled={isCreatingMemorial}
                           {...register("birthDate")}
                           autoComplete="bday-day"
                           aria-label="Date of birth"
@@ -136,6 +139,7 @@ const CreateMemorial = () => {
                           type="date"
                           id="datePassing"
                           name="datePassing"
+                          disabled={isCreatingMemorial}
                           required
                           {...register("datePassing")}
                           autoComplete="off"
@@ -166,6 +170,7 @@ const CreateMemorial = () => {
                         type="text"
                         {...register("location")}
                         required
+                        disabled={isCreatingMemorial}
                         aria-label="Location"
                         autoComplete="street-address"
                         className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
@@ -188,6 +193,7 @@ const CreateMemorial = () => {
                         type="text"
                         {...register("relationship")}
                         required
+                        disabled={isCreatingMemorial}
                         aria-label="Relationship"
                         autoComplete="off"
                         className="block w-full pl-4 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
@@ -217,6 +223,7 @@ const CreateMemorial = () => {
                       id="message"
                       {...register("message")}
                       required
+                      disabled={isCreatingMemorial}
                       aria-label="Message"
                       className="block w-full p-4 max-h-100 h-40 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                     ></textarea>
@@ -273,6 +280,7 @@ const CreateMemorial = () => {
                             },
                           })}
                           type="file"
+                          disabled={isCreatingMemorial}
                           accept="image/*"
                           className="hidden"
                         />
@@ -329,6 +337,7 @@ const CreateMemorial = () => {
                       <input
                         type="file"
                         accept="image/*"
+                        disabled={isCreatingMemorial}
                         className="hidden"
                         aria-label="Add cover photo"
                       />
@@ -337,7 +346,7 @@ const CreateMemorial = () => {
                 </div>
               </div>
             </div>
-
+            {/* create memorial button and loading state */}
             <div className="absolute bottom-0 right-0">
               <button
                 type="submit"

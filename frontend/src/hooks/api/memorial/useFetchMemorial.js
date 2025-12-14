@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
 import { API_ROUTES } from "../../../constants/apiRoutes";
 
 import useAxiosPrivate from "../useAxiosPrivate";
-export const useFetchMemorial = () => {
+export const useFetchMemorial = (id) => {
   // const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
-  const { id } = useParams();
-  const createMemorial = async (id) => {
+
+  const createMemorial = async () => {
     const response = await axiosPrivate.get(
       API_ROUTES.MEMORIAL.DATA + `/${id}`
     );
@@ -16,7 +15,7 @@ export const useFetchMemorial = () => {
 
   return useQuery({
     queryKey: ["memorial", id],
-    queryFn: () => createMemorial(id),
+    queryFn: () => createMemorial,
     onSuccess: () => {
       console.log("success fetch memorial profile");
       // navigate(`/memorial-profile/${id}`);

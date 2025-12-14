@@ -6,13 +6,14 @@ import { useStoreMemorial } from "../../../store/useStoreMemorial";
 
 export const useCreateMemorial = () => {
   const navigate = useNavigate();
+
   const setIsCreatingMemorial = useStoreMemorial(
     (state) => state.setIsCreatingMemorial
   );
   const axiosPrivate = useAxiosPrivate();
+
   const createMemorial = async (formData) => {
-    setIsCreatingMemorial(true);
-    try {
+
       const response = await axiosPrivate.post(
         API_ROUTES.MEMORIAL.CREATE,
         {
@@ -29,23 +30,20 @@ export const useCreateMemorial = () => {
           withCredentials: true,
         }
       );
-      console.log(response.data);
       return response.data;
-    } catch (err) {
-      console.log("Error creating memorial", err);
-    } finally {
-      setIsCreatingMemorial(false);
-    }
   };
   return useMutation({
-    mutationKey: ["memorial"],
     mutationFn: createMemorial,
-    onSuccess: () => {
-      navigate("/home");
-      console.log("success");
+    onMutate: ()=>{
+      setIsCreatingMemorial(true)
     },
-    onError: () => {
-      console.log("Failed creating memorial");
+    onSuccess: (data) => {
+      setIsCreatingMemorial(false)
+      console.log("Success creating memorial", data);
+       navigate("/home");
+    },
+    onError: (error) => {
+      console.log("Failed creating memorial", error);
     },
   });
 };

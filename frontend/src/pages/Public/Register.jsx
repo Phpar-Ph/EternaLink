@@ -19,10 +19,10 @@ const formRegisterSchema = z.object({
 
 const Register = () => {
   const navigate = useNavigate();
-  const { mutate } = useSignUp();
+  const { mutate: signup } = useSignUp();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { isSigningUp } = useAuthStore();
+  const { isLogin } = useAuthStore();
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -35,7 +35,7 @@ const Register = () => {
   });
 
   const onSubmit = (data) => {
-    mutate(data);
+    signup(data);
   };
 
   return (
@@ -70,7 +70,7 @@ const Register = () => {
                       autoComplete="name"
                       {...register("name")}
                       required
-                      disabled={isSigningUp}
+                      disabled={isLogin}
                       className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                       placeholder="Enter Full Name "
                     />
@@ -95,7 +95,7 @@ const Register = () => {
                       autoComplete="email"
                       {...register("email")}
                       required
-                      disabled={isSigningUp}
+                      disabled={isLogin}
                       className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                       placeholder="you@example.com"
                     />
@@ -120,7 +120,7 @@ const Register = () => {
                       type={showPassword ? "text" : "password"}
                       autoComplete="new-password"
                       required
-                      disabled={isSigningUp}
+                      disabled={isLogin}
                       {...register("password")}
                       className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                     />
@@ -158,7 +158,7 @@ const Register = () => {
                       type={showConfirmPassword ? "text" : "password"}
                       autoComplete="new-password"
                       required
-                      disabled={isSigningUp}
+                      disabled={isLogin}
                       {...register("confirmPassword")}
                       className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
                     />
@@ -190,7 +190,7 @@ const Register = () => {
                     name="terms"
                     type="checkbox"
                     required
-                    disabled={isSigningUp}
+                    disabled={isLogin}
                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                   />
                 </div>
@@ -213,7 +213,7 @@ const Register = () => {
 
               {/* Submit Button */}
               <ButtonForm
-                isLoading={isSigningUp}
+                isLoading={isLogin}
                 label="Create Account"
                 type="submit"
               />

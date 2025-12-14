@@ -6,88 +6,80 @@ import { useNavigate } from "react-router";
 
 export const useLogin = () => {
   const navigate = useNavigate();
-  const { setIsLoggingIn, setIsLogin } = useAuthStore();
-  const setUserData = useAuthStore((state) => state.setUserData);
-  const setToken = useAuthStore((state) => state.setToken);
-  const login = async (data) => {
-    setIsLoggingIn(true);
-    try {
-      const res = await axiosInstance.post(API_ROUTES.AUTH.LOGIN, data, {
-        withCredentials: true,
-      });
 
-      setUserData(res.data);
-      setToken(res.data.accessToken);
-    } catch (err) {
-      console.log("Error Login", err);
-    } finally {
-      setIsLoggingIn(false);
-    }
+  const { setIsLogin, setUserData, setToken } = useAuthStore();
+
+  const loginRequest = async (data) => {
+    const res = await axiosInstance.post(API_ROUTES.AUTH.LOGIN, data, {
+      withCredentials: true,
+    });
+
+    return res.data;
   };
 
   return useMutation({
-    mutationKey: ["userData"],
-    mutationFn: login,
-    onSuccess: () => {
+    mutationFn: loginRequest,
+    onSuccess: (data) => {
       setIsLogin(true);
+      setUserData(data);
+      setToken(data.accessToken);
+
       console.log("Login succesfully");
       navigate("/home");
+    },
+    onError: (error) => {
+      console.error("Login failed", error);
     },
   });
 };
 
 export const useSignUp = () => {
   const navigate = useNavigate();
-  const { setIsSigningUp, setIsLogin } = useAuthStore();
 
-  const setUserData = useAuthStore((state) => state.setUserData);
-  const setToken = useAuthStore((state) => state.setToken);
-  const signUp = async (data) => {
-    setIsSigningUp(true);
-    try {
-      const res = await axiosInstance.post(API_ROUTES.AUTH.REGISTER, data, {
-        withCredentials: true,
-      });
-      setUserData(res.data);
-      setToken(res.data.accessToken);
-    } catch (err) {
-      console.log("Error sign up", err);
-    } finally {
-      setIsSigningUp(false);
-    }
+  const { setIsLogin, setUserData, setToken } = useAuthStore();
+
+  const signUpRequest = async (data) => {
+    const res = await axiosInstance.post(API_ROUTES.AUTH.REGISTER, data, {
+      withCredentials: true,
+    });
+
+    return res.data;
   };
 
   return useMutation({
-    mutationKey: ["userData"],
-    mutationFn: signUp,
-    onSuccess: () => {
+    mutationFn: signUpRequest,
+    onSuccess: (data) => {
       setIsLogin(true);
+      setUserData(data);
+      setToken(data.accessToken);
       console.log("sign up succesfully");
       navigate("/home");
+    },
+    onError: (error) => {
+      console.log("Signingup failed", error);
     },
   });
 };
 
 export const useLogout = () => {
   const navigate = useNavigate();
-  const setIsLogin = useAuthStore((state) => state.setIsLogin);
-  const setUserData = useAuthStore((state) => state.setUserData);
-  const logout = async () => {
-    try {
-      await axiosInstance.post(API_ROUTES.AUTH.LOGOUT);
-      setUserData(null);
-    } catch (err) {
-      console.log("Error logging out", err);
-    }
+  const { setIsLogin, setUserData, setToken } = useAuthStore();
+
+  const logoutRequest = async () => {
+    await axiosInstance.post(API_ROUTES.AUTH.LOGOUT);
   };
 
   return useMutation({
-    mutationKey: ["userData"],
-    mutationFn: logout,
+    mutationFn: logoutRequest,
     onSuccess: () => {
       setIsLogin(false);
+      setUserData(null);
+      setToken(null);
       navigate("/");
       console.log("logout succesfully");
+    },
+    onError: (error) => {
+      console.log("Error loggingout", error);
     },
   });
 };

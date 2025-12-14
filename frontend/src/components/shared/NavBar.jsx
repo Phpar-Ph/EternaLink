@@ -2,17 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useLogout } from "../../hooks/useAuthHook";
+import { defaultImage } from "../../constants/defaultImage";
 
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { mutate } = useLogout();
-  const isLogin = useAuthStore((state) => state.isLogin);
-  const userData = useAuthStore((state) => state.userData);
+  const { mutate: logout } = useLogout();
+  const { isLogin, userData , setIsLogin} = useAuthStore();
 
-  const defaultImage =
-    "https://thumbs.dreamstime.com/b/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg";
   const changeBackground = () => {
     if (window.scrollY >= 80) {
       setNavbar(true);
@@ -20,7 +18,14 @@ const NavBar = () => {
       setNavbar(false);
     }
   };
-  window.addEventListener("scroll", changeBackground);
+
+  useEffect(() => {
+    window.addEventListener("scroll", changeBackground);
+
+    return () => {
+      window.removeEventListener("scroll", changeBackground);
+    };
+  }, []);
 
   useEffect(() => {
     setIsOpen(false);
@@ -44,6 +49,12 @@ const NavBar = () => {
       document.removeEventListener("pointerdown", handleClickOutside);
     };
   }, []);
+
+  const loggingout = () => {
+    setIsOpen(false);
+    setIsLogin(false)
+    logout();
+  };
 
   return (
     <nav
@@ -177,7 +188,7 @@ const NavBar = () => {
                       </li>
                       <hr className="my-2" />
                       <li
-                        onClick={() => mutate()}
+                        onClick={loggingout}
                         className="cursor-pointer text-red-600 font-semibold hover:text-red-400"
                       >
                         Logout
