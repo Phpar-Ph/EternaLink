@@ -1,4 +1,4 @@
-import { Icons } from "../../data/IconsData";
+// import { Icons } from "../../data/IconsData";
 
 const Timeline = () => {
   return (

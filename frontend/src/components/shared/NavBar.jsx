@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useLogout } from "../../hooks/useAuthHook";
 import { defaultImage } from "../../constants/defaultImage";
-
+import AppNavLink from "./AppNavLink";
+import { NavLink } from "react-router";
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { mutate: logout } = useLogout();
-  const { isLogin, userData , setIsLogin} = useAuthStore();
+  const { isLogin, userData, setIsLogin } = useAuthStore();
 
   const changeBackground = () => {
     if (window.scrollY >= 80) {
@@ -52,7 +52,7 @@ const NavBar = () => {
 
   const loggingout = () => {
     setIsOpen(false);
-    setIsLogin(false)
+    setIsLogin(false);
     logout();
   };
 
@@ -76,70 +76,31 @@ const NavBar = () => {
         <div>
           <ul className="flex items-center gap-8 font-lato ">
             <li>
-              <NavLink
-                to={isLogin ? "home" : "/"}
-                className={({ isActive }) =>
-                  `text-lg font-bold transition-all hover:text-gray-600 ${
-                    isActive ? "text-memorial-purple" : "text-gray-800"
-                  }`
-                }
-              >
-                Home
-              </NavLink>
+              <AppNavLink path={isLogin ? "home" : "/"} name={"Home"} />
             </li>
 
             <li>
-              <NavLink
-                to="/memorials"
-                className={({ isActive }) =>
-                  `text-lg font-bold transition-all hover:text-gray-600 ${
-                    isActive ? "text-memorial-purple" : "text-gray-800"
-                  }`
-                }
-              >
-                {isLogin ? "Explore" : "Memorials"}
-              </NavLink>
+              <AppNavLink
+                path={"memorials"}
+                name={isLogin ? "Explore" : "Memorials"}
+              />
             </li>
             {isLogin && (
               <li>
-                <NavLink
-                  to="my-memories"
-                  className={({ isActive }) =>
-                    `text-lg font-bold transition-all hover:text-gray-600 ${
-                      isActive ? "text-memorial-purple" : "text-gray-800"
-                    }`
-                  }
-                >
-                  My Memories
-                </NavLink>
+                <AppNavLink path={"my-memorials"} name={"My Memorials"} />
               </li>
             )}
             {isLogin && (
               <li>
-                <NavLink
-                  to="create-memorial"
-                  className={({ isActive }) =>
-                    `text-lg font-bold transition-all hover:text-gray-600 ${
-                      isActive ? "text-memorial-purple" : "text-gray-800"
-                    }`
-                  }
-                >
-                  Create Memorial
-                </NavLink>
+                <AppNavLink
+                  path={"create-memorial"}
+                  name={"Create Memorials"}
+                />
               </li>
             )}
             {!isLogin && (
               <li>
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    `text-lg font-bold  hover:text-gray-600  text-gray-800 ${
-                      isActive ? "text-memorial-purple" : "text-gray-800"
-                    }`
-                  }
-                >
-                  Login
-                </NavLink>
+                <AppNavLink path={"login"} name={"Login"} />
               </li>
             )}
             {!isLogin && (

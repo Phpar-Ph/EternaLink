@@ -12,21 +12,25 @@ import Register from "./pages/Public/Register";
 import { ToastContainer } from "react-toastify";
 import Home from "./pages/Protected/Home";
 import CreateMemorial from "./pages/Protected/CreateMemorial";
-import MyMemories from "./pages/Protected/MyMemories";
+import MyMemorials from "./pages/Protected/MyMemorials";
 import MemorialProfile from "./pages/Protected/MemorialProfile";
 import NotFound from "./components/shared/NotFound";
 import RootLayout from "./Layout/RootLayout";
 import MemorialProfileLayout from "./Layout/MemorialProfileLayout";
-import About from "./components/memorials/About/About";
-import Gallery from "./components/memorials/Gallery";
-import Memories from "./components/memorials/Memories";
-import QrCode from "./components/memorials/QrCode";
-import Timeline from "./components/memorials/Timeline";
+import About from "./components/memorials/memorialsProfile/About";
+import Gallery from "./components/memorials/memorialsProfile/Gallery";
+import Memories from "./components/memorials/memorialsProfile/Memories";
+import QrCode from "./components/memorials/memorialsProfile/QrCode";
+import Timeline from "./components/memorials/memorialsProfile/Timeline";
 import Error from "./components/shared/Error";
 import { Navigate } from "react-router";
 import PersistLogin from "./features/PersistLogin/PersistLogin";
 import ProtectedRoute from "./pages/Protected/ProtectedRoute";
 import Loading from "./features/Loading";
+import YourMemories from "./components/myMemorials/YourMemories";
+import Post from "./components/myMemorials/Post";
+import MyShared from "./components/myMemorials/MyShared";
+import MyMemorialLayout from "./Layout/MyMemorialLayout";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -50,6 +54,7 @@ const App = () => {
               element={<MemorialProfileLayout errorElement={<Error />} />}
             >
               {/* Default tab */}
+              {/* Memorial Profile */}
               <Route index element={<Navigate to="about" replace />} />
               <Route path="about" element={<About />} />
               <Route path="gallery" element={<Gallery />} />
@@ -57,7 +62,13 @@ const App = () => {
               <Route path="qr-code" element={<QrCode />} />
               <Route path="timeline" element={<Timeline />} />
             </Route>
-            <Route path="my-memories" element={<MyMemories />} />
+          </Route>
+          {/* My memories route page */}
+          <Route path="my-memorials" element={<MyMemorialLayout />}>
+            <Route index element={<Navigate to="post" replace />} />
+            <Route path="post" element={<Post />} />
+            <Route path="your-memories" element={<YourMemories />} />
+            <Route path="shared" element={<MyShared />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />

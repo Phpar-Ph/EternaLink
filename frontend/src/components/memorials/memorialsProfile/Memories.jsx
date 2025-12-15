@@ -1,5 +1,4 @@
-
-import { useFetchUserMemorial } from "../../hooks/api/memorial/useFetchUserMemorial";
+import { useFetchUserMemorial } from "../../../hooks/api/memorial/useFetchUserMemorial";
 
 const Memories = () => {
   const { data: memorial } = useFetchUserMemorial();
