@@ -5,6 +5,7 @@ import {
   addCommentToMemorial,
   addReactionToMemorial,
   getMemorialProfileData,
+  getMyMemorialPost,
   createBiography,
 } from "../controller/memorialController.js";
 import verifyJWT from "../middleware/verifyJWT.js";
@@ -21,5 +22,6 @@ memorialRouter.post(
   verifyJWT,
   createBiography
 );
+memorialRouter.get("/yourMemorialPost/:id", verifyJWT, getMyMemorialPost);
 
 export default memorialRouter;

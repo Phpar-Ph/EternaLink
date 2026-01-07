@@ -19,7 +19,7 @@ const Home = () => {
         )}
         <div className="flex justify-center flex-col pt-20">
           <div>
-            <h1 className="text-center">Welcome {memorials?.name}</h1>
+            <h1 className="text-center text-2xl font-light">Recent memorials shared by our community. Remember and honor your loved ones together.</h1>
           </div>
           <FeedMemorial memorials={memorials} />
         </div>

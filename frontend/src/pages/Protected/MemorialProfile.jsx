@@ -1,12 +1,14 @@
 
 import { useFetchUserMemorial } from "../../hooks/api/memorial/useFetchUserMemorial";
 import { NavLink } from "react-router";
+import { useParams } from "react-router";
 const MemorialProfile = () => {
-  const { data: memorial } = useFetchUserMemorial();
-
+  
+   const {id} = useParams()
+  const { data: memorial } = useFetchUserMemorial(id);
   const lifeDates = ` ${new Date(memorial?.birthDate).getFullYear()}
    -  ${new Date(memorial?.datePassing).getFullYear()}`;
-
+ 
   return (
     <div className="w-full bg-gentle-stone ">
       <div className="max-w-7xl mx-auto   mt-20 pb-4">

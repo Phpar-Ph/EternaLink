@@ -56,6 +56,7 @@ export const createMemorial = async (req, res) => {
   }
 };
 
+// Memorial data each post
 export const getMemorialProfileData = async (req, res) => {
   try {
     const memorial = await Memorial.findById(req.params.id);
@@ -79,20 +80,21 @@ export const getMemorialProfileData = async (req, res) => {
   }
 };
 //  Get All my Memorial Post
- export const getMyMemorialPost = async (req, res) =>{
-    try{
-      const userId = req.params.userId
-      const getPost = await Memorial.find({createdBy: userId}).sort({createdAt: -1})
+export const getMyMemorialPost = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const userPost = await Memorial.find({ createdBy: id }).sort({
+      createdAt: -1,
+    });
 
-    }catch(error){
-      return res.status(404).json({
-        success: false,
-        message : "Your Memorial Post not found"
-      })
-    }
-
-
- }
+    res.json({ success: true, data: userPost });
+  } catch (error) {
+    return res.status(404).json({
+      success: false,
+      message: "Your Memorial Post not found",
+    });
+  }
+};
 // Create biography
 export const createBiography = async (req, res) => {
   const { id } = req.params;

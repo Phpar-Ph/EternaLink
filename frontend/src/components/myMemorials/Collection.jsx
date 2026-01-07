@@ -1,13 +1,14 @@
 import React from "react";
 
-function YourMemories() {
+function Collection() {
   return (
+
   <div className="w-full">
       <div className="flex justify-center items-center">
-      <h1 className="text-2xl font-medium">Memories You've Shared</h1>
+      <h1 className="text-2xl font-medium">Memory Collection</h1>
     </div>
   </div>
-  );
+  )
 }
 
-export default YourMemories;
+export default Collection;

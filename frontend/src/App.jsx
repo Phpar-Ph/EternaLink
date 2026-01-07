@@ -29,8 +29,9 @@ import ProtectedRoute from "./pages/Protected/ProtectedRoute";
 import Loading from "./features/Loading";
 import YourMemories from "./components/myMemorials/YourMemories";
 import Post from "./components/myMemorials/Post";
-import MyShared from "./components/myMemorials/MyShared";
+import MyShared from "./components/myMemorials/Collection";
 import MyMemorialLayout from "./Layout/MyMemorialLayout";
+import Collection from "./components/myMemorials/Collection";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -66,9 +67,9 @@ const App = () => {
           {/* My memories route page */}
           <Route path="my-memorials" element={<MyMemorialLayout />}>
             <Route index element={<Navigate to="post" replace />} />
-            <Route path="post" element={<Post />} />
+            <Route path="post" element={<Post />}/>
             <Route path="your-memories" element={<YourMemories />} />
-            <Route path="shared" element={<MyShared />} />
+            <Route path="collection" element={<Collection />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />

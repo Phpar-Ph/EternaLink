@@ -13,6 +13,7 @@ export const API_ROUTES = {
     CREATE: "/api/memorial/createMemorial",
     DATA: "/api/memorial/getMemorial",
     BIO: "/api/memorial/create-biography",
+    GETPOST : "/api/memorial/yourMemorialPost"
   },
   FEED: {
     FEEDMEMORIAL : "/api/feed/feedMemorial"

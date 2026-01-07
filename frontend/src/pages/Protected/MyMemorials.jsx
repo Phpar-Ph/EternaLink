@@ -11,7 +11,7 @@ function MyMemorials() {
           <AppNavLink path={"your-memories"} name={"Memories"} />
         </li>
         <li>
-          <AppNavLink path={"shared"} name={"Shared"} />
+          <AppNavLink path={"collection"} name={"Collection"} />
         </li>
       </ul>
     </div>

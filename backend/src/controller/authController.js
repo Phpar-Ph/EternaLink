@@ -135,19 +135,20 @@ export const login = async (req, res) => {
     //   sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
     //   maxAge: 24 * 60 * 60 * 1000,
     // });
- res.cookie("refreshToken", refreshToken, {
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true, // 🔒 Prevent JS access to cookie
       secure: process.env.NODE_ENV === "production", // 🔒 Only send over HTTPS in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // ⚠️ "none" requires `secure: true`
       maxAge: rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000, // if remeberME set to 30 day else 1 day
     });
-   
+
     res.status(200).json({
       success: true,
       message: "User logged in successfully",
       user: {
         name: user.name,
         email: user.email,
+        userId: user._id,
       },
       accessToken,
     });
@@ -413,6 +414,11 @@ export const handleRefresh = async (req, res) => {
     res.json({
       success: true,
       accessToken,
+      // user: {
+      //   name: user.name,
+      //   email: user.email,
+      //   userId: user._id,
+      // },
     });
   } catch (error) {
     res.status(403).json({

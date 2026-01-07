@@ -8,13 +8,14 @@ import { useAuthStore } from "../../store/useAuthStore";
 // import { axiosInstance } from "../../config/axiosPrivate";
 
 const useAxiosPrivate = () => {
-  const token = useAuthStore((state) => state.token);
-  const setToken = useAuthStore((state) => state.setToken);
+  // const token = useAuthStore((state) => state.token);
+  const { token, setToken } = useAuthStore();
+  // const setToken = useAuthStore((state) => state.setToken);
 
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
-        console.log("axios interceptors", token);
+        // console.log("axios interceptors", token);
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -42,6 +43,7 @@ const useAxiosPrivate = () => {
               }
             );
             const newToken = response.data.accessToken;
+
             setToken(newToken);
             originalRequest.headers.Authorization = `Bearer ${newToken}`;
             return axiosPrivate(originalRequest);
