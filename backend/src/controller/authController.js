@@ -99,6 +99,7 @@ export const login = async (req, res) => {
   }
   try {
     const user = await User.findOne({ email });
+
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -384,7 +385,7 @@ export const resetPassword = async (req, res) => {
 export const handleRefresh = async (req, res) => {
   try {
     const cookies = req.cookies;
-
+    
     if (!cookies?.refreshToken) {
       return res.status(401).json({
         success: false,
@@ -414,11 +415,6 @@ export const handleRefresh = async (req, res) => {
     res.json({
       success: true,
       accessToken,
-      // user: {
-      //   name: user.name,
-      //   email: user.email,
-      //   userId: user._id,
-      // },
     });
   } catch (error) {
     res.status(403).json({

@@ -80,22 +80,16 @@ const NavBar = () => {
             </li>
 
             <li>
-              <AppNavLink
-                path={"memorials"}
-                name={isLogin ? "Explore" : "Memorials"}
-              />
+              <AppNavLink path={"Memorials"} name={" Memorials"} />
             </li>
-            {isLogin && (
+            {/* {isLogin && (
               <li>
                 <AppNavLink path={"my-memorials"} name={"My Memorials"} />
               </li>
-            )}
+            )} */}
             {isLogin && (
               <li>
-                <AppNavLink
-                  path={"create-memorial"}
-                  name={"Create Memorials"}
-                />
+                <AppNavLink path={"create-memorial"} name={"Create Memorial"} />
               </li>
             )}
             {!isLogin && (

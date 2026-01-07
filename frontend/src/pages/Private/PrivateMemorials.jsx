@@ -1,6 +1,6 @@
 import React from "react";
 import AppNavLink from "../../components/shared/AppNavLink";
-function MyMemorials() {
+function PrivateMemorials() {
   return (
     <div>
       <ul className="flex gap-10 text-2xl justify-center">
@@ -18,4 +18,4 @@ function MyMemorials() {
   );
 }
 
-export default MyMemorials;
+export default PrivateMemorials;

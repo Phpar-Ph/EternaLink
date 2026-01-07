@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { memorials } from "../../data/DummyPersonMemorialData";
+import { dummyMemorialsData } from "../../data/DummyPersonMemorialData";
 import { Icons } from "../../data/IconsData";
 import { useNavigate } from "react-router";
 function Memorials() {
@@ -31,7 +31,7 @@ function Memorials() {
 
         {/* Memorial Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {memorials.map((memorial, index) => (
+          {dummyMemorialsData.map((memorial, index) => (
             <div
               key={index}
               className="group bg-soft-lavender text-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
@@ -66,7 +66,7 @@ function Memorials() {
         </div>
 
         {/* Empty State */}
-        {memorials.length === 0 && (
+        {dummyMemorialsData.length === 0 && (
           <div className="text-center py-16">
             <p className="text-gray-500 text-lg">No memorials found.</p>
           </div>

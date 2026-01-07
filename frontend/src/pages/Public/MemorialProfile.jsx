@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { memorials } from "../../data/DummyPersonMemorialData";
+import { dummyMemorialsData } from "../../data/DummyPersonMemorialData";
 import { useState } from "react";
 import About from "../../components/memorials/memorialsDummy/About";
 import Memories from "../../components/memorials/memorialsDummy/Memories";
@@ -7,10 +7,12 @@ import Gallery from "../../components/memorials/memorialsDummy/Gallery";
 import Timeline from "../../components/memorials/memorialsDummy/Timeline";
 import QrCode from "../../components/memorials/memorialsDummy/QrCode";
 
-function ViewMemorial() {
+function MemorialProfile() {
   const { itemId } = useParams();
   const [activeTab, setActiveTab] = useState("about");
-  const memorial = memorials.find((item) => item.id === parseInt(itemId));
+  const memorial = dummyMemorialsData.find(
+    (item) => item.id === parseInt(itemId)
+  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
@@ -99,4 +101,4 @@ function ViewMemorial() {
   );
 }
 
-export default ViewMemorial;
+export default MemorialProfile;

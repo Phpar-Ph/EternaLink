@@ -1,4 +1,4 @@
-export const memorials = [
+export const dummyMemorialsData = [
   {
     name: "John Doe",
     id: 0,

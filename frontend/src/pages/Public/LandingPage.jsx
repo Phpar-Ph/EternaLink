@@ -3,7 +3,7 @@ import Example from "../../components/sections/Example";
 import Features from "../../components/sections/Features";
 import Hero from "../../components/sections/Hero";
 import HowItWorks from "../../components/sections/HowItWorks";
-import { memorials } from "../../data/DummyPersonMemorialData";
+import { dummyMemorialsData } from "../../data/DummyPersonMemorialData";
 import { howItWorks, featureData, MemorialExamples } from "../../data/HomeData";
 
 import { useNavigate } from "react-router";
@@ -16,22 +16,19 @@ function Public() {
       {/* Hero Section */}
       <Hero onPrimaryCtaClick={() => navigate("/register")} />
 
-
       {/* Features Section*/}
       <Features featureData={featureData} />
-
 
       {/* How It Works Section*/}
       <HowItWorks howItWorks={howItWorks} />
 
-
       {/* Memorial Example Section */}
       <Example
         MemorialExamples={MemorialExamples}
-        memorials={memorials}
+        memorials={dummyMemorialsData}
         navigate={navigate}
       />
-      
+
       {/* CTA Section */}
       <CtaSection />
     </div>

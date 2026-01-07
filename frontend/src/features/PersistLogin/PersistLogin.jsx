@@ -22,8 +22,7 @@ const PersistLogin = () => {
         const res = await axios.get(BASEURL + API_ROUTES.AUTH.REFRESH, {
           withCredentials: true,
         });
-        // console.log("data",res.data)
-        // setUserData(res.data.user);
+
         setToken(res.data.accessToken);
 
         setIsLogin(true);
@@ -44,8 +43,6 @@ const PersistLogin = () => {
 
   if (isLoading) return <p>Loading...</p>;
 
-  // console.log(userData);
-  // console.log(token);
   return (
     <>
       <Outlet />

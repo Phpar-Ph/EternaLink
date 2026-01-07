@@ -6,14 +6,15 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router";
-import ViewMemorial from "./pages/Public/ViewMemorial";
+
+import MemorialProfile from "./pages/Public/MemorialProfile";
 import Login from "./pages/Public/Login";
 import Register from "./pages/Public/Register";
-import { ToastContainer } from "react-toastify";
-import Home from "./pages/Protected/Home";
-import CreateMemorial from "./pages/Protected/CreateMemorial";
-import MyMemorials from "./pages/Protected/MyMemorials";
-import MemorialProfile from "./pages/Protected/MemorialProfile";
+// import { ToastContainer } from "react-toastify";
+import Home from "./pages/Private/Home";
+import CreateMemorial from "./pages/Private/CreateMemorial";
+// import MyMemorials from "./pages/Protected/MyMemorials";
+// import PrivateMemorialProfile from "./pages/Protected/PrivateMemorialProfile";
 import NotFound from "./components/shared/NotFound";
 import RootLayout from "./Layout/RootLayout";
 import MemorialProfileLayout from "./Layout/MemorialProfileLayout";
@@ -25,11 +26,11 @@ import Timeline from "./components/memorials/memorialsProfile/Timeline";
 import Error from "./components/shared/Error";
 import { Navigate } from "react-router";
 import PersistLogin from "./features/PersistLogin/PersistLogin";
-import ProtectedRoute from "./pages/Protected/ProtectedRoute";
-import Loading from "./features/Loading";
+import ProtectedRoute from "./pages/Private/ProtectedRoute";
+// import Loading from "./features/Loading";
 import YourMemories from "./components/myMemorials/YourMemories";
 import Post from "./components/myMemorials/Post";
-import MyShared from "./components/myMemorials/Collection";
+// import MyShared from "./components/myMemorials/Collection";
 import MyMemorialLayout from "./Layout/MyMemorialLayout";
 import Collection from "./components/myMemorials/Collection";
 
@@ -43,12 +44,13 @@ const App = () => {
         <Route path="register" element={<Register />} />
         {/* PUBLIC MEMORIAL WITH DUMMY DATA */}
         <Route path="memorials" element={<Memorials />} />
-        <Route path="memorials/:itemId" element={<ViewMemorial />} />
+        <Route path="memorials/:itemId" element={<MemorialProfile />} />
 
         {/* PROTECTED ROUTE */}
         <Route element={<PersistLogin />}>
           <Route element={<ProtectedRoute />}>
             <Route path="home" element={<Home />} />
+            {/* <Route path="memorials" element={<Home />} /> */}
             <Route path="create-memorial" element={<CreateMemorial />} />
             <Route
               path="memorial-profile/:id"
@@ -57,6 +59,7 @@ const App = () => {
               {/* Default tab */}
               {/* Memorial Profile */}
               <Route index element={<Navigate to="about" replace />} />
+
               <Route path="about" element={<About />} />
               <Route path="gallery" element={<Gallery />} />
               <Route path="memories" element={<Memories />} />
@@ -67,7 +70,7 @@ const App = () => {
           {/* My memories route page */}
           <Route path="my-memorials" element={<MyMemorialLayout />}>
             <Route index element={<Navigate to="post" replace />} />
-            <Route path="post" element={<Post />}/>
+            <Route path="post" element={<Post />} />
             <Route path="your-memories" element={<YourMemories />} />
             <Route path="collection" element={<Collection />} />
           </Route>
