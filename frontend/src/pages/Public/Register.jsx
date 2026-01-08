@@ -10,12 +10,34 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonForm from "../../components/shared/button/ButtonForm";
 import { useSignUp } from "../../hooks/useAuthHook";
 
-const formRegisterSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  confirmPassword: z.string().min(6, "Password must be at least 6 characters"),
-});
+const formRegisterSchema = z
+  .object({
+    username: z
+      .string()
+      .min(2, "Username must be at lest 2 characters")
+      .max(20, "Username must be at most 20 characters"),
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z.string(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.username === data.name) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Full name cannot be the same as username",
+        path: ["name"],
+      });
+    }
+    // check password
+    if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+      });
+    }
+  });
 
 const Register = () => {
   const navigate = useNavigate();
@@ -24,8 +46,13 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { isLogin } = useAuthStore();
 
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
+      username: "",
       name: "",
       email: "",
       password: "",
@@ -52,6 +79,34 @@ const Register = () => {
               onSubmit={handleSubmit(onSubmit)}
               autoComplete="on"
             >
+              {/* UserName Field */}
+              <div>
+                <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="absolute bottom-0 p-3 flex items-center pointer-events-none">
+                    <Icons.FaUser size={18} className="text-gray-600" />
+                  </div>
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium text-gray-800"
+                  >
+                    Username
+                    <input
+                      name="username"
+                      id="username"
+                      type="text"
+                      autoComplete="username"
+                      {...register("username")}
+                      required
+                      disabled={isLogin}
+                      className="block w-full pl-10 py-3 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-memorial-purple focus:border-memorial-purple/80"
+                      placeholder="Enter Username "
+                    />
+                  </label>
+                </div>
+                {errors.username && (
+                  <div className="text-red-500">{errors.username.message}</div>
+                )}
+              </div>
               {/* Name Field */}
               <div>
                 <div className="mt-1 relative rounded-md shadow-sm">
@@ -76,6 +131,9 @@ const Register = () => {
                     />
                   </label>
                 </div>
+                {errors.name && (
+                  <div className="text-red-500">{errors.name.message}</div>
+                )}
               </div>
               {/* Email Field */}
               <div>
@@ -101,6 +159,9 @@ const Register = () => {
                     />
                   </label>
                 </div>
+                {errors.email && (
+                  <div className="text-red-500">{errors.email.message}</div>
+                )}
               </div>
 
               {/* Password Field */}
@@ -140,6 +201,9 @@ const Register = () => {
                     </button>
                   </div>
                 </div>
+                {errors.password && (
+                  <div className="text-red-500">{errors.password.message}</div>
+                )}
               </div>
               {/* Confirm Password */}
               <div>
@@ -180,6 +244,11 @@ const Register = () => {
                     </button>
                   </div>
                 </div>
+                {errors.confirmPassword && (
+                  <div className="text-red-500">
+                    {errors.confirmPassword.message}
+                  </div>
+                )}
               </div>
 
               {/* Privacy Policy */}

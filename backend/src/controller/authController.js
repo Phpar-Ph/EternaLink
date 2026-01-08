@@ -4,10 +4,10 @@ import User from "../model/userSchema.js";
 const expireToken = "15m";
 // Register
 
-export const register = async (req, res) => {
-  const { name, email, password } = req.body;
+export const register = async (req, res, next) => {
+  const { username, name, email, password } = req.body;
   // check if user entered all fields
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !username) {
     return res.status(400).json({
       success: false,
       message: "Please fill all the fields",
@@ -15,16 +15,31 @@ export const register = async (req, res) => {
   }
   try {
     // check if input user email already exist
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    const existingUserEmail = await User.findOne({ email });
+    if (existingUserEmail) {
       return res.status(400).json({
         success: false,
-        message: "User already exist",
+        message: "UserEmail already exist",
+      });
+    }
+    // Check if username already exist
+    const existingUserName = await User.findOne({ username });
+    if (existingUserName) {
+      return res.status(400).json({
+        success: false,
+        message: "UserName already exist",
+      });
+    }
+    if (username === name) {
+      return res.status(400).json({
+        success: false,
+        message: "Username cannot be the same as full name",
       });
     }
     // change password from plain text to hash save to database
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
+      username,
       name,
       email,
       password: hashedPassword,
@@ -54,16 +69,16 @@ export const register = async (req, res) => {
     //   maxAge: 24 * 60 * 60 * 1000,
     // });
     res.cookie("refreshToken", refreshToken, {
-      httpOnly: true, // 🔒 Prevent JS access to cookie
-      secure: process.env.NODE_ENV === "production", // 🔒 Only send over HTTPS in production
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // ⚠️ "none" requires `secure: true`
+      httpOnly: true, //  Prevent JS access to cookie
+      secure: process.env.NODE_ENV === "production", //  Only send over HTTPS in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", //  "none" requires `secure: true`
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     // Send Welocome Email to User
     //  const mailOptions = {
     //   from: process.env.SENDER_EMAIL,
     //   to: email,
-    //   subject: "Welcome to our app! 🎉",
+    //   subject: "Welcome to our app! ",
     //   html: EMAIL_WELCOME_TEMPLATE.replace("{{name}}", name).replace(
     //     "{{email}}",
     //     email
@@ -74,21 +89,19 @@ export const register = async (req, res) => {
       success: true,
       message: "User created successfully",
       user: {
+        username: user.username,
         name: user.name,
         email: user.email,
       },
       accessToken,
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
 // Login
-export const login = async (req, res) => {
+export const login = async (req, res, next) => {
   const { email, password, rememberMe } = req.body;
   // Check if user fill up all the input fields
   if (!email || !password) {
@@ -111,7 +124,7 @@ export const login = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({
         success: false,
-        message: "Invalid Password",
+        message: "Invalid Email or Password",
       });
     }
     //  ACCESS token 15min
@@ -154,15 +167,12 @@ export const login = async (req, res) => {
       accessToken,
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
 // logout
-export const logout = async (req, res) => {
+export const logout = async (req, res, next) => {
   try {
     res.clearCookie("refreshToken", {
       httpOnly: true,
@@ -175,15 +185,12 @@ export const logout = async (req, res) => {
       message: "User logged out successfully",
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
 // send OTP to the user for verification
-export const sendOTP = async (res, req) => {
+export const sendOTP = async (res, req, next) => {
   try {
     const user = await User.findById(req.userId);
     if (!user) {
@@ -221,15 +228,12 @@ export const sendOTP = async (res, req) => {
       message: "Otp sent successfully",
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
 // Verify email
-export const verifyEmail = async (req, res) => {
+export const verifyEmail = async (req, res, next) => {
   const { otp } = req.body;
   if (!otp) {
     res.json({
@@ -267,29 +271,23 @@ export const verifyEmail = async (req, res) => {
       message: "Account verified successfully",
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
 // Check if user is Authenticated
-export const isAuthenticated = async (req, res) => {
+export const isAuthenticated = async (req, res, next) => {
   try {
     return res.json({
       success: true,
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
 // Send password reset OTP
-export const sendPasswordResetOtp = async (req, res) => {
+export const sendPasswordResetOtp = async (req, res, next) => {
   const { email } = req.body;
   if (!email) {
     return res.json({
@@ -327,15 +325,12 @@ export const sendPasswordResetOtp = async (req, res) => {
       message: "Otp sent successfully",
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
 // reset password
-export const resetPassword = async (req, res) => {
+export const resetPassword = async (req, res, next) => {
   const { otp, email, newPassword } = req.body;
   if (!otp || !email || !newPassword) {
     return res.json({
@@ -374,18 +369,15 @@ export const resetPassword = async (req, res) => {
       message: "Password reset successfully",
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
 // REFRESH
-export const handleRefresh = async (req, res) => {
+export const handleRefresh = async (req, res, next) => {
   try {
     const cookies = req.cookies;
-    
+
     if (!cookies?.refreshToken) {
       return res.status(401).json({
         success: false,
@@ -417,9 +409,6 @@ export const handleRefresh = async (req, res) => {
       accessToken,
     });
   } catch (error) {
-    res.status(403).json({
-      success: false,
-      message: "Invalid Refresh token",
-    });
+    next(error);
   }
 };

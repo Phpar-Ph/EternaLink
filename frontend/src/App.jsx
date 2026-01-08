@@ -14,7 +14,7 @@ import Register from "./pages/Public/Register";
 import Home from "./pages/Private/Home";
 import CreateMemorial from "./pages/Private/CreateMemorial";
 // import MyMemorials from "./pages/Protected/MyMemorials";
-// import PrivateMemorialProfile from "./pages/Protected/PrivateMemorialProfile";
+import PrivateMemorialProfile from "./pages/Private/PrivateMemorialProfile";
 import NotFound from "./components/shared/NotFound";
 import RootLayout from "./Layout/RootLayout";
 import MemorialProfileLayout from "./Layout/MemorialProfileLayout";
@@ -43,14 +43,14 @@ const App = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         {/* PUBLIC MEMORIAL WITH DUMMY DATA */}
-        <Route path="memorials" element={<Memorials />} />
+        <Route path="explore-memorials" element={<Memorials />} />
         <Route path="memorials/:itemId" element={<MemorialProfile />} />
 
         {/* PROTECTED ROUTE */}
         <Route element={<PersistLogin />}>
           <Route element={<ProtectedRoute />}>
             <Route path="home" element={<Home />} />
-            {/* <Route path="memorials" element={<Home />} /> */}
+            <Route path="memorials" element={<PrivateMemorialProfile />} />
             <Route path="create-memorial" element={<CreateMemorial />} />
             <Route
               path="memorial-profile/:id"

@@ -1,6 +1,8 @@
 import { useFetchUserMemorial } from "../../hooks/api/memorial/useFetchUserMemorial";
 import { NavLink, Outlet } from "react-router";
 import { useParams } from "react-router";
+
+
 const PrivateMemorialProfile = () => {
   const { id } = useParams();
   const { data: memorial } = useFetchUserMemorial(id);

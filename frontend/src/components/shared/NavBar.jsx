@@ -80,7 +80,10 @@ const NavBar = () => {
             </li>
 
             <li>
-              <AppNavLink path={"Memorials"} name={" Memorials"} />
+              <AppNavLink
+                path={isLogin ? "memorials" : "explore-memorials"}
+                name={" Memorials"}
+              />
             </li>
             {/* {isLogin && (
               <li>

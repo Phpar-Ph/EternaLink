@@ -2,7 +2,7 @@
 import User from "../model/userSchema.js";
 import Memorial from "../model/memorialSchema.js";
 
-export const getUserData = async (req, res) => {
+export const getUserData = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId);
     if (!user) {
@@ -21,15 +21,13 @@ export const getUserData = async (req, res) => {
     return res.json({
       success: true,
       userData: {
+        
         name: user.name,
         email: user.email,
         memorialPosts: memorials || [],
       },
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
+    next(error)
   }
 };

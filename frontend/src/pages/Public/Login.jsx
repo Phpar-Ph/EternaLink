@@ -11,16 +11,21 @@ import ButtonForm from "../../components/shared/button/ButtonForm";
 import { useLogin } from "../../hooks/useAuthHook";
 
 const formLoginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  email: z.string().min(2, "Username is required"),
+  password: z.string().min(2, "Password is required"),
 });
 
 const Login = () => {
   const navigate = useNavigate();
   const { isLogin } = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
-  const { mutate:login } = useLogin();
-  const { register, handleSubmit } = useForm({
+  const { mutate: login } = useLogin();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       email: "",
       password: "",
@@ -30,7 +35,13 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    login(data);
+    login(data, {
+      onError: (error) => {
+        const message = error.response?.data?.message || "Login failed";
+        setError("username", { type: "manual", message });
+        setError("password", { type: "manual", message });
+      },
+    });
   };
 
   return (
@@ -112,6 +123,9 @@ const Login = () => {
                     </button>
                   </div>
                 </div>
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
               </div>
 
               {/* Remember Me */}
@@ -139,11 +153,7 @@ const Login = () => {
               </div>
 
               {/* Submit Button */}
-              <ButtonForm
-                isLoading={isLogin}
-                label="Sign in"
-                type="submit"
-              />
+              <ButtonForm isLoading={isLogin} label="Sign in" type="submit" />
             </form>
             <AuthExtras
               navigate={navigate}

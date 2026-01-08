@@ -13,11 +13,8 @@ const verifyJWT = async (req, res, next) => {
       req.userId = decoded.id;
       next();
     }
-  } catch (err) {
-    return res.status(403).json({
-      success: false,
-      message: "Forbidden",
-    });
+  } catch (error) {
+   next(error)
   }
 };
 

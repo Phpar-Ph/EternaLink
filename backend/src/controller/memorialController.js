@@ -1,7 +1,7 @@
 import Memorial from "../model/memorialSchema.js";
 import cloudinary from "../config/cloudinary.js";
 
-export const createMemorial = async (req, res) => {
+export const createMemorial = async (req, res, next) => {
   try {
     const {
       name,
@@ -52,12 +52,12 @@ export const createMemorial = async (req, res) => {
       memorial: saved,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
+   next(error)
+}
 };
 
 // Memorial data each post
-export const getMemorialProfileData = async (req, res) => {
+export const getMemorialProfileData = async (req, res, next) => {
   try {
     const memorial = await Memorial.findById(req.params.id);
 
@@ -73,14 +73,11 @@ export const getMemorialProfileData = async (req, res) => {
       memorial,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 //  Get All my Memorial Post
-export const getMyMemorialPost = async (req, res) => {
+export const getMyMemorialPost = async (req, res, next) => {
   try {
     const id = req.params.id;
     const userPost = await Memorial.find({ createdBy: id }).sort({
@@ -89,14 +86,11 @@ export const getMyMemorialPost = async (req, res) => {
 
     res.json({ success: true, data: userPost });
   } catch (error) {
-    return res.status(404).json({
-      success: false,
-      message: "Your Memorial Post not found",
-    });
+   next(error)
   }
 };
 // Create biography
-export const createBiography = async (req, res) => {
+export const createBiography = async (req, res, next) => {
   const { id } = req.params;
   const { biography } = req.body;
   try {
@@ -134,12 +128,12 @@ export const createBiography = async (req, res) => {
       memorial,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error)
   }
 };
 
 // Edit Biography
-export const updateBiography = async (req, res) => {
+export const updateBiography = async (req, res, next) => {
   const { memorialId } = req.params;
   const { text } = req.body;
   try {
@@ -169,12 +163,12 @@ export const updateBiography = async (req, res) => {
       memorial: updatedMemorial,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error)
   }
 };
 
 // add Photo
-export const addPhotos = async (req, res) => {
+export const addPhotos = async (req, res, next) => {
   try {
     const { id } = req.params;
     const userId = req.userId;
@@ -213,14 +207,11 @@ export const addPhotos = async (req, res) => {
       memorial,
     });
   } catch (error) {
-    res.json({
-      success: false,
-      message: error.message || "Memorial not found",
-    });
+   next(error)
   }
 };
 
-export const createTimeline = async (req, res) => {
+export const createTimeline = async (req, res, next) => {
   const { memorialId } = req.params;
   const userId = req.userId;
   const { text } = req.body;
@@ -260,11 +251,11 @@ export const createTimeline = async (req, res) => {
       memorial: saved,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error)
   }
 };
 
-export const addCommentToMemorial = async (req, res) => {
+export const addCommentToMemorial = async (req, res, next) => {
   try {
     const { memorialId } = req.params;
     const { comment } = req.body;
@@ -288,11 +279,11 @@ export const addCommentToMemorial = async (req, res) => {
 
     res.json({ success: true, message: "Comment added", memorial });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error)
   }
 };
 
-export const addReactionToMemorial = async (req, res) => {
+export const addReactionToMemorial = async (req, res, next) => {
   try {
     const { memorialId } = req.params;
     const { type } = req.body;
@@ -316,6 +307,6 @@ export const addReactionToMemorial = async (req, res) => {
 
     res.json({ success: true, message: "Reaction added", memorial });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    next(error)
   }
 };

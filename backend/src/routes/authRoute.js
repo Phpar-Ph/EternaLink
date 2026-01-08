@@ -10,7 +10,7 @@ import {
   resetPassword,
   handleRefresh,
 } from "../controller/authController.js";
-import userAuth from "../middleware/userAuth.js";
+import userAuth from "../middleware/auth.middleware.js";
 
 const authRouter = express.Router();
 

@@ -42,7 +42,7 @@ export const useSignUp = () => {
     const res = await axiosInstance.post(API_ROUTES.AUTH.REGISTER, data, {
       withCredentials: true,
     });
-
+    console.log("UserData:", data);
     return res.data;
   };
 
