@@ -412,3 +412,18 @@ export const handleRefresh = async (req, res, next) => {
     next(error);
   }
 };
+
+//  Google auth
+
+// export const google = async (req, res, next) => {
+//   const { name, email, googlePhotoUrl } = req.body;
+
+//   try {
+//     const user = await user.findOne({ email });
+//     if (user) {
+      
+//     }
+//   } catch (error) {
+//     next(error);
+//   }
+// };

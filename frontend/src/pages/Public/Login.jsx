@@ -9,6 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import ButtonForm from "../../components/shared/button/ButtonForm";
 import { useLogin } from "../../hooks/useAuthHook";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import ButtonGoogle from "../../components/shared/button/ButtonGoogle";
+import ButtonFacebook from "../../components/shared/button/ButtonFacebook";
 
 const formLoginSchema = z.object({
   email: z.string().min(2, "Username is required"),
@@ -43,6 +46,11 @@ const Login = () => {
       },
     });
   };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse ) =>
+      console.log("Response: ", tokenResponse ),
+  });
 
   return (
     <div className="w-full h-screen bg-gentle-stone">
@@ -161,6 +169,15 @@ const Login = () => {
               message="Don't have account?"
               navigateTo="/register"
             />
+            <div className="flex justify-between px-8">
+              {/* Google Button */}
+
+              <ButtonGoogle googleBtnClick={() => googleLogin()} />
+
+              {/* Facebook Button */}
+
+              <ButtonFacebook />
+            </div>
           </div>
         </div>
       </div>
